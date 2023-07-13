@@ -5,6 +5,7 @@
 - git commit -m "쓸 이름" : staging area에 있는 파일들을 저장소에 기록, 해당 시점의 버전을 생성하고 변경 이력을 남기는 것
 - git status : 로컬 저장소의 파일 상태 확인
 - git log : 목록 확인 commit 한것만 가능
+- ( git log 이후 끝이 안난다면 esc ; q 순서대로 누르기)
 - git log --oneline : 목록 간단 확인
 ---
 - git remote add origin remote_repo_url : 로컬 저장소에 원격 저장소 주소 추가
