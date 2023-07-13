@@ -15,3 +15,26 @@
 - (push는 집갈때 한번? commit은 자주?, commit 이력이 없으면 push 불가능)
 - git pull origin master : 원격 저장소의 변경사항만을 받아옴(업데이트)
 - git clone remote_repo_url : 원격 저장소 전체를 복제(다운로드) , clone으로 받은 프로젝트는 이미 git init이 되어있음
+---
+## python
+### 고려해야 할 것
+- 대/소문자
+- 띄어쓰기
+- 스펠링
+### 구구단
+- for i in range(1,10):
+    for j in range(1,10):
+        print(f'{i} x {j} = {i*j}')
+    - 결과 
+      -  1 x 1 = 1
+      -  1 x 2 = 2
+      -  ...
+      -  9 x 8 = 72
+      -  9 x 9 = 81    
+#### 단마다 나누기
+- for i in range(1,10):
+    for j in range(1,10):
+        print(f'{i} x {j} = {i*j}')
+    print('-------------')
+### while문 쓰다가 안끝날 때
+- ctrl c 누르면 풀린다
