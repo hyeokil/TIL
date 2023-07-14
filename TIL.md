@@ -38,3 +38,30 @@
     print('-------------')
 ### while문 쓰다가 안끝날 때
 - ctrl c 누르면 풀린다
+
+# 2023 07 13 friday
+## random
+- random한 값을 얻고싶을때 사용
+- import random
+  - selected = random.choice(menu) 
+  - print(selected)
+  - menu 중 한가지가 print 됨
+## dictionary
+- menu = {'롯데리아':'123-3333','중국성':'111-1111','마포식당':'222-2222'} 
+- list(menu) = ['롯데리아', '중국성', '마포식당']
+- selected = random.choice(list(menu))
+- print(selected, menu[selected])
+  - 중국성 111-1111
+## Python 내장 함수
+- print('hi')
+  - hi
+- abs(-3)
+  - 3
+- len('hi)
+  - 2
+- str()
+- max(list), max(2,3,4)
+- sorted() 작은 수 부터 정렬
+  - sorted(list,reverse=False)= 오름차순, True = 내림차순
+  - 리스트.sort() 는 본체의 리스트를 정렬 후 변환
+  - sorted(리스트) 는 본체를 놔두고 정렬한 새로운 리스트를 반환
