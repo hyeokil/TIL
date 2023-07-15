@@ -39,7 +39,7 @@
 ### while문 쓰다가 안끝날 때
 - ctrl c 누르면 풀린다
 
-# 2023 07 13 friday
+# 2023 07 14 friday
 ## random
 - random한 값을 얻고싶을때 사용
 - import random
@@ -65,3 +65,9 @@
   - sorted(list,reverse=False)= 오름차순, True = 내림차순
   - 리스트.sort() 는 본체의 리스트를 정렬 후 변환
   - sorted(리스트) 는 본체를 놔두고 정렬한 새로운 리스트를 반환
+
+# 2023 07 15 saturday
+## list.index(a)
+- list안에 a가 몇번째에 있는지
+## list.count(a)
+- list 안에 a 가 몇개있는지 
