@@ -71,3 +71,8 @@
 - list안에 a가 몇번째에 있는지
 ## list.count(a)
 - list 안에 a 가 몇개있는지 
+
+# 2023 07 16 sunday
+## import sys
+    - input = sys.stdin.readline
+    - 많은 양의 입력을 받아야할때 input 대신 사용하면 빠르다
