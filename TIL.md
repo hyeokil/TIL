@@ -76,3 +76,6 @@
 ## import sys
     - input = sys.stdin.readline
     - 많은 양의 입력을 받아야할때 input 대신 사용하면 빠르다
+## float
+- 3.0 같은 소수점이 들어있는 문자열은 int()로 변환이 안됨
+- 그럴 때 실수형으로 바꾸기 위해 float() 사용 숫자 끼리 계산가능
