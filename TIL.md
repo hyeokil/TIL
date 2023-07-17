@@ -82,3 +82,18 @@
 ## round
 - round()
 - 반올림 해주는 함수
+
+# 2023 07 17 monday
+## 연산자 우선순위
+- 지수가 제일 높다(**)
+## 얕은복사 깊은복사
+- list안에 다른 변수들이 존재할때  list_ = [a,b,c]
+- list를 다른 변수에 복사하고      list_new = list
+- list안의 변수를 바꿀시 원본 또한 바뀐다고 한다. 혹은 오류..?
+- 이때 깊은 복사가 사용되는데 
+- import copy
+  - list_new = copy.deepcopy(list) 
+  - 위 형태로 사용하면 됨
+
+## 2차원 입력 받기
+- arr = [list(map(int, input().split())) for _ in range(세로 길이)]
