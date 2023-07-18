@@ -97,3 +97,8 @@
 
 ## 2차원 입력 받기
 - arr = [list(map(int, input().split())) for _ in range(세로 길이)]
+
+# 2023 07 17 monday
+## f_string 응용
+- print(f'{1.6665225346:.4f}')
+- 소수점 4번째까지 출력(반올림 적용)
