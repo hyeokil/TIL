@@ -8,4 +8,18 @@
 # d[0] = 2
 
 # print(d,e)
-print(f'{1.6665525346:.4f}')
+#print(f'{1.6665525346:.4f}')
+
+# from datetime import datetime
+
+# now = datetime.now()
+# print(now.date())
+
+def a(lst):
+    lst.append(10)
+    print(lst)
+    return
+
+s = ['a','b']
+a(s)
+print(s)

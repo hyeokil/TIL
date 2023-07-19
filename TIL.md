@@ -102,3 +102,73 @@
 ## f_string 응용
 - print(f'{1.6665225346:.4f}')
 - 소수점 4번째까지 출력(반올림 적용)
+
+# 2023 07 18 wednesday
+## 함수 
+### 특정 작업을 수행하기 위한 재사용 가능한 코드 묶음
+- 함수를 사용하는 이유
+  - 재사용성이 높아지고 코드의 가독성과 유지보수성 향상
+
+### 내장함수
+- 파이썬이 기본적으로 제공하는 함수
+  - (별도의 import 없이 바로 사용가능)
+- ex) print() abs() sum ()
+
+### 함수 정의 호출
+- def greet(name):
+  - message = 'hello, '+ name
+  - return message
+- result = greet('Alice')
+- print(result)
+
+### 매개변수 (parameter)
+- def add_numbers(x,y) 
+  - result = x+y
+  - return result
+  - x,y가 매개변수
+### 인자 (argument)
+- a = 2
+- b = 3
+- sum_result = add_numbers(a,b)
+- print(sum_result)
+- a,b가 인자
+#### 위치인자, 기본인자, 키워드 인자, 임의의 인자 
+- 위치 인자 = 변수의 위치에 따라
+- 기본 인자 = def greet(name, age=30): age에 기본 값이 할당 돼있음 인자를 전달하면 바뀜
+- 키워드 인자 = 키워드를 명시하여 전달
+- 임의의 인자 매개변수 앞에 *를 붙여 사용 여러개를 튜플로 처리
+  
+## 범위 
+### 파이썬에서 사용되는 이름(식별자)들은 특정한 이름공간(namespace)에 저장되어 있음
+- 아래와 같은 순서로 이름을 찾아 나가며, LEGB Rule이라고 부름
+  - Local scope : 지역 범위(현재 작업 중인 범위)
+  - Enclosed scope : 지역 범위 한 단계 위 범위
+  - Global scope : 최상단에 위치한 범위
+  - Built-in scope : 모든 것을 담고 있는 범위(정의하지 않고 사용할 수 있는 모든 것)
+
+## 재귀 함수
+- 함수 내부에서 자기 자신을 호출하는 함수
+- ex) 팩토리얼
+  - def factorial(n):
+    - if n == 0:
+      - return 1
+    - return n * factorial(n - 1)
+
+## 유용한 내장 함수
+### map
+- 모든 요소에 함수를 적용하고, 그 결과를 map object로 반환
+### zip
+- 임의의 iterable을 모아 튜플을 원소로 하는 zip object를 반환
+
+```python
+girls = ['jane', 'ashley']
+boys = ['peter', 'jay']
+pair = zip(girls, boys)
+
+print(pair) # <zip object at 0x000001C76DE58700>
+print(list(pair)) # [('jane', 'peter'), ('ashley', 'jay')]
+```
+
+### lambda
+- 이름 없이 정의되고 사용되는 익명 함수
+  - addition = lambda x, y: x + y
