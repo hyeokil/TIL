@@ -15,11 +15,15 @@
 # now = datetime.now()
 # print(now.date())
 
-def a(lst):
-    lst.append(10)
-    print(lst)
-    return
+# def a(lst):
+#     lst.append(10)
+#     print(lst)
+#     return
 
-s = ['a','b']
-a(s)
-print(s)
+# s = ['a','b']
+# a(s)
+# print(s)
+
+A = {'a':10,'b':20}
+for key,value in A.items():
+    print(key,value)

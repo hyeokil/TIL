@@ -99,9 +99,16 @@
 - arr = [list(map(int, input().split())) for _ in range(세로 길이)]
 
 # 2023 07 17 monday
-## f_string 응용
+## f-string 응용
 - print(f'{1.6665225346:.4f}')
 - 소수점 4번째까지 출력(반올림 적용)
+- print 뿐만 아니라 변수에도 적용 가능
+```python
+v_name = 'aaa'
+for i in range(5):
+  name = f'{v_name}{i}'
+  print(name)
+```
 
 # 2023 07 18 wednesday
 ## 함수 
@@ -172,3 +179,46 @@ print(list(pair)) # [('jane', 'peter'), ('ashley', 'jay')]
 ### lambda
 - 이름 없이 정의되고 사용되는 익명 함수
   - addition = lambda x, y: x + y
+
+# 2023 07 18 thursday
+## 제어문 
+### 조건문 
+- 주어진 조건식을 평가하여 조건이 True인 경우에만 코드 블록을 실행하거나 건너뜀
+#### if/elif/else
+
+### 반복문
+- 주어진 코드 블록을 여러 번 반복해서 실행하는 구문
+  1. 특정 작업을 반복적으로 수행
+  2. 주어진 조건이 참인 동안 반복해서 실행
+#### for / while
+
+## list comprehension
+- [i for i in range(10) if i%2 ==1]
+- [i if i %2 ==1 else str(i) for i in range(10)]
+- elif는 못씀
+
+## 리스트를 생성하는 3가지 방법 비교
+### 가장 빠른 것
+- for loop
+- map
+- list comprehension
+- 아마도 map..?
+- 굳이 list compre 쓸필요 없다
+#### 효율성 별차이 없음 (빠른거 때에 따라 다르다) 
+#### 가독성이 더 중요함 
+- " 작은 효율성에 대해서는, 말하자면 97% 정도에 대해서는, 잊어버려라. 섣부른 최적화는 모든 악의 근원이다." 
+- 도널드 커누스
+
+## enumerate(iterable, start=0)
+- iterable 객체의 각 요소에 대해 인덱스와 함께 반환하는 내장함수
+
+```python
+for index, fruit in enumerate(fruits):
+  print(f'인덱스 {index}: {fruit}')
+
+인덱스 0: apple
+인덱스 1: banana
+인덱스 2: cherry
+```
+
+
