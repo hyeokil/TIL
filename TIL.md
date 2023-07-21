@@ -47,6 +47,22 @@
   - print(selected)
   - menu 중 한가지가 print 됨
 ## dictionary
+- dict = {'a':12}
+- dict.keys() = 'a' 
+  - 키만 구하기
+- dict.values()= 12
+  - 값만 구하기
+```python
+#키값 한줄씩 출력
+A = {'a':10,'b':20}
+for key,value in A.items():
+    print(key,value)
+
+```
+- dict['b']= 13 
+  - {'a':12,'b':13}
+  - key와 value 추가
+- 
 - menu = {'롯데리아':'123-3333','중국성':'111-1111','마포식당':'222-2222'} 
 - list(menu) = ['롯데리아', '중국성', '마포식당']
 - selected = random.choice(list(menu))
@@ -110,7 +126,7 @@ for i in range(5):
   print(name)
 ```
 
-# 2023 07 18 wednesday
+# 2023 07 19 wednesday
 ## 함수 
 ### 특정 작업을 수행하기 위한 재사용 가능한 코드 묶음
 - 함수를 사용하는 이유
@@ -180,7 +196,7 @@ print(list(pair)) # [('jane', 'peter'), ('ashley', 'jay')]
 - 이름 없이 정의되고 사용되는 익명 함수
   - addition = lambda x, y: x + y
 
-# 2023 07 18 thursday
+# 2023 07 20 thursday
 ## 제어문 
 ### 조건문 
 - 주어진 조건식을 평가하여 조건이 True인 경우에만 코드 블록을 실행하거나 건너뜀
@@ -191,6 +207,9 @@ print(list(pair)) # [('jane', 'peter'), ('ashley', 'jay')]
   1. 특정 작업을 반복적으로 수행
   2. 주어진 조건이 참인 동안 반복해서 실행
 #### for / while
+- while은 반드시 종료 조건이 필요
+- break = 반복을 즉시 중지
+- continue = 다음 반복으로 건너뜀 
 
 ## list comprehension
 - [i for i in range(10) if i%2 ==1]
@@ -221,4 +240,10 @@ for index, fruit in enumerate(fruits):
 인덱스 2: cherry
 ```
 
+# 2023 07 21 friday
+## json
+### import json
+- json.loads(json_data)
+- 딕셔너리 형태로 변환
+  
 
