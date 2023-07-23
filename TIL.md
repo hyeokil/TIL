@@ -246,4 +246,6 @@ for index, fruit in enumerate(fruits):
 - json.loads(json_data)
 - 딕셔너리 형태로 변환
   
-
+# 2023 07 23 sunday
+## if a == b == c :
+-     가능하다
