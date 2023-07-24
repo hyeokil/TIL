@@ -304,10 +304,15 @@ for index, fruit in enumerate(fruits):
 - list.pop(i)
   - 리스트에서 지정한 인덱스의 항목을 제거 후 반환 
   - 작성하지 않을시 마지막 항목 제거
-- list.clear
-- list.index
+- list.clear()
+  - 리스트의 모든 항목 삭제
+- list.index(x)
+  - x의 가장빠른 인덱스(0,1,2,3 ... 순서) 반환
 - list.reverse
+  - 리스트를 역순으로 변경 (정렬x)(map 처럼 생겨서 빈칸을 기준으로 나뉘어 있음)
+  - join을 사용하여 출력 가능할지도..?
 - list.sort()
+  - 리스트를 오름차순 정렬
 - list.count(x)
   - 리스트에서 x의 개수를 반환
 
