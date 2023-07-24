@@ -249,3 +249,68 @@ for index, fruit in enumerate(fruits):
 # 2023 07 23 sunday
 ## if a == b == c :
 -     가능하다
+
+# 2023 07 24 monday
+### continue
+- 반복문에서 아래 문장을 스킵하고 다음 반복문으로 넘어감
+
+## 메서드
+- 객체에 속한 함수
+
+### .capitalize
+- 'hello'.capitalize()
+  - Hello
+
+### 문자열 조회/탐색 및 검증 메서드
+- s.find(x)
+  - x의 첫 번째 위치를 반환. 없으면 -1 반환
+- s.index(x)
+  - x의 첫 번째 위치를 반환. 없으면 오류발생
+- s.isupper() / s.islower()
+  - 모두 대문자인지 / 소문자인지 확인
+- s.isalpha()
+  - 문자열이 모두 알파벳인지 확인
+- s.title()
+  - 단어가 대문자로 시작하고 나머지는 소문자가 되도록 함 (공백기준)
+
+- s.replace(world, python)
+  - 'hello, world!'
+  - 'hello, python!'
+- s.strip()
+  - 문자열 시작과 끝에 공백 혹은 지정 문자 제거
+- s.split()
+  - 지정한 문자를 구분자로 문자를 분리하여 문자열의 리스트로 변환
+- 구분자.join(s)
+  - 구분자를 이용하여 하나의 문자열로 연결
+- s.swapcase()
+  - 대소문자 바꾸기
+  - 대문자는 소문자로 소문자는 대문자로
+
+### chained
+- s.swapcase.replace('l','z')
+  - s = heLLo
+  - HEzzO
+
+### list 값 추가 및 삭제 메서드
+- list =[4,5,6]
+- list.append([1,2,3])
+  - [4,5,6,[1,2,3]]
+- list.extend([1,2,3])
+  - [4,5,6,1,2,3]
+- list.insert(i, x)
+  - i에 x삽입
+- list.remove(x)
+  - 리스트에서 가장 왼쪽의 x를 제거 없으면 ValueError
+- list.pop(i)
+  - 리스트에서 지정한 인덱스의 항목을 제거 후 반환 
+  - 작성하지 않을시 마지막 항목 제거
+- list.clear
+- list.index
+- list.reverse
+- list.sort()
+- list.count(x)
+  - 리스트에서 x의 개수를 반환
+
+### 슬라이스는 복사본 생성
+
+
