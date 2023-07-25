@@ -375,3 +375,5 @@ for index, fruit in enumerate(fruits):
   - 키와 연결된 값을 반환 키가 d에 없으면 k를 추가하고 v를 반환
 - d1.update(d2)
   - d에 있으면 d2값으로 대체 없으면 d2 키/값을 d에 추가
+
+  - 자리이동 테스트
