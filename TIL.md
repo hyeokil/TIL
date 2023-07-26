@@ -652,4 +652,3 @@ c2= Circle(1)
 print(c1) # [원] radius: 10
 print(c2) # [원] radius: 1
 ```
-

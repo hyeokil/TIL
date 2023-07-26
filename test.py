@@ -116,4 +116,20 @@
 # 'abc'.upper()
 # ```
 
-print(list((1,2,3,4))[::-1])
+# print(list((1,2,3,4))[::-1])
+
+T = int(input())
+for i in range(1,T+1):
+    N = int(input())
+    lst = list(map(int,input().split()))
+    lst_ = []
+    score = 0
+    for j in range(len(lst)):
+        if j != len(lst)-1:
+            if lst[j] > lst[j+1]:
+                if len(lst_)!=0:
+                    for k in lst_:
+                        score += (lst[j]-k)
+            else:
+                lst_.append(lst[j])
+    print(f'#{i}',score)  
