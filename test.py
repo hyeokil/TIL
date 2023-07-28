@@ -249,4 +249,46 @@
 #                     lst.remove(k)
 #             break
     
-#     print(f'#{i}',score)  
+#     print(f'#{i}',score) 
+
+# T = int(input())
+# for i in range(1,T+1):
+#     N = int(input())
+#     lst = list(map(int , input().split()))
+#     score = 0
+#     while len(lst) != 0:
+#         c_max = max(lst)
+#         now = lst.index(c_max)
+#         l_n = lst[:now]
+#         lst = lst[now+1:]
+#         for j in range(len(l_n)):
+#             score += (c_max-l_n[j])
+#     print(f"#{i}",score) 
+
+res=[]
+dx=[0,1,0,-1]
+dy=[1,0,-1,0]
+T = int(input())
+for m in range(1,T+1):
+    n=int(input())
+    c=[n-1]*3
+    for i in range(n-2,0,-1):
+        for j in range(2):
+            c.append(i)
+    lst=[[0]*(n) for _ in range(n)]
+    lst[0][0]=1
+    x,y=0,0
+    idx=0
+    val=2
+    for i in c:
+        for j in range(i):
+            lst[x+dx[idx]][y+dy[idx]]=val
+            x+=dx[idx]
+            y+=dy[idx]
+            val+=1
+        idx+=1
+        if idx==4:
+            idx=0
+    print(f'#{m}')
+    for i in range(n):
+        print(*lst[i],sep=" ")
