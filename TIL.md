@@ -839,3 +839,138 @@ for i in range(len(B)-1,-1,-1):
   C[A[i]] -= 1
   B[C[A[i]]] = A[i]
 ```
+
+# 2023 08 02 wednesday
+
+## 배열 : 2차원 배열
+
+```python
+N = int(input())
+arr = [list(map(int, input().split())) for _ in range(N)]
+# 3 = N
+# 1 2 3
+# 4 5 6
+# 7 8 9
+
+N = int(input())
+arr = [list(map(int, input())) for _ in range(N)]
+
+# 3 = N
+# 123
+# 456
+# 789
+```
+
+- 배열 순회
+
+- 행 우선 순회
+
+```python
+# n*m의 행렬
+# i 행의 좌표
+# j 행의 좌표
+for i in range(n):
+  for j in range(m):
+    array[i][j]
+```
+
+- 열 우선 순회
+
+```python
+# n*m의 행렬
+# i 행의 좌표
+# j 행의 좌표
+for j in range(m):
+  for i in range(n):
+    array[i][j]
+```
+
+- 지그재그 순회
+
+```python
+# n*m의 행렬
+# i 행의 좌표
+# j 행의 좌표
+for i in range(n):
+  for j in range(m):
+    array[i][j+(m-1-2*j)*(i%2)]
+```
+
+```python
+arr = [[0]*M for _ in range(N)]
+arr2 = [[0]*M]*N # 하지말것
+arr[0][0] = 1
+arr2[0][0] = 1
+arr = # 1 0 0 0 , 0 0 0 0
+arr2 = # 1 0 0 0 , 1 0 0 0
+
+# 행의 합 중 최대값
+max_v = 0
+for i in range(N):
+  row_total = 0
+  for j in range(M):
+    row_total += arr[i][j]
+  if max_v < row_total:
+    max_v = row_total
+```
+
+## 델타를 이용한 2차 배열 탐색
+
+- 2차 배열의 한 좌표에서 4방향의 인접 배열 요소를 탐색하는 방법
+
+```python
+arr[N][N] # N*N 배열
+di[] [0, 1, 0, -1]
+dj[] [1, 0, -1, 0]
+for i : 0 -> N-1:
+  for j : 0 -> N-1:
+    for k in range(4):
+      ni <- i + di[k]
+      nj <- j + dj[k]
+      if 0<= ni< N and 0 <= nj < N: # 유효한 인덱스면
+        arr[ni][nj]
+
+```
+
+```python
+di = [0, 1, 0, -1]
+dj = [1, 0, -1, 0]
+N = int(input())
+arr = [list(map(int, input().split())) for _ in range(N)]
+m = 2  # 몇칸이나 더할지 
+max_v = 0  # 모든 원소가 0 이상이라면
+for i in range(N):  # 모든 원소 arr[i][j]에 대해
+    for j in range(N):
+        # arr[i][j]중심으로
+        s = arr[i][j]
+        for k in range(4):
+            for p in range(1,m):
+                ni, nj = i+di[k]*p, j+dj[k]*p
+                if 0<=ni<N and 0<=nj<N:
+                    s += arr[ni][nj]
+            # 여기까지 주변 원소를 포함한 합
+            if max_v < s:
+                max_v = s
+```
+
+## 전치행렬
+
+```python
+for i in range(3):
+  for j in range(3):
+    if i < j :
+      arr[i][j], arr[j][i] = arr[j][i], arr[i][j]
+
+```
+
+- 대각선의 합
+
+```python
+N= int(input())
+arr = [list(map(int, input().split())) for _ in range(N)]
+total1 = 0  # 대각선
+total2 = 0  # 반대 대각선
+for i in range(N):
+    total1 += arr[i][i]
+    total2 += arr[i][N-1-i]
+```
