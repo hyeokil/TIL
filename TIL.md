@@ -944,7 +944,7 @@ for i in range(N):  # 모든 원소 arr[i][j]에 대해
         # arr[i][j]중심으로
         s = arr[i][j]
         for k in range(4):
-            for p in range(1,m):
+            for p in range(1,m+1):
                 ni, nj = i+di[k]*p, j+dj[k]*p
                 if 0<=ni<N and 0<=nj<N:
                     s += arr[ni][nj]
