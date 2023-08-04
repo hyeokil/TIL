@@ -1100,3 +1100,30 @@ def sFind(key):
       
 
 ```
+
+# 2023 08 04 friday
+
+## 달팽이
+
+```python
+N = 5
+arr = [[0]*N for _ in range(N)]
+
+d= 0
+dr = [0, 1, 0, -1]
+dc = [1, 0, -1, 0]
+
+curR = curC = 0
+for value in range(1,N*N+1):
+    arr[curR][curC] = value
+
+    newR = curR+dr[d]
+    newC = curC+dc[d]
+    if newR<0 or newR >=N or newC<0 or newC>=N or arr[newR][newC]!=0:
+        d = (d+1)%4
+
+    curR +=dr[d]
+    curC +=dc[d]
+
+print(arr)
+```
