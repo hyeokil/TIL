@@ -1127,3 +1127,16 @@ for value in range(1,N*N+1):
 
 print(arr)
 ```
+
+# 2023 08 07 monday
+
+## str() 함수 사용하지않고 거꾸로 출력하기
+
+```python
+def itoa(a):
+  s =''
+  while a>0:
+    s += chr(ord('0') + a%10) # 1의자리 숫자의 ASCII값
+    a//=10
+  return s
+```
