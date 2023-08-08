@@ -358,6 +358,8 @@ for index, fruit in enumerate(fruits):
 - s.replace(world, python)
   - 'hello, world!'
   - 'hello, python!'
+  - s.replace(a,b)를 변수에 지정해 두면 새로운 리스트 가됨
+    - ss = s.replace(a,b)
 - s.strip()
   - 문자열 시작과 끝에 공백 혹은 지정 문자 제거
 - s.split()
@@ -1140,3 +1142,7 @@ def itoa(a):
     a//=10
   return s
 ```
+
+# 2023 08 08 tuesday
+
+## 보이어 무어
