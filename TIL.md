@@ -436,7 +436,7 @@ for index, fruit in enumerate(fruits):
 - s1.issubset(s2) s1 <= s2
   - s1의 항목이 모두 s2에 있으면 True 반환
 - s1.issuperset(s2) s1 >= s2
-  - s1에 s2의 모든 항ㄴ목이 있으면 True 반환
+  - s1에 s2의 모든 항목이 있으면 True 반환
 - s1.union(s2) s1 | s2
   - s1 s2 둘다에 들어있는 항목으로 세트를 생성후 반환
 
