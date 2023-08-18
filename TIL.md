@@ -1483,7 +1483,7 @@ print(result)
 
 # 2023 08 16 wednesday
 
-## 부분 집합
+## 부분 집합과 순열
 
 ```python
 
@@ -1659,4 +1659,58 @@ rear = 0
 - 버퍼의 자료구조
   - 버퍼는 일반적으로 입출력 및 네트워크와 관련되 기능에서 이용된다.
   - 순서대로 입력/출력/전달되어야 하므로 FIFO 방식의 자료구조인 큐가 활용됨
+
+
+# 2023 08 18 friday
+
+## BFS
+
+- 그래프 탐색 방법
+  - 깊이 우선 탐색
+  - 너비 우선 탐색
+- 너비 우선 탐색은 탐색 시작점의 인접한 정점들을 먼저 모두 차례로 방문한 후, 방문했던 정점을 시작점으로 다시 인접한 정점들을 차례로 방문하는 방식
+- 인접한 정점들에 대해 탐색한 후, 차례로 다시 너비우선탐색을 진행해야 하므로, 선입선출 형태의 자료구조인 큐 활용
+
+```python
+
+def BFS(G, v, n): # 그래프 G, 탐색 시작점 v
+  visited = [0] *(n+1)  # n : 정점의 개수
+  Q = []                # 큐생성
+  Q.append(v)           # 시작점 v를 큐에 삽입
+  visited[v] = 1
+  while Q :             # 큐가 비어있지 않은 경우
+    t = Q.pop(0)        # 큐의 첫번째 원소 반환
+    if not visited[t] : # 방문되지 않은 곳이면
+      # visited[t] = True # 방문한 것으로 표시
+      visited(t)        # 정점 t에서 할 일
+      for i in G[t]:    # t와 연결된 모든 정점에 대해
+        if not visited[i]:  # 방문되지 않은 곳이면
+          Q.append(i)       # 큐에 넣기  
+          visited[i] = visited[t] +1  # n으로 부터 1만큼 이동
+
+
+def BFS(s, v): # 시작 정점 s, 마지막 정점 v
+  visited = [0] *(v+1)      # n : 정점의 개수
+  Q = []                    # 큐생성
+  Q.append(s)               # 시작점 v를 큐에 삽입
+  visited[s] = 1            # 시작점 방문 표시
+  while Q :                 # 큐에 정점이 남아있으면 front != rear
+    t = Q.pop(0)            # 디큐
+    print(t)                # 정점 t에서 할 일
+    for w in range(1,v+1):  # 인접한 정점중 인큐 되지 않은 정점 w가 있으면
+        if adj_l[t][w]==1 and visited[w]==0: 
+          Q.append(i)       # 인큐  , 인큐되었음을 표시
+          visited[i] = visited[t] +1  # n으로 부터 1만큼 이동
+v,e = map(int, input().split())
+arr =list(map(int, input().split()))
+# 인접 리스트 --------------------------
+adj_l =[[] for _ in range(v+1)]
+for i in range(e):
+  v1,v2 = arr[i*2], arr[i*2+1]
+  adj_l[v1].append(v2)
+  adj_l[v2].append(v1)   # 방향이 없으면
+# 여기까지 인접 리스트 ------------------
+BFS(1,7)
+
+```
 
