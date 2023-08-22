@@ -838,14 +838,12 @@ for i in range(len(B)-1,-1,-1):
   B[C[A[i]]] = A[i]
 ```
 
-## 탐욕 알고리즘 
+## 탐욕 알고리즘
 
 - 탐욕 알고리즘은 최적해를 구하는데 사용되는 근시안적 방법
 - 여러 경우 중 하나를 결정할때 최적인것을 선택해 나가는 방식을 통해 해답에 도달
 - 각 선택의 시점에서의 결정은 지역적으로는 최적이지만 계속 수집하여 해답을 낸다 해도 그것이 최적인 보장은 없다
 - 일반적으로 머리에서 떠오르는 생각을 검증 없이 바로 구현하면 그리디 접근이 됨
-
-
 
 # 2023 08 02 wednesday
 
@@ -1395,7 +1393,7 @@ for i in range(E):
 
 - step2. 후위 표기법의 수식을 스택을 이용해 계산
   1. 피연산자를 만나면 스택에 push한다.
-  2. 연산자를 만나면 필요한 만큼의 피연산자를 스택에서 pop하여 연산하고, 연산결과를 다시 스택에 push한다. 
+  2. 연산자를 만나면 필요한 만큼의 피연산자를 스택에서 pop하여 연산하고, 연산결과를 다시 스택에 push한다.
   3. 수식이 끝나면, 마지막으로 스택을 pop하여 출력한다.
 
 ```python
@@ -1551,11 +1549,11 @@ partial(0, 0)
 ### 큐의 기본 연산
 
 - 삽입 : enQueue
-- 삭제 : deQueue 
+- 삭제 : deQueue
 
 ### 큐의 사용을 위해 필요한 주요 연산
 
-- enQueue(item) 
+- enQueue(item)
 - deQueue()
 - createQueue()
 - isEmpty()
@@ -1607,14 +1605,14 @@ while front != rear :# 큐가 비어있지 않을 때
 
 - 원소의 삽입 삭제를 반복하면 배열의 앞부분에 공간이 있지만 rear= n-1인 상태, 포화상태로 인식하여 더 이상 삽입을 수행 하지 못함
 - 해결방법
-  - 매연산 마다 저장된 원소들을 배열의 앞부분으로 이동 
+  - 매연산 마다 저장된 원소들을 배열의 앞부분으로 이동
   - 원소 이동에 많은시간이 소요 되어 큐의 효율성 감소
-- 해결방법2 
+- 해결방법2
   - 1차원 배열을 사용하되, 논리적으로는 처음과 끝이 연결된 원형형태의 큐를 이룬다고 가정하여 사용
 
 ### 원형 큐의 구조
 
-- 초기 상태 
+- 초기 상태
   - front = rear = 0
 - index의 순환
   - front와 rear의 위치가 배열의 마지막 인덱스인 n-1을 가리킨후, 그다음에 논리적 순환을 이뤄 배열의 처음인 인덱스 0으로 이동
@@ -1645,7 +1643,7 @@ rear = 0
   - 우선 순위를 가진항목들을 저장하는 큐
   - FIFO 순서가 아니라 우선순위가 높은 수너대로 먼저 나가게 됨
 
-- 우선순위 큐의 적용분야 
+- 우선순위 큐의 적용분야
   - 시뮬레이션 시스템
   - 네트워크 트래픽 제어
   - 운영체제의 테스크 스케줄링
@@ -1659,7 +1657,6 @@ rear = 0
 - 버퍼의 자료구조
   - 버퍼는 일반적으로 입출력 및 네트워크와 관련되 기능에서 이용된다.
   - 순서대로 입력/출력/전달되어야 하므로 FIFO 방식의 자료구조인 큐가 활용됨
-
 
 # 2023 08 18 friday
 
@@ -1731,20 +1728,20 @@ BFS(1,7)
 - 조상 노드 - 간선을 따라 루트 노드까지 이르는 경로에 있는 모든 노드들
 - 서브 트리 - 부모 노드와 연결된 간선을 끊었을 때 생성되는 트리
 - 자손 노드 - 서브 트리에 있는 하위 레벨의 노드들
-- 차수 
+- 차수
   - 노드의 차수 : 노드에 연결된 자식 노드의 수
   - 트리의 차수 : 트리에 있는 노드의 차수 중 가장 큰 값
   - 단말 노드(리프 노드) : 차수가 0인 노드, 자식 노드가 없는 노드
-- 높이 
+- 높이
   - 노드의 높이 : 루트에서 노드에 이르는 간선의 수. 노드의 레벨
   - 트리의 높이 : 트리에 있는 노드의 높이 중에서 가장 큰 값. 최대 레벨
 
-### 한 개 이상의 노드로 이루어진 유한 집합이며 다음 조건을 만족한다.
+### 한 개 이상의 노드로 이루어진 유한 집합이며 다음 조건을 만족한다
 
 - 노드 중 최상위 노드를 루트라고 한다.
 - 나머지 노드들은 n(>= 0)개의 분리 집합 T1,,,TNㅇ로 분리될 수 있다.
 
-### 이들 T1,,,TN은 각각 하나의 트리가 되며(재귀적 정의) 루트의 부 트리(subtree)라 한다.
+### 이들 T1,,,TN은 각각 하나의 트리가 되며(재귀적 정의) 루트의 부 트리(subtree)라 한다
 
 ## 이진트리
 
@@ -1903,3 +1900,161 @@ def post_order(root):
     print(root)
 
 ```
+
+# 2023 08 22 tuesday
+
+### 수식 트리의 순회
+
+- 중위 순회
+  - A/B*C*D+E
+- 후위 순회
+  - AB/C*D*E+
+- 전위 순회
+  - +**/ABCDE
+
+### 이진 탐색 트리
+
+- 탐색작업을 효율적으로 하기 위한 자료구조
+- 모든 원소는 서로 다른 유일한 키를 갖는다
+
+### 이진 탐색 트리 - 연산
+
+- 탐색연산
+- 삽입연산
+- 삭제연산
+
+### 이진 탐색 트리 - 성능
+
+- 연산시간은 트리의 높이 만큼 시간이 걸린다.
+- 평균 O(log n)
+- 최악 O(n)
+
+## 힙(heap)
+
+- 완전 이진 트리에 있는 노드 중에서 키값이 가장 큰 노드나 키값이 가장 작은 노드를 찾기 위해 만든 자료구조
+
+```python
+
+def deq():
+    global last
+    tmp = heap[1]           # 루트 백업
+    heap[1] = heap[last]    # 삭제할 노드의 키를 루트에 복사
+    last -= 1               # 마지막 노드 삭제
+    p=1                     # 루트에 옮긴 값을 자식과 비교
+    c=p*2                   # 왼쪽 자식
+    while c<= last:         # 자식이 하나라도 있으면...
+        if c+1 <= last and heap[c] < heap[c+1]:  # 오른쪽 자식도 있고, 오른쪽 자식이 더 크면
+            c += 1          # 비교 대상이 오른쪽 자식 노드
+        if heap[p] < heap[c]:       # 자식이 더 크면 최대힙 규칙에 어긋나므로
+            heap[p], heap[c] = heap[c], heap[p]
+            p=c             # 자식을 새로운 부모로
+            c =p*2          # 왼쪽 자식 번호를 계산
+        else:           # 부모가 더 크면
+            break       # 비교 중단
+
+    return tmp
+
+heap = [0]*100
+last = 0
+
+
+
+#--------------------------------------------------
+
+
+def insert(item):
+    global last
+
+    last += 1
+    HEAP[last] = item
+    c = last
+    p = c // 2
+    while c > 1 and HEAP[p] < HEAP[c]:
+        # p = c//2
+        HEAP[p], HEAP[c] = HEAP[c], HEAP[p]
+        c = p
+        p = c//2
+        # else:
+        #     break
+
+
+def pop():
+    global last
+
+    result = HEAP[1]
+    HEAP[1] = HEAP[last]
+    last -= 1
+
+    p = 1
+    c = p*2
+    while c<=last:
+        if c+1<=last and HEAP[c] < HEAP[c+1]:
+            c = c+1
+        if HEAP[p] < HEAP[c]:
+            HEAP[p], HEAP[c] = HEAP[c], HEAP[p]
+            p = c
+            c = p*2
+        else:
+            break
+
+    return result
+
+HEAP = [0, 33, 31, 27, 21, 22, 18, 23, 14, 19] + [0]*100
+last = 9
+# insert(20)
+# print(HEAP)
+print(pop())
+print(HEAP)
+print(pop())
+print(HEAP)
+print(pop())
+print(HEAP)
+
+def insert(item):
+    global last
+
+    last += 1
+    HEAP[last] = item
+    c = last
+    while c > 1:
+        p = c // 2
+        if HEAP[p] < HEAP[c]:
+            HEAP[p], HEAP[c] = HEAP[c], HEAP[p]
+            c = p        
+        else:
+            break
+            
+def pop():
+    global last
+
+    result = HEAP[1]
+    HEAP[1] = HEAP[last]
+    last -= 1
+
+    p = 1
+    while p*2 <= last:
+        c = p * 2
+        if c+1<=last and HEAP[c] < HEAP[c+1]:
+            c = c+1
+        if HEAP[p] < HEAP[c]:
+            HEAP[p], HEAP[c] = HEAP[c], HEAP[p]
+            p = c
+        else:
+            break
+
+    return result
+
+HEAP = [0, 33, 31, 27, 21, 22, 18, 23, 14, 19] + [0]*100
+last = 9
+# insert(20)
+# print(HEAP)
+print(pop())
+print(HEAP)
+print(pop())
+print(HEAP)
+print(pop())
+print(HEAP)
+
+
+```
+
