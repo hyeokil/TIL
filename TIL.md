@@ -2058,3 +2058,138 @@ print(HEAP)
 
 ```
 
+# 2023 08 23 wednesday
+
+## 알고리즘
+
+- 어떤 문제를 해결하기 위한 절차
+
+### 알고리즘의 효율
+
+- 공간적 효율성, 시간적 효율성
+  - 연산량 대비 얼마나 적은 메모리 공간을 요하는지
+  - 연산량 대비 얼마나 적은 시간을 요하는지
+  - 효율성이 낮으면 복잡도가 높다
+
+- 시간 복잡도 분석
+  - 환경에 따라 다름
+
+- 복잡도의 점근적 표기
+  - O-표기는 복잡도의 점근적 상한을 나타냄
+
+## Python3 표준입출력
+
+### 입력
+
+- Raw 값의 입력 : input()
+  - 받은 입력값을 문자열로 취급
+- Evaluated된 값 입력 : eval(input())
+  - 받은 입력값을 평가된 데이터 형으로 취급
+
+### 출력
+
+- print()
+  - 표준 출력 함수. 출력값의 마지막에 개행 문자 포함
+- print('text', end='')
+  - 출력 시 마지막에 개행문자 제외할 시
+- print('%d'%number)
+  - Formatting 된 출력
+
+```python
+# 10 => 2 진수의 문자열 7 => '111'
+def decTobin(decV):
+    result = ''
+    for shiftBit in range(4):
+        t = decV & (1 << shiftBit)
+        if t != 0:
+            result = '1' + result
+        else:
+            result = '0' + result
+    return result
+
+
+print(bin(6))
+print(decTobin(6))
+
+
+# '1100' => 12
+def BinToDec(Bins):
+    result = 0
+    for c in Bins:
+        result = result * 2 + int(c)
+
+    return result
+
+
+print(BinToDec('1100'))
+
+
+def BinToDec(Bins):
+    result = 0
+    for c in Bins:
+        result = result << 1 | int(c)
+
+    return result
+
+
+print(BinToDec('1101'))
+
+
+#   00000111 / 00000110
+# & 00000001 / 00000001
+# ==========================
+#   00000001 / 00000000     1/0
+
+
+def HexToDec(HexS):
+    result = 0
+    for c in HexS:
+        if c.isdecimal():
+            t = int(c)
+        else:
+            t = ord(c) - ord('A') + 10  # 대문자만 들어온다고 가정
+        result = result * 16 + t
+
+    return result
+
+
+print(HexToDec('10A'))
+
+
+# A => '1010'
+def HexToBin(HexC):  # 16진수를 2진수로
+    # 16진수 => 10진수
+    if HexC.isdecimal():
+        decV = int(HexC)
+    else:
+        tdecV = ord(HexC) - ord('A') + 10  # 대문자만 들어온다고 가정
+
+    result = ''
+    for shiftBit in range(4):
+        t = decV & (1 << shiftBit)
+        if t != 0:
+            result = '1' + result
+        else:
+            result = '0' + result
+    return result
+
+
+def HexToBin2(HexC):
+    mappintTable = {
+        '0': '0000',
+        '1': '0001',
+        '2': '0010',
+        '3': '0011',
+        '4': '0100',
+        '5': '0101',
+        '6': '0110',
+        '7': '0111',
+        '8': '1000',
+        '9': '1001',
+        'A': '1111',
+    }
+    return mappintTable[HexC]
+
+
+print(HexToBin2('A'))
+```
