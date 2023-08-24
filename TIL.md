@@ -2193,3 +2193,11 @@ def HexToBin2(HexC):
 
 print(HexToBin2('A'))
 ```
+
+# 2023 08 24 thursday
+
+## 비트 연산
+
+## 진수 
+
+## 실수
