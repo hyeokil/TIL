@@ -2519,4 +2519,136 @@ subset(0,N)
 
 # 2023 09 01 friday
 
-##
+## 정사각형의 방을 푸는 4가지 방법
+
+```python
+
+#ver1
+
+TC = int(input())
+for tc in range(1, TC+1):
+    N = int(input())
+    arr = [list(map(int, input().split())) for _ in range(N)]
+
+    max_cnt = 0
+    max_start = 0
+    for p in range(N):
+        for q in range(N):
+            i, j = p, q
+            cnt = 1
+            start = arr[i][j]
+            while True:
+                for di, dj in [[0,1], [1,0], [0,-1], [-1,0]]:
+                    ni, nj = i+di, j+dj
+                    if 0<=ni<N and 0<=nj<N and arr[i][j] +1 == arr[ni][nj]:
+                        cnt += 1
+                        i, j = ni, nj
+                        break
+                else:
+                    break
+            if max_cnt < cnt:
+                max_cnt = cnt
+                max_start = start
+            elif max_cnt == cnt and max_start > start:
+                max_start = start
+    print(f'#{tc} {max_start} {max_cnt}')
+
+# 2
+# 제일 빠름
+TC = int(input())
+for tc in range(1, TC+1):
+    N = int(input())
+    arr = [list(map(int, input().split()))for _ in range(N)]
+
+    cnt = [0] * (N*N+1)     # 연속으로 1이 커지는 경우를 표시할 배열
+    for i in range(N):
+        for j in range(N):
+            for di, dj in [[0, 1], [1, 0], [0, -1], [-1, 0]]:
+                ni, nj = i + di, j + dj
+                if 0 <= ni < N and 0 <= nj < N and arr[i][j] + 1 == arr[ni][nj]:
+                    cnt[arr[i][j]] = 1
+    max_cnt = 0
+    max_start = 0
+    c = 0
+    for k in range(N*N,0,-1 ):
+        if cnt[k]:
+            c += 1
+            if max_cnt<c:
+                max_cnt = c
+                max_start = k
+            elif max_cnt == c:
+                max_start = k
+        else:   # cnt[k] 가 0이면
+            c = 0
+    print(f'#{tc}', max_start, max_cnt+1)
+
+
+# bfs 사용
+
+def bfs(sr,sc,N):
+    q = []
+    di = [-1,0,1,0]
+    dj = [0,1,0,-1]
+    q.append((sr,sc))
+    cnt = 0
+    while q:
+        i, j = q.pop(0)
+        cnt += 1
+        if v[i][j] != 0:
+            return cnt + v[i][j] -1
+
+        for k in range(4):
+            ni = i + di[k]
+            nj = j + dj[k]
+            if 0<=ni<N and 0<=nj<N and rm[i][j]+1 == rm[ni][nj]:
+                q.append((ni,nj))
+    return cnt
+
+TC = int(input())
+for tc in range(1, TC+1):
+    N = int(input())
+    rm = [list(map(int, input().split()))for _ in range(N)]
+    v = [[0]*N for i in range(N)]
+
+    maxV = 0
+    minV = 1000000
+    for i in range(N):
+        for j in range(N):
+            if v[i][j] == 0:
+                v[i][j] = bfs(i,j,N)
+                if (maxV < v[i][j]):
+                    maxV = v[i][j]
+                    minV = rm[i][j]
+                elif maxV == v[i][j]:
+                    if minV > rm[i][j]:
+                        minV = rm[i][j]
+    print('#{} {} {}'.format(tc, minV, maxV))
+
+
+# 재귀
+
+def f(i,j,start,d):
+    global ans
+    for di,dj in ((1,0),(0,1),(-1,0),(0,-1)): # 튜플 말고 리스트로 하면 시간초과남
+        ni,nj=i+di,j+dj
+        if 0<=ni<N and 0<=nj<N and visited[ni][nj] == False and arr[ni][nj] == arr[i][j]+1 :
+            visited[i][j] = True
+            f(ni,nj,start,d+1)
+            visited[i][j] = False
+    else:
+        if ans[1] < d:
+            ans = [start,d]
+        elif ans[1] == d and start < ans[0]:
+                ans[0] = start
+T = int(input())
+for tc in range(1,T+1):
+    N = int(input())
+    arr = [list(map(int, input().split())) for _ in range(N)]
+    ans = [0,0]
+    visited = [[False] *N for _ in range(N)]
+    for x in range(N):
+        for y in range(N):
+            f(x,y,arr[x][y],1)
+    print(f'#{tc}',*ans)
+
+```
