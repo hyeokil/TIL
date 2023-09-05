@@ -2659,7 +2659,7 @@ for tc in range(1,T+1):
 
 - web site, web application 등을 통해 사용자들이 정보를 검색하고 상호 작용하는 기술
 
-- web site 
+- web site
   - 인터넷에서 여러 개의 web page가 모인것으로, 사용자들에게 정보나 서비스를 제공하는 공간
 - web page
   - HTML, CSS 등의 웹 기술을 이용하여 만들어지, website를 구성하는 하나의 요소
@@ -2668,7 +2668,7 @@ for tc in range(1,T+1):
     - CSS : 'Styling'
     - Javascript : 'Behavior'
 
-## 웹 구조화 
+## 웹 구조화
 
 - HTML
   - HyperText Markup Language
@@ -2715,7 +2715,6 @@ for tc in range(1,T+1):
 - 목적
   - 나타내고 싶지 않지만 추가적인 기능, 내용을 담고 싶을 때 사용
   - CSS에서 해당 요소를 선택하기 위한 값으로 활용됨
-
 
 ```html
 
@@ -2805,7 +2804,7 @@ h1{
   - 별도의 CSS 파일 생성 후 HTML link 태그를 사용해 불러오기
   - 가장 권장
 
-### CSS 선택자 
+### CSS 선택자
 
 - CSS Selectors 종류
   - 기본 선택자
@@ -2826,14 +2825,13 @@ h1{
       - 첫 번째 요소의 직계 자식만 선택
       - 예. ul > li은 ul 안에 있는 모든 li를 선택(한단계 아래 자식들만)
 
-
 ### 우선순위
 
 - 동일한 요소에 적용 가능한 같은 스타일을 두 가지 이상 작성 했을 때 어떤 규칙이 적용 되는지 결정하는 것
 
 - CSS : cascading style sheet
   - 웹 페이지의 디자인과 레이아웃을 구성하는 언어
-- Cascade 
+- Cascade
   - 계단식
   - 동일한 우선순위를 같은 규칙이 적용될 때 CSS에서 마지막에 나오는 규칙이 사용됨
 - 우선순위가 높은 순
@@ -2846,6 +2844,56 @@ h1{
       - id > class > 요소
   4. 소스 코드 순서
 
+- 우선순위 연습 코드
+
+```html
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    h2 {
+      color: darkviolet !important;
+    }
+
+    p {
+      color: blue;
+    }
+
+    .orange {
+      color: orange;
+    }
+
+    .green {
+      color: green;
+    }
+
+    #red {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <p>1</p>
+  <p class="orange">2</p>
+  <p class="green orange">3</p>
+  <p class="orange green">4</p>
+  <p id="red" class="orange">5</p>
+  <h2 id="red" class="orange">6</h2>
+  <p id="red" class="orange" style="color: brown;">7</p>
+  <h2 id="red" class="orange" style="color: brown;">8</h2>
+</body>
+
+</html>
+
+```
+
 ### 상속
 
 - CSS 상속
@@ -2856,5 +2904,190 @@ h1{
   - 상속되지 않는 속성
     - Box model 관련 요소
     - position 관련 요소 등..
-- CSS 상속 여부는 MDN 문서에서 확인하기 
+- CSS 상속 여부는 MDN 문서에서 확인하기
   - MDN 각 속성별 문서 하단에서 상속여부 확인 가능
+
+# 2023 09 05 tuesday
+
+## CSS Layout
+
+- 각 요소의 위치와 크기를 조정하여 웹 페이지의 디자인을 결정하는 것
+- Display, Position, Float, Flexbox 등
+
+### CSS Box Model
+
+- 모든 HTML 요쇼를 사각형 박스로 표현하는 개념
+- 원이 아니라 네모 박스를 깎은 것
+- 박스 요소들로 구조화 된 웹 페이지
+
+#### 구성 요소
+
+- 내용(content), 안쪽 여백(padding), 테두리(border), 외부 간격(margin)으로 구성되는 개념
+- Margin
+  - 이 박스와 다른 요소 사이의 공백 가장 바깥쪽 영역
+- Border
+  - 콘텐츠와 패딩을 감싸는 테두리 영역
+- Padding
+  - 콘텐츠 주위에 위치하는 공백 영역
+- Content
+  - 콘텐츠가 표시되는 영역
+- width & height 속성
+  - 요소의 너비와 높이를 지정
+  - 이때 지정되는 요소의 너비와 높이는 콘텐츠 영역을 대상으로 함
+  - border가 아님 content의 크기를 width값으로 지정
+
+```html
+
+<!-- 1 -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box1 {
+      width: 200px;
+      padding-left: 25px;
+      padding-bottom: 25px;
+      border-width: 3px;
+      border-color: black;
+      border-style: solid;
+      margin-left: 25px;
+      margin-bottom: 50px;
+    }
+
+    .box2 {
+      width: 200px;
+      border: 3px black dashed;
+      /* margin-left: auto;
+      margin-right: auto; */
+      /* 상하/좌우 */
+      margin: 100px auto;
+      padding: 25px 50px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box1">box1</div>
+  <div class="box2">box2</div>
+</body>
+
+</html>
+
+
+<!-- 2 -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* * {
+      box-sizing: border-box;
+    } */
+    .box {
+      width: 100px;
+      border: 2px solid black;
+      padding: 10px;
+      margin: 20px;
+      background-color: yellow;
+    }
+
+    .content-box {
+      box-sizing: content-box;
+    }
+
+    .border-box {
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box content-box">content-box</div>
+  <div class="box border-box">border-box</div>
+</body>
+
+</html>
+
+
+```
+
+
+#### 박스 타입
+
+- Block & Inline
+  - block = 상하
+    - 항상 새로운 행으로 나뉨
+    - width와 height 속성을 사용하여 너비와 높이를 지정할 수 있음
+    - 기본적으로 width 속성을 지정하지 않으면 박스는 inline 방향으로 사용 가능한 공간을 모두 차지함(너비를 사용가능한 공간의 100%로 채우는 것)
+    - 대표적인 block타입 태그
+      - h1~6, p, div
+  - inline = 좌우 
+    - 새로운 행으로 나뉘지 않음
+    - width와 height 속성을 사용할 수 없음
+    - 수직 방향
+      - padding, margins, borders가 적용되지만 다른 요소를 밀어낼 수는 없음
+    - 수평 방향
+      - padding, margins, borders가 적용되어 다른 요소를 밀어낼 수 있음
+    - 대표적인 inline 타입 태그
+      - a, img, span
+- Normal flow
+  - CSS를 적용하지 않았을 경우 웹페이지 요소가 기본적으로 배치되는 방향
+
+#### 기타 display 속성
+
+- inline-block
+  - inline과 block 요소 사이의 중간 지점을 제공하는 display 값
+  - block 요소의 특징을 가짐
+  - 요소가 줄 바꿈 되는 것을 원하지 않으면서 너비와 높이를 적용하고 싶은 경우에 사용
+- none
+  - 요소를 화면에 표시하지 않고, 공간 조차 부여되지 않음
+
+### CSS Layout Position
+
+#### CSS Position
+
+- 요소를 Normal Flow에서 제거하여 다른 위치로 배치하는 것
+- 다른 요소 위에 올리기, 화면의 특정 위치에 고정시키기 등
+
+- Position 유형
+  - static 
+    - 기본값
+    - 요소를 Normal Flow에 따라 배치
+  - relative
+    - 요소를 Normal Flow에 따라 배치
+    - 자기 자신을 기준으로 이동
+    - 요소가 차지하는 공간은 static일 때와 같음
+  - absolute
+    - 요소를 Normal Flow에서 제거
+    - 가장 가까운 relative 부모 요소를 기준으로 이동
+    - 문서에서 요소가 차지하는 공간이 없어짐
+  - fixed
+    - 요소를 Normal Flow에서 제거
+    - 현재 화면영역을 기준으로 이동
+    - 문서에서 요소가 차지하는 공간이 없어짐
+  - sticky
+    - 요소를 Normal Flow에 따라 배치
+    - 요소가 일반적인 문서 흐름에 따라 배치되다가 스크롤이 특정 임계점에 도달하면 그 위치에서 고정됨
+    - 만약 다음 sticky 요소가 나오면 다음 sticky 요소가 이전 sticky 요소의 자리를 대체
+      - 이전 sticky 요소가 고정되어 있던 위치와 다음 sticky 요소가 고정되어야 할 위치가 겹치게 되기 때문
+
+### CSS Layout Flexbox
+
+- 요소를 행과 열 형태로 배치하는 1차원 레이아웃 방식
+- 공간 배열 & 정렬
+
+
+# 2023 09 06 wednesday
+
+## 
