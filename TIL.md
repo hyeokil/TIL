@@ -3090,4 +3090,85 @@ h1{
 
 # 2023 09 06 wednesday
 
-## 
+## Fundamentals of Bootstrap
+
+- Bootstrap
+- CSS 프론트엔드 프레임워크(Toolkit)
+- 미리만들어진 다양한 디자인 요소들을 제공하여 웹사이트를 빠르고 쉽게 개발할 수 있도록 함
+
+- bootstrap에는 특정한 규칙이 있는 클래스 이름으로 이미 스타일 및 레이아웃이 작성되어 있음
+
+### Typography
+
+- 제목, 본문 텍스트, 목록 등
+- display headings
+  - 기존 heading보다 더 눈에 띄는 제목이 필요할 경우(더 크고 약간 다른 스타일)
+- inline text elements
+  - html inline 요소에 대한 스타일
+- lists
+  - html list 요소에 대한 스타일
+
+### Colors 
+
+### Component
+
+- bootstrap에서 제공하는 UI 관련 요소
+  - 버튼, 네비게이션 바, 폼, 드롭다운 등
+
+- 대표 component 
+  - alerts
+  - badges
+  - buttons
+  - cards
+  - navbar
+
+- component 이점
+  - 일관된 디자인을 제공하여 웹 사이트의 구성 요소를 구축하는 데 유용하게 활용
+
+## Semantic Web
+
+- 웹 데이터를 의미론적으로 구조화된 형태로 표현하는 방식
+- 이 요소가 시각적으로 어떻게 보여질까? -> 이 요소가 가진 목적과 역할은 무엇일까?
+
+### Semantic in HTML
+
+- 문서의 최상위 제목
+  - 단순히 최상위 제목'처럼' 보이게 출력하는 것
+    - span style font-size 30px ...
+  - 페이지 최상위 제목 의미를 제공하는 semantic 요소 h1, 브라우저에 의해 제목처럼 보이도록 스타일이 지정됨
+    - h1
+
+### HTML Semantic Element
+
+- 기본적인 모양과 기능 이외의 의미를 가지는 HTML 요소
+- 검색 엔진 및 개발자가 웹 페이지 콘텐츠를 이해하기 쉽도록
+
+#### semantic element
+
+- header
+- nav
+- main
+- article
+- section
+- aside
+- footer
+
+### semantic in CSS
+
+- OOCSS
+  - 객체 지향적 접근법을 적용하여 CSS를 구성하는 방법론
+
+- CSS 방법론
+  - CSS를 효율적이고 유지 보수가 용이하게 작성하기 위한 일련의 가이드라인
+
+- OOCSS 기본 원칙
+  - 구조와 스킨을 분리
+  - 컨테이너와 콘텐츠를 분리
+
+
+
+
+
+
+  
+
