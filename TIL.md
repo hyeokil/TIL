@@ -3776,6 +3776,34 @@ print('Connection Closed.\n--------------------')
   - 분할 단계 : 전체 자료 집합에 대하여, 최소 크기의 부분집합이 될 때까지 분할 작업을 계속한다.
   - 병합 단계 : 2개의 부분집합을 정렬하면서 하나의 집합으로 병합
 
+```python
+
+def merge(l_lst, r_lst):
+    result = []
+    l_pos = r_pos = 0
+    while l_pos < len(l_lst) and r_pos < len(r_lst):
+        if l_lst[l_pos] < r_lst[r_pos] :
+            result.append(l_lst[l_pos])
+            l_pos += 1
+        else:
+            result.append(r_lst[r_pos])
+            r_pos += 1
+    result += l_lst[l_pos:]
+    result += r_lst[r_pos:]
+    return result
+
+def merge_sort(arr):
+    if len(arr) == 1:
+        return arr
+    mid = len(arr)//2
+    l_lst = merge_sort(arr[:mid])
+    r_lst = merge_sort(arr[mid:])
+    result = merge(l_lst,r_lst)
+    return result
+
+```
+
+
 ### 퀵 정렬
 
 - 주어진 배열을 두개로 분할하고, 각각을 정렬한다.
@@ -3785,7 +3813,7 @@ print('Connection Closed.\n--------------------')
 - 다른점2 : 각부분 정렬이 끝난 후, 병합정렬은 '병합'이란 후처리 작업이 필요하나, 퀵정렬은 필요로 하지 않는다.
 
 ```python
-
+# ver 1
 def quick_sort(arr):
     if len(arr) <= 1:
         return arr
@@ -3800,6 +3828,44 @@ def quick_sort(arr):
             equal_arr.append(num)
     return quick_sort(lesser_arr) + equal_arr + quick_sort(greater_arr)
 
+# ver 2
+def h_par(s,e):
+    p = s
+    i = s
+    j = e
+    while i<=j :
+        while i<=j and lst[i] <= lst[p]:
+            i += 1
+        while i<=j and lst[j] >= lst[p]:
+            j -= 1
+        if i<j :
+            lst[i], lst[j] = lst[j], lst[i]
+
+    lst[p], lst[j] = lst[j], lst[p]
+    return j
+
+def l_par(s,e):
+    p = e
+    i =s-1
+    for j in range(s,e):
+        if lst[j] <= lst[p]:
+            i += 1
+            lst[i], lst[j] = lst[j], lst[i]
+    lst[i+1], lst[p] = lst[p], lst[i+1]
+    return i+1
+
+def quick_sort(s,e):
+    if s>=e:
+        return -1
+    # pivot = h_par(s,e)
+    pivot = l_par(s,e)
+    quick_sort(s,pivot-1)
+    quick_sort(pivot+1,e)
+
+lst = [2,4,1,5,7,9,2]
+N = len(lst)
+quick_sort(0,N-1)
+print(lst)
 ```
 
 
