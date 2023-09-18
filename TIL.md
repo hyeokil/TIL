@@ -3739,3 +3739,141 @@ print('Connection Closed.\n--------------------')
 #### Delete
 
 # 2023 09 18 monday
+
+- 알고리즘 설계 기법의 종류
+  - 전체를 다 보기 (Brute Force - 완전 탐색)
+    - 배열 : 반복문 다 돌리기
+    - 그래프 : DFS, BFS
+  - 상황마다 좋은 걸 고르자 (Greedy - 탐욕)
+    - 규칙을 찾는 것
+    - 주의사항 : 항상 좋은 것을 뽑아도, 최종 결과가 제일 좋다 = 보장되지 않는다.
+  - 하나의 큰 문제를 작은 문제로 나누어 부분적으로 해결하자(Dynamic Programming)
+    - Memorization 기법 사용
+    - 점화식(bottom-up), 재귀(top-down)
+  - 큰 문제를 작은 문제로 쪼개서 해결하자(Divide and Conquer - 분할 정복)
+  - 전체 중, 가능성 없는 것을 빼고 보자(Backtracking - 백트래킹)
+    - 가지치기
+
+## 분할 정복 & 백트래킹
+
+- 설계 전략
+  - 분할 : 해결할 문제를 여러 개의 작은 부분으로 나눈다
+  - 정복 : 나눈 작은 문제를 각각 해결한다.
+  - 통합 : (필요하다면) 해결된 해답을 모은다
+
+- 반복 알고리즘 : O(n)
+- 분할 정복 비나 알고리즘 : O(log n)
+
+### 병합 정렬
+
+- 여러 개의 정렬된 자료의 집합을 병합하여 한 개의 정렬된 집합으로 만드는 방식
+- 분할 정복 알고리즘 활용
+  - 자료를 최소 단위의 문제까지 나눈 후에 차례대로 정렬하여 최종 결과를 얻어냄
+  - top-down 방식
+- 시간 복잡도 : O(n log n)
+
+- 병합 정렬 과정
+  - 분할 단계 : 전체 자료 집합에 대하여, 최소 크기의 부분집합이 될 때까지 분할 작업을 계속한다.
+  - 병합 단계 : 2개의 부분집합을 정렬하면서 하나의 집합으로 병합
+
+### 퀵 정렬
+
+- 주어진 배열을 두개로 분할하고, 각각을 정렬한다.
+  - 병합 정렬과 동일
+
+- 다른점1 : 병합 정렬은 그냥 두 부분으로 나누는 반면에, 퀵정렬은 분할할 때, 기준 아이템 중심으로, 이보다 작은것은 왼편, 큰것은 오른편에 위치 시킨다.
+- 다른점2 : 각부분 정렬이 끝난 후, 병합정렬은 '병합'이란 후처리 작업이 필요하나, 퀵정렬은 필요로 하지 않는다.
+
+```python
+
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr) // 2]
+    lesser_arr, equal_arr, greater_arr = [], [], []
+    for num in arr:
+        if num < pivot:
+            lesser_arr.append(num)
+        elif num > pivot:
+            greater_arr.append(num)
+        else:
+            equal_arr.append(num)
+    return quick_sort(lesser_arr) + equal_arr + quick_sort(greater_arr)
+
+```
+
+
+### 병합 정렬, 퀵 정렬 
+
+- 병합 정렬 
+  - 멀티쓰레드
+- 퀵 정렬
+  - 매우 큰 입력 데이터에 대해서 좋은 성능을 보인다
+- 둘다 직접 구현할 일은 적다, 과거 면접 단골 질문 + 분할 정복 학습에 좋다,
+그림 그려보기!
+
+## 이진 검색
+
+- 자료의 가운데에 있는 항목의 키 값과 비교하여 다음 검색의 위치를 결정하고 검색을 계속 진행하는 방법
+  - 목적 키를 찾을 때까지 이진 검색을 순환적으로 반복 수행함으로써 검색 범위를 반으로 줄여가면서 보다 빠르게 검색을 수행함
+- 이진 검색을 위해서는 자료가 정렬된 상태여야 한다.
+
+### 검색 과정
+
+1. 자료의 중앙에 있는 원소를 고른다.
+2. 중앙 원소의 값과 찾고자 하는 목표 값을 비교한다.
+3. 목표 값이 중앙 원소의 값보다 작으면 자료의 왼쪽 반에 대해서 새로 검색을 수행하고, 크다면 자료의 오른쪽 반에 대해서 새로 검색을 수행한다.
+4. 찾고자 하는 값을 찾을 때까지 1~3의 과정을 반복한다.
+
+```python
+
+arr = [2,4,7,9,11,19,23]
+
+arr.sort()
+def binarySearch(target):
+    low = 0
+    high = len(arr) - 1
+
+    # low > high 라면 데이터를 못찾은 경우
+    while low <= high :
+        mid = (low+high) // 2
+
+        # 1. 가운데 값이 정답인 경우
+        if arr[mid] == target :
+            return mid
+        # 2. 가운데 값이 정답 보다 작은 경우
+        elif arr[mid] < target :
+            low = mid +1
+        # 3. 가운데 값이 정답 보다 큰 경우
+        else:
+            high = mid - 1
+
+    return '데이터 없음'
+
+# 재귀
+
+# 함수 한번 호출 때 마다 low, hig 변수가 바뀌어서 사용됨
+def binarySearch1(low, high, target):
+    # 기저 조건 : 언제까지 재귀호출을 반복할 것인가?
+    # low > high 라면 데이터를 못찾음
+    if low > high :
+        return -1
+
+    mid = (low + high) // 2
+
+    # 1. 가운데 값이 정답인 경우
+    if target == arr[mid]:
+        return mid
+    # 2. 가운데 값이 정답 보다 작은 경우
+    elif arr[mid] < target:
+        return binarySearch1(mid + 1, high, target)
+    # 3. 가운데 값이 정답 보다 큰 경우
+    elif arr[mid] > target:
+        return binarySearch1(low , mid - 1, target)
+
+print(f'9 = {binarySearch1(0, len(arr) - 1, 9)}')
+
+```
+
+# 2023 09 19 tuesday
+
