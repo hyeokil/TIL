@@ -3022,7 +3022,6 @@ h1{
 
 ```
 
-
 #### 박스 타입
 
 - Block & Inline
@@ -3032,7 +3031,7 @@ h1{
     - 기본적으로 width 속성을 지정하지 않으면 박스는 inline 방향으로 사용 가능한 공간을 모두 차지함(너비를 사용가능한 공간의 100%로 채우는 것)
     - 대표적인 block타입 태그
       - h1~6, p, div
-  - inline = 좌우 
+  - inline = 좌우
     - 새로운 행으로 나뉘지 않음
     - width와 height 속성을 사용할 수 없음
     - 수직 방향
@@ -3061,7 +3060,7 @@ h1{
 - 다른 요소 위에 올리기, 화면의 특정 위치에 고정시키기 등
 
 - Position 유형
-  - static 
+  - static
     - 기본값
     - 요소를 Normal Flow에 따라 배치
   - relative
@@ -3087,7 +3086,6 @@ h1{
 - 요소를 행과 열 형태로 배치하는 1차원 레이아웃 방식
 - 공간 배열 & 정렬
 
-
 # 2023 09 06 wednesday
 
 ## Fundamentals of Bootstrap
@@ -3108,14 +3106,14 @@ h1{
 - lists
   - html list 요소에 대한 스타일
 
-### Colors 
+### Colors
 
 ### Component
 
 - bootstrap에서 제공하는 UI 관련 요소
   - 버튼, 네비게이션 바, 폼, 드롭다운 등
 
-- 대표 component 
+- 대표 component
   - alerts
   - badges
   - buttons
@@ -3165,7 +3163,6 @@ h1{
   - 구조와 스킨을 분리
   - 컨테이너와 콘텐츠를 분리
 
-
 # 2023 09 07 thursday
 
 ## Bootstrap Grid system
@@ -3193,7 +3190,6 @@ h1{
 
 - 웹 페이지를 다양한 화면 크기에서 적절하게 배치하기 위한 분기점
 - 화면 너비에 따라 6개의 분기점 제공
-
 
 # 2023 09 08 friday
 
@@ -3440,7 +3436,7 @@ print('Connection Closed.\n--------------------')
   - python 기반의 대표적인 웹 프레임 워크
 
 - 클라이언트와 서버
-  - 웹의 동작 방식 
+  - 웹의 동작 방식
     - 우리가 컴퓨터 혹은 모바일 기기로 웹 페이지를 보게 될 때까지 무슨 일이 일어날까?
   - 클라이언트
     - 서비스를 요청하는 주체
@@ -3491,7 +3487,7 @@ print('Connection Closed.\n--------------------')
       - django-admin startproject firstpjt .
       - 여기서 . 은 현재 디렉토리를 의미함
   - 가상환경을 사용하는 이유
-    - 의존성 관리 
+    - 의존성 관리
       - 라이브러리 및 패키지를 각 프로젝트마다 독립적으로 사용 가능
     - 팀 프로젝트 협업
        모든 팀원이 동일한 환경과 의존성 위에서 작업하여 버전간 충돌 방지
@@ -3593,7 +3589,7 @@ print('Connection Closed.\n--------------------')
     - 반드시 템플릿 최상단에 작성 필요 (2개 이상 불가)
   - 'block'tag
     - 하위 템플릿에서 재정의 할 수 있는 블록을 정의
-    - 하위 템플릿이 작성할 수 있는 공간을 지정 
+    - 하위 템플릿이 작성할 수 있는 공간을 지정
 
 #### HTML form(요청과 응답)
 
@@ -3603,15 +3599,14 @@ print('Connection Closed.\n--------------------')
 - 'form'element
   - 사용자로 부터 할당된 데이터를 서버로 전송
   - 웹에서 사용자 정보를 입력하는 여러방식(text, password, checkbox 등)을 제공
-- 'action' & 'method' 
+- 'action' & 'method'
   - 데이터를 어디(action)로 어떤 방식(method)으로 요청할지
-  - action 
+  - action
     - 입력 데이터가 전송될 URL을 지정 (목적지)
     - 만약 이 속성을 지정하지 않으면 데이터는 현재 form이 있는 페이지의 URL로 보내짐
   - method
     - 데이터를 어떤 방식으로 보낼 것인지 정의
     - 데이터의 HTTP request methods (GET, POST)를 지정
-
 
 ### Django URLs
 
@@ -3706,7 +3701,7 @@ print('Connection Closed.\n--------------------')
   - 원하는 데이터를 얻기 위해 데이터베이스에 요청을 보낼 코드를 작성한다.
 - 파이썬으로 작성한 코드가 ORM에 의해 SQL로 변환되어 데이터베이스에 전달되며, 데이터베이스의 응답 데이터를 ORM이 QuerySet이라눈 자료 형태로 변환하여 우리에게 전달
 
-#### QuerySet 
+#### QuerySet
 
 - 데이터베이스에게서 전달 받은 객체 목록(데이터 모음)
   - 순회가 가능한 데이터로써 1개 이상의 데이터를 불러와 사용할 수 있음
@@ -3803,7 +3798,6 @@ def merge_sort(arr):
 
 ```
 
-
 ### 퀵 정렬
 
 - 주어진 배열을 두개로 분할하고, 각각을 정렬한다.
@@ -3868,10 +3862,9 @@ quick_sort(0,N-1)
 print(lst)
 ```
 
+### 병합 정렬, 퀵 정렬
 
-### 병합 정렬, 퀵 정렬 
-
-- 병합 정렬 
+- 병합 정렬
   - 멀티쓰레드
 - 퀵 정렬
   - 매우 큰 입력 데이터에 대해서 좋은 성능을 보인다
@@ -3943,3 +3936,157 @@ print(f'9 = {binarySearch1(0, len(arr) - 1, 9)}')
 
 # 2023 09 19 tuesday
 
+## 백트래킹
+
+- 여러가지 옵션들이 존재하는 상황에서 한가지를 선택한다.
+- 선택이 이루어지면서 새로운 선택지들의 집합이 생성된다.
+- 이런 선택을 반복하면서 최종상태에 도달한다.
+  - 올바른 선택을 계속하면 목표 상태에 도달한다.
+
+### 당첨 리프 노드 찾기
+  
+- 루트에서 갈 수 있는 노드를 선택
+- 꽝 노드까지 도달하면 최근의 선택으로 되돌아와서 다시 시작
+- 더 이상의 선택지가 없다면 이전의 선택지로 돌아가서 다른 선택을 한다.
+- 루트까지 돌아갔을 경우 더 이상 선택지가 없다면 답이 없다.
+
+### 백트래킹과 DFS의 차이
+
+- 어떤 노드에서 출발하는 경로가 해결책으로 이어질 것 같지 않으면 더 이상 그 경로를 따라가지 않음으로 시도의 횟수를 줄임(Prunning 가지치기)
+- DFS가 모든 경로를 추적하는데 비해 백트래킹은 불필요한 경로를 조기에 차단
+- DFS를 가하기에는 경우의 수가 너무나 많음 즉 N! 가지의 경우의 수를 가진 문제에 대해 DFS를 가하면 당연히 처리 불가
+- 백트래킹 알고리즘을 적용하면 일반적으로 경우의 수가 줄어들지만 이 역시 최악의 경우에는 여전히 지수함수 시간을 요하므로 처리 불가능
+
+### 8-Queens 문제
+
+- 퀸 8 개를 체스판 안에 서로를 공격할 수 없도록 배치하는 모든 경우의 수를 구하라
+
+- 후보 해의 수
+  - 64C8
+  - 64!/8!(64-8)!
+  - 약 44억
+
+- 실제 해의 수
+  - 이 중에 실제 해는 92개 뿐
+
+- 즉 44억개가 넘는 후보 해의 수 속에서 92개를 최대한 효율적으로 찾아내는 것이 관건
+
+### 백트래킹의 기본 구조
+
+- def
+- 재귀를 끝내는 기저 조건
+- 가지치기
+- 반복문
+  - 가지치기
+  - 재귀들어가기전
+  - 재귀함수 호출
+  - 돌아와서 초기화
+
+## 트리
+
+- 사이클이 없는 연결 그래프
+  - 사이클
+  - 연결 그래프 : 모든 꼭지점이 서로 갈수있다
+
+- 이진 트리
+  - 자녀 노드가 둘 이하인 트리
+  - 이진 트리 종류
+    - 완전 이진 트리
+      - 마지막 레벨을 제외한 모든 레벨은 꽉 차있어야 함.
+      - 마지막 레벨 노드는 왼쪽부터 채워져야한다.
+    - 포화 이진 트리
+      - 모든 레벨이 꽉 차있는 것
+    - 나머지 이진 트리
+  - 순회방법
+  - 트리 저장 방법
+
+```python
+
+arr = [1,2, 1,3, 2,4, 3,5, 3,6]
+
+# 이진 트리 만들기
+nodes =[[] for _ in range(14)]
+for i in range(0,len(arr), 2):
+    parentNode = arr[i]
+    childNode = arr[i + 1]
+    nodes[parentNode].append(childNode)
+
+# 자식이 더 이상 없다는 걸 표시하기 위해 None 을 삽입
+for li in nodes :
+    for _ in range(len(li),2):
+        li.append(None)
+
+def preorder(nodeNumber):
+    if nodeNumber == None :
+        return
+    print(nodeNumber, end = ' ')
+    preorder(nodes[nodeNumber][0])
+    # print(nodeNumber, end= ' ')
+    preorder(nodes[nodeNumber][1])
+    # print(nodeNumber, end=' ')
+
+preorder(1)
+
+```
+
+## 힙
+
+- 최대 힙
+  - 키 값이 가장 큰 노드를 찾기 위한 완전 이진 트리
+  - 부모 노드의 키 값 > 자식 노드의 키 값
+  - 루트 노드 : 키값이 가장 큰 노드
+- 최소 힙
+  - 키 값이 가장 작은 노드를 찾기 위한 완전 이진 트리
+  - 부모 노드의 키 값 < 자식 노드의 키값
+  - 루트 노드 : 키값이 가장 작은 노드
+
+```python
+
+def enque(item):
+    global hsize
+
+    hsize += 1
+    Tree[hsize] = item
+
+    c = hsize
+    p = c//2
+
+    while p and Tree[p] < Tree[c]:
+        Tree[p], Tree[c] = Tree[c], Tree[p]
+        c = p
+        p = c//2
+
+def deque():
+    global hsize
+    result =Tree[1]
+    Tree[1] = Tree[hsize]
+    hsize -= 1
+
+    p=1
+    c=p*2
+
+    while c<=hsize :
+        if c+1 <= hsize and Tree[c] < Tree[c+1] :
+            c= c+1
+        if Tree[p] < Tree[c] :
+            Tree[p], Tree[c] = Tree[c], Tree[p]
+            p = 1
+            c = p*2
+        else:
+            break
+    return result
+
+Tree = [0, 20 , 15, 19,4 ,13, 11]
+Tree += [0]*100
+hsize= 6
+enque(23)
+enque(17)
+# print(Tree)
+
+print(deque())
+print(Tree)
+
+
+```
+
+# 2023 09 20 wednesday
