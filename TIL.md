@@ -4381,6 +4381,58 @@ dijk(0)
 ```
 
 
-# 2023 09 22 friday
+# 2023 09 25 monday
 
-##
+## Django ORM with view
+
+### Read
+
+- 전체 게시글 조회
+- 단일 게시글 조회
+
+### Create
+
+- Create 로직을 구현하기 위해 필요한 view 함수의 개수
+  - 사용자 입력 데이터를 받을 페이지를 렌더린 
+    - new
+  - 사용자가 입력한 데이터를 받아 DB에 저장 
+    - create
+  
+  
+### HTTP request methods
+
+- HTTP 
+  - 네트워크상에서 데이터를 주고 받기 위한 약속
+- HTTP request methods
+  - 데이터에 어떤 요청을 원하는지를 나타내는 것
+  - GET & POST
+    - GET
+      - 특정 리소스를 조회하는 요청
+      - GET으로 데이터를 전달하면 Query String 형식으로 보내짐
+    - POST
+      - 특정 리소스에 변경(생성, 수정, 삭제)을 요구하는 요청
+      - POST로 데이터를 전달하면 HTTP Body에 담겨 보내짐
+- HTTP response status code
+  - 특정 HTTP 요청이 성공적으로 완료되었는지를 3자리 숫자로 표현하기로 약속한 것
+  - 404 Forbidden
+    - 서버에 요청이 전달되었지만, 권한 때문에 거절되었다는 것을 의미
+    - CSRF
+      - 사이트간 요청 위조
+    - CSRF Token 적용
+      - DTL의 csrf_token 태그를 사용해 사용자에게 토큰 값을 부여
+
+- redirect
+  - 게시글 작성 후 완료를 알리는 페이지를 응답하는 것
+  - 사용자가 GET 요청을 한번 더 보내도록 해야한다.
+  - 클라이언트가 인자에 작성된 주소로 다시 요청을 보내도록 하는 함수
+
+
+### Delete
+
+
+### Update
+
+# 2023 09 26 tuesday
+
+# 2023 09 27 monday
+
