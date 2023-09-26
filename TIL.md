@@ -4429,10 +4429,63 @@ dijk(0)
 
 ### Delete
 
-
 ### Update
 
 # 2023 09 26 tuesday
 
-# 2023 09 27 monday
+## Django Form
+
+- HTML 'form'
+  - 지금까지 사용자로부터 데이터를 받기위해 활용한 방법 그러나 비정상적 혹은 악의적인 요청을 필터링 할 수 없음
+  - 유효한 데이터인지 확인 필요
+
+- 사용자 입력데이터를 수집하고, 처리 및 유효성 검사를 수행하기 위한 도구
+- 유효성 검사를 단순화하고 자동화 할 수있는 기능을 제공
+
+### 유효성 검사
+
+- 수집한 데이터가 정확하고 유효한지 확인하는 과정
+
+- 유효성 검사를 구현하기 위해서는 입력 값, 형식, 중복, 범위, 보안 등 많은 것들을 고려해야 함
+- 이런 과정과 기능을 직접 개발하는 것이 아닌 Django가 제공하는 Form을 사용
+
+### Form Class
+
+### Widgets
+
+- HTML 'input' element의 표현을 담당
+
+### Django ModelForm 
+
+- Form
+  - 사용자 입력 데이터를 DB에 저장하지 않을 때
+  - ex. 로그인
+
+- ModelForm
+  - 사용자 입력 데이터를 DB에 저장해야 할 때
+  - ex. 게시글, 회원가입
+  - Model과 연결된 Form을 자동으로 생성해주는 기능을 제공
+  - Form + Model
+
+- Meta class 
+  - ModelForm의 정보를 작성하는 곳
+  - fields , exclude 속성
+  - exclude 속성을 사용하여 모델에서 포함하지 않을 필드를 지정할 수도 있음
+
+- 정리
+  - 사용자로부터 데이터를 수집하고 처리하기 위한 강력하고 유연한 도구
+  - HTML form의 생성, 데이터 유효성 검사 및 처리를 쉽게 할 수 있도록 도움
+
+## Handling HTTP requests
+
+### view 함수 구조 변화
+
+- new & create view 함수간 공통점과 차이점
+  - 공통점 
+    - 데이터 생성을 구현하기 위함
+  - 차이점
+    - new는 GET method 요청만을, create는 POST method 요청만을 처리
+    
+
+# 2023 09 27 wednesday
 
