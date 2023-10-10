@@ -4640,5 +4640,200 @@ dijk(0)
   - CustomUserChangeForm에서 접근 가능한 필드를 조정
 
 
-# 2023 10 06 friday
+# 2023 10 10 tuesday
+
+## SQL 1
+
+### Database
+
+- 체계적인 데이터 모음
+
+- 데이터
+  - 저장이나 처리에 효율적인 형태로 변환된 정보
+  - 전세계 모든 데이터의 약 90%는 2015년 이후에 생성된것
+
+- 데이터를 저장하고 잘 관리하여 활용할 수 있는 기술이 중요해짐
+
+- 기존의 데이터 저장 방식
+  - 파일
+    - 어디서나 쉽게 사용가능
+    - 구조적인 관리의 어려움
+  - 스프레드 시트
+    - 테이블의 열과 행을 사용해 구조적으로 관리 가능
+    - 한계 
+      - 크기
+      - 보안
+      - 정확성
+
+### Relational Database
+
+- 데이터 베이스의 역할
+  - 데이터를 저장하고 조작
+- 관계형 데이터베이스
+  - 데이터간에 관계가 있는 데이터 항목들의 모음
+  - 테이블, 행, 열의 정보를 구조화하는 방식
+  - 서로 관련된 데이터 포인터를 저장하고 이에 대한 액세스를 제공
+
+- Table (Rekation)
+  - 데이터를 기록하는 곳
+- Field (Column, Attribute)
+  - 각 필드에는 고유한 데이터 타입이 지정됨
+- Record (Row, Tuple)
+  - 각 레코드에는 구체적인 데이터 값이 지정됨
+- Database (Schema)
+  - 테이블의 집합
+- Primary Key (기본 키)
+  - 각 레코드의 고유한 값
+- Foreign Key (외래 키)
+  - 각 레코드에서 서로 다른 테이블 간의 관계를 만드는데 사용
+
+
+### SQL
+
+- 데이터베이스에 정보를 저장하고 처리하기 위한 프로그래밍 언어
+
+- SQL 키워드는 대소문자 구분하지 않음 (하지만 대문자 작성 권장)
+- 각 SQL Statements의 끝에는 세미콜론이 필요
+
+- DDL
+  - 데이터의 기본 구조 및 형식 변경
+- DQL
+  - 데이터 검색
+- DML
+  - 데이터 조작
+- DCL
+  - 데이터 및 작업에 대한 사용자 권한 제어
+
+- Query
+  - 데이터베이스로부터 정보를 요청하는 것
+
+- SELECT syntax
+  - SELECT select_list FROM table_name;
+
+```sql
+
+-- 01. Querying data
+SELECT LastName 
+FROM employees;
+
+SELECT LastName, FirstName 
+FROM employees;
+
+SELECT * 
+FROM employees;
+
+SELECT FirstName AS '이름' 
+FROM employees;
+
+SELECT Name, Milliseconds/60000 '재생 시간(분)'
+FROM tracks;
+
+-- 02. Sorting data
+SELECT FirstName
+FROM employees
+ORDER BY FirstName ASC;
+
+SELECT FirstName
+FROM employees
+ORDER BY FirstName DESC;
+
+SELECT Country,City
+FROM customers
+ORDER By Country DESC, City ASC;
+
+SELECT Name,Milliseconds/6 0000 '재생 시간(분)'
+FROM tracks
+ORDER BY Milliseconds DESC;
+
+-- NULL 정렬 예시
+SELECT ReportsTo 
+FROM employees
+ORDER BY ReportsTo;
+
+-- 03. Filtering data
+SELECT DISTINCT Country
+FROM customers
+ORDER BY Country;
+
+SELECT LastName, FirstName, City
+FROM customers
+WHERE City = 'Prague';
+
+SELECT LastName, FirstName, Company, Country
+FROM customers
+WHERE
+ Company IS NULL
+ AND Country = 'USA';
+
+SELECT LastName, FirstName, Company, Country
+FROM customers
+WHERE
+ Company IS NULL
+ OR Country = 'USA';
+
+SELECT Name,Bytes
+FROM tracks
+WHERE
+ Bytes BETWEEN 100000 AND 500000;
+
+SELECT Name,Bytes
+FROM tracks
+WHERE
+ Bytes BETWEEN 100000 AND 500000
+ORDER BY Bytes;
+
+SELECT LastName, FirstName, Country
+FROM customers
+WHERE
+ Country IN 
+ ('Canada', 'Germany', 'France');
+
+SELECT LastName, FirstName
+FROM customers
+WHERE LastName LIKE '%son';
+
+SELECT LastName, FirstName
+FROM customers
+WHERE FirstName LIKE '___a';
+
+SELECT TrackId, Name,Bytes
+FROM tracks
+ORDER BY Bytes DESC
+LIMIT 7;
+
+SELECT TrackId, Name,Bytes
+FROM tracks
+ORDER BY Bytes DESC
+LIMIT 3, 4;
+
+
+-- 04. Grouping data
+SELECT Country, COUNT(*)
+FROM customers
+GROUP BY Country;
+
+SELECT Composer, AVG(Bytes)
+FROM tracks
+GROUP BY Composer
+ORDER BY AVG(Bytes) DESC;
+
+
+-- 에러
+SELECT Composer,
+ AVG(Milliseconds/60000) AS avgOFMinute
+FROM tracks
+WHERE avgOFMinute < 10
+GROUP BY Composer;
+
+
+-- 에러 해결
+SELECT Composer,
+ AVG(Milliseconds/60000) AS avgOFMinute
+FROM tracks
+GROUP BY Composer
+HAVING avgOFMinute < 10;
+```
+
+
+### Single Table Queries
 
