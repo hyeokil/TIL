@@ -4837,3 +4837,164 @@ HAVING avgOFMinute < 10;
 
 ### Single Table Queries
 
+
+# 2023 10 11 wednesday
+
+## Many to one relationships 1
+
+- 한테이블의 0개 이상의 레코드가 다른 테이블의 레코드 한 개와 관련된 관계
+- comment-article
+  - 0개 이상의 댓글은 1개의 게시글에 작성 될 수 있다.
+  - comment(N)-article(1)
+
+- ForeignKey()
+  - N:1 관계 설정 모델 필드
+
+- 역참조
+  - N:1 관계에서 1 에서 N 을 참조하거나 조회하는 것
+  - 예시
+    - article.comment_set.all()
+- related manager
+  - N:1 혹은 M:N 관계에서 역참조 시에 사용하는 매니저
+  - objects 매니저를 통해 queryset api를 사용했던것 처럼
+  - related 매니저를 통해 queryset api를 사용
+
+### 댓글 create 구현
+
+- forms.py 
+
+```python
+
+from .models import Article, Comment
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('content',)
+
+```
+
+- urls.py
+
+```python
+
+path('<int:pk>/comments/', views.comments_create, name='comments_create'),
+
+```
+
+- views.py
+
+```python
+
+def detail(request, pk):
+    article = Article.objects.get(pk=pk)
+    comment_form = CommentForm()
+    # 특정 게시글의 모든 댓글을 조회(역참조)
+    comments = article.comment_set.all()
+    context = {
+        'article': article,
+        'comment_form':comment_form,
+        'comments': comments,
+    }
+    return render(request, 'articles/detail.html', context)
+
+def comments_create(request,pk):
+    # 게시글 조회
+    article = Article.objects.get(pk=pk)
+    # CommentForm으로 사용자로 부터 데이터를 입력 받음
+    comment_form = CommentForm(request.POST)
+    if comment_form.is_valid():
+        comment = comment_form.save(commit=False)
+        comment.article = article
+        comment_form.save()
+        return redirect('articles:detail', article.pk)
+    context = {
+        'article':article,
+        'comment_form': comment_form,
+    }
+    return render(request, 'articles/detail.html', context)
+
+```
+
+- detail.html
+
+```html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h2>DETAIL</h2>
+  <h3>{{ article.pk }} 번째 글</h3>
+  <hr>
+  <p>제목: {{ article.title }}</p>
+  <p>내용: {{ article.content }}</p>
+  <p>작성 시각: {{ article.created_at }}</p>
+  <p>수정 시각: {{ article.updated_at }}</p>
+  <hr>
+  <a href="{% url "articles:update" article.pk %}">UPDATE</a>
+  <form action="{% url "articles:delete" article.pk %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="삭제">
+  </form>
+  <hr>
+  <h4>댓글 목록</h4>
+  <ul>
+    {% for comment in comments %}
+      <li>{{ comment.content }}</li>
+    {% endfor %}
+  </ul>
+  <hr>
+  <form action="{% url "articles:comments_create" article.pk %}" method="POST">
+    {% csrf_token %}
+    {{ comment_form }}
+    <input type="submit">
+  </form>
+  <hr>
+  <a href="{% url "articles:index" %}">[back]</a>
+</body>
+</html>
+
+
+```
+
+### 댓글 delete 구현
+
+- urls.py
+
+```python
+
+ path('<int:article_pk>/comments/<int:comment_pk>/delete/',
+         views.comments_delete,
+         name= 'comments_delete'),
+
+```
+
+- views.py
+
+```python
+
+def comments_delete(request, article_pk, comment_pk):
+    # 댓글 조회
+    comment = Comment.objects.get(pk = comment_pk)
+    comment.delete()
+    return redirect('articles:detail', article_pk)
+
+```
+
+- detail.html
+
+```html
+
+ <form action="{% url "articles:comments_delete" article.pk comment.pk %}" method="POST" >
+          {% csrf_token %}
+          <input type="submit" value="삭제">
+        </form>
+
+```
+
+# 2023 10 12 thursday
