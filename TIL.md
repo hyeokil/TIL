@@ -5035,3 +5035,49 @@ def comments_delete(request, article_pk, comment_pk):
 
 
 # 2023 10 16 monday
+
+## Many to many relationships 1
+
+- 한 테이블의 0개 이상의 레코드가 다른 테이블의 0개 이상의 레코드와 관련된 경우
+- 양쪽 모두에서 N:1 관계를 갖음
+
+### N:1의 한계 상황
+
+- 1번 환자가 두의사에게 모두 진료를 받고자한다면 환자 테이블에 1번환자 데이터가 중복으로 입력됨
+
+### 중계모델 생성
+
+- 예약정보를 담는 모델 생성
+
+- django에서는 ManyToManyField로 중계모델을 자동으로 생성
+
+- 만약 예약 정보에 증상,예약일 등 추가 정보가 포함되어야 한다면
+
+```python
+
+class Reservation(models.Model):
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    symptom = models.TextField()
+    reserved_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.doctor.pk}번 의사의 {self.patient.pk}번 환자'
+
+```
+
+- 역참조시 사용하눈 manager name을 변경
+
+```python
+
+class Patient(models.Model):
+    # ManyToManyField - related_name 작성
+    doctors = models.ManyToManyField(Doctor, related_name='patients')
+    name = models.TextField()
+
+
+```
+
+# 2023 10 17 tuesday
+
+##
