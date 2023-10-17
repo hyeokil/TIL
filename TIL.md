@@ -5080,4 +5080,74 @@ class Patient(models.Model):
 
 # 2023 10 17 tuesday
 
-##
+## Many to many relationships 2
+
+### 팔로우 기능 구현
+
+- models.py
+
+```python
+
+class User(AbstractUser):
+    followings = models.ManyToManyField('self', symmetrical=False, related_name='followers')
+
+```
+
+- urls.py
+
+```python
+
+path('<int:user_pk>/follow/', views.follow, name='follow'),
+
+```
+
+- views.py
+
+```python
+
+def follow(request, user_pk):
+    User = get_user_model()
+    you = User.objects.get(pk=user_pk)
+    me = request.user
+    
+    if me != you:
+        # 내가 상대방의 팔로워 목록에 있다면
+        if me in you.followers.all():
+            # 팔로우 취소
+            you.followers.remove(me)
+            # me.followings.remove(you)
+        else:
+            you.followers.add(me)
+            # me.followings.add(you)
+    return redirect('accounts:profile', you.username)
+
+
+```
+
+- profile.html
+
+```html
+
+<div>
+    <div>
+      팔로잉 : {{ person.followings.all|length }} / 팔로워 : {{ person.followers.all|length }}
+    </div>
+    {% if request.user != person %}
+      <div>
+        <form action="{% url "accounts:follow" person.pk %}" method="POST">
+          {% csrf_token %}
+          {% if request.user in person.followers.all %}
+            <input type="submit" value="Unfollow">
+          {% else %}
+            <input type="submit" value="Follow">
+          {% endif %}
+        </form>
+      </div>
+    {% endif %}
+  </div>
+
+```
+
+# 2023 10 18 wednesday
+
+## 
