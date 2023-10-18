@@ -5150,4 +5150,157 @@ def follow(request, user_pk):
 
 # 2023 10 18 wednesday
 
+## Django REST framwork 1
+
+### REST API
+
+- REST라는 설계 디자인 약속을 지켜 구현한 API
+
+- API
+  - 애플리케이션과 프로그래밍으로 소통하는 방법
+  - 클라이언트-서버처럼 서로 다른 프로그램에서 요청과 응답을 받을 수 있도록 만든 체계
+
+- Web API
+  - 웹 서버 또는 웹 브라우저를 위한 API
+  - 현대 웹 개발은 하나부터 열까지 직접 개발하기보다 여러 Open API 들을 활용하는 추세
+  - 대표적인 Third Party Open API
+    - Youtube API
+    - Google Map API
+    - Naver Papago API
+    - Kakao Map API
+
+- REST
+  - API Server를 개발하기 위한 일종의 소프트웨어 설계 방법론 "약속(규칙X)"
+
+- RESTful API
+  - REST 원리를따르는 시스템을 RESTful 하다고 부름
+  - 자원을 정의하고 자원에 대한 주소를 지정하는 전반적인 방법을 서술
+
+#### RESR에서 자원을 정의하고 주소를 지정하는 방법
+
+- 자원의 식별
+  - URL
+    - 웹에서 주어진 리소스의 주소
+    - 네트워크 상에 리소스가 어디있는지를 알려주기 위한 약속
+  - URI
+    - 인터넷에서 리소스를 식별하는 문자열
+    - 가장 일반적인 URI는 웹 주소로 알려진 URL
+
+- 자원의 행위
+  - HTTP Methods
+  - HTTP Request Mehods
+    - 리소스에 대한 행위를 정의
+    - HTTP verbs 라고도 함
+    - GET, POST, PUT, DELETE 등등..
+- 자원의 표현
+  - JSON 데이터
+  - 궁극적으로 표현되는 데이터 결과물
+
+
+### DRF
+
+- Django REST framework
+- 장고에서 Restful API 서버를 쉽게 구축할 수 있도록 도와주는 오픈소스 라이브러리
+
+- Serialization
+  - 직렬화
+  - 여러 시스템에서 활용하기 위해 데이터 구조나 객체 상태를 나중에 재구성할 수 있는 포맷으로 변환하는 과정
+
+### DRF with Single Model
+
+- serializers.py
+
+```python
+
+from rest_framework import serializers
+from .models import Article
+
+
+class ArticleListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Article
+        fields = ('id', 'title', 'content',)
+
+
+class ArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Article
+        fields = '__all__'
+
+
+```
+
+- urls.py
+
+```python
+
+from django.urls import path
+from articles import views
+
+
+urlpatterns = [
+    path('articles/', views.article_list),
+    path('articles/<int:article_pk>/', views.article_detail),
+]
+
+```
+
+- views.py
+
+```python
+
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import status
+from .models import Article
+from .serializers import ArticleListSerializer, ArticleSerializer
+
+
+@api_view(['GET', 'POST'])
+def article_list(request):
+    if request.method == 'GET':
+        articles = Article.objects.all()
+        serializer = ArticleListSerializer(articles, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = ArticleSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'DELETE', 'PUT'])
+def article_detail(request, article_pk):
+    article = Article.objects.get(pk=article_pk)
+
+    if request.method == 'GET':
+        serializer = ArticleSerializer(article)
+        return Response(serializer.data)
+
+    elif request.method == 'DELETE':
+        article.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    elif request.method == 'PUT':
+        serializer = ArticleSerializer(article, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+```
+
+# 2023 10 19 day
+
+## 
+
+# 2023 10 20 day
+
+## 
+
+# 2023 10 18 day
+
 ## 
