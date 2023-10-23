@@ -5452,10 +5452,160 @@ class ArticleSerializer(serializers.ModelSerializer):
   - RESTful API를 설명하고 시각화하는 표준화 방법
 
 
-# 2023 10 20 day
+# 2023 10 23 monday
 
-## 
+## Introductrion of javascript
 
-# 2023 10 18 day
+- 웹의 탄생
+- 웹 브라우저의 대중화
+- javascript의 탄생 
+- 파편화
+
+### ECMAScript
+
+- Ecma International이 정의하고 있는 표준화된 스크립트 프로그래밍 언어 명세
+- 스크립트 언어가 준수해야하는 규칙, 세부사항 등을 제공
+- 자바 스크립트는 ECMAScript 표준을 구현한 구체적인 프로그래밍 언어
+- ECMAScript의 명세를 기반으로 웹 브라우저나 Node.js와 같은 환경에서 실행됨
+
+## JavaScript and DOM
+
+- 웹 브라우저에서의 JavaScript
+  - 웹 페이지의 동적인 기능을 구현
+
+### DOM
+
+- 웹 페이지를 구조화된 객체로 제공하여 프로그래밍 언어가 페이지 구조에 접근할 수 있는 방법을 제공
+- 문서 구조, 스타일, 내용 등을 변경할 수 있도록 함
+
+- DOM에서 모든 요소, 속성, 텍스트는 하나의 객체
+- 모두 document 객체의 자식으로 구성됨
+
+- 핵심
+  - 문서의 요소들을 객체로 제공하여 다른 프로그래밍 언어에서 접근하고 조작할 수 있는 방법을 제공하는 API
+
+```html
+
+<!-- 선택, 출력 -->
+
+<body>
+  <h1 class="heading">DOM 선택</h1>
+  <a href="https://www.google.com/">google</a>
+  <p class="content">content1</p>
+  <p class="content">content2</p>
+  <p class="content">content3</p>
+  <ul>
+    <li>list1</li>
+    <li>list2</li>
+  </ul>
+  <script>
+    console.log(document.querySelector('.heading'))
+    console.log(document.querySelector('.content'))
+    console.log(document.querySelectorAll('.content'))
+    console.log(document.querySelectorAll('ul > li'))
+  </script>
+</body>
+
+
+
+<!-- style 적용 -->
+
+<body>
+  <h1 class="heading">DOM 선택</h1>
+  <a href="https://www.google.com/">google</a>
+  <p class="content">content1</p>
+  <p class="content">content2</p>
+  <p class="content">content3</p>
+  <ul>
+    <li>list1</li>
+    <li>list2</li>
+  </ul>
+  <script>
+    // 속성 조작
+    // 1. 클래스 속성 조작
+    const h1Tag = document.querySelector('.heading')
+    console.log(h1Tag)
+
+    console.log(h1Tag.classList)
+    h1Tag.classList.add('red')
+    
+    console.log(h1Tag.classList)
+    h1Tag.classList.remove('red')
+
+    h1Tag.classList.toggle('red')
+
+    // 2. 일반 속성 조작
+    const aTag = document.querySelector('a')
+    console.log(aTag)
+
+    aTag.setAttribute('href', 'https://www.naver.com/')
+    console.log(aTag.getAttribute('href'))
+
+    aTag.removeAttribute('href')
+    console.log(aTag.getAttribute('href'))
+  </script>
+</body>
+
+
+
+<!-- 텍스트 수정 -->
+
+  <script>
+    // h1 요소 선택
+    const h1Tag = document.querySelector('.heading')
+    console.log(h1Tag)
+    console.log(h1Tag.textContent)
+
+    // h1 요소의 콘텐츠를 수정
+    h1Tag.textContent = '싸피'
+    console.log(h1Tag.textContent)
+  </script>
+
+
+
+<!-- js만으로 구성해보기 -->
+
+<body>
+  <div></div>
+  <script>
+    // 부모 요소 선택
+    const divTag = document.querySelector('div')
+
+    // 1.요소 생성
+    const h1Tag =  document.createElement('h1')
+    console.log(h1Tag)
+
+    // 2. 값 추가(속성, 클래스 속성, 콘텐츠...)
+    h1Tag.textContent = '제목입니다'
+    console.log(h1Tag)
+
+    // 3. 완성한 요소를 문서에 추가
+    divTag.appendChild(h1Tag)
+
+    // 4. 요소 삭제
+    divTag.removeChild(h1Tag)
+  </script>
+</body>
+
+
+
+<!-- js로 css구현 -->
+
+<body>
+  <p>Lorem, ipsum dolor.</p>
+  <script>
+    const pTag = document.querySelector('p')
+    console.log(pTag)
+    console.log(pTag.style)
+    pTag.style.color = 'crimson'
+    pTag.style.fontSize = '3rem'
+    pTag.style.border = '1px solid black'
+
+  </script>
+</body>
+
+```
+
+# 2023 10 24 tuesday
 
 ## 
