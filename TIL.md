@@ -4091,7 +4091,7 @@ print(Tree)
 
 # 2023 09 20 wednesday
 
-## 그래프 
+## 그래프
 
 - 실 세계 문제를 그래프로 추상화해서 해결하는 방법을 학습
   - 그래프 탐색 기법인 BFS와 DFS에 대해서
@@ -4160,7 +4160,7 @@ print(Tree)
 - BFS
   - 큐
 
-## 서로소 집합들 
+## 서로소 집합들
 
 - 서로소 또는 상호배타 집합들은 서로 중복 포함된 원소가 없는 집합들이다. 교집합이 없다.
 - 집합에 속한 하나의 특정 멤버를 통해 각 집합들을 구분한다. 이를 대표자라 한다.
@@ -4239,7 +4239,6 @@ else:
 
 ```
 
-
 # 2023 09 21 thursday
 
 ## 최소 비용 신장 트리 (MST)
@@ -4250,7 +4249,7 @@ else:
 
 - 신장 트리
   - 모든 정점을 연결
-  - 사이클이 존재하지 않는 부분 그래프 
+  - 사이클이 존재하지 않는 부분 그래프
     - 간선의 개수 : n-1개
   - 한그래프에서 여러개의 신장 트리가 나올수 있다.
   - n개의 정점으로 이루어진 무방향 그래프에서 n개의 정점과 n-1개의 간선으로 이루어진 트리
@@ -4262,7 +4261,7 @@ else:
 
 - 하나의 정점에서 연결된 간선들 중에 하나씩 선택하면서 MST를 만들어 가는 방식
   1. 임의 정점 하나 선택 후 시작
-  2. 선택한 정점과 인접하는 정점들 중의 최소 비용의 간선이 존재하는 정점을 선택 
+  2. 선택한 정점과 인접하는 정점들 중의 최소 비용의 간선이 존재하는 정점을 선택
   3. 모든 정점이 선택 될때 까지 1.2 반복
 
 - 서로소인 2개의 집합 정보를 유지
@@ -4318,7 +4317,6 @@ prim(0)
   2. 가중치가 가장 낮은 간선부터 선택하면서 트리를 증가 시킴, 사이클이 전재하면 다음으로 가중치가 낮은 간선 선택
   3. n-1개의 간선이 선택될 때 까지 2를 반복
 
-
 ## 최단경로
 
 - 최단 경로 정의
@@ -4334,7 +4332,7 @@ prim(0)
 
 ### 다익스트라 알고리즘
 
-- 시작 정점에서 거리가 최소인 정점을 선택해 나가면서 최단 경로를 구하는 방식이다. 
+- 시작 정점에서 거리가 최소인 정점을 선택해 나가면서 최단 경로를 구하는 방식이다.
 - 시작 정점(s) 에서 끝정점(t) 까지의 최단 경로에 정점 x가 존재한다.
 - 이때, 최단경로는 s에서 x까지의 최단 경로와 x에서 t까지의 최단경로로 구성된다.
 - 탐욕 기법을 사용한 알고리즘으로 MST의 프림 알고리즘과 유사하다
@@ -4380,7 +4378,6 @@ dijk(0)
 
 ```
 
-
 # 2023 09 25 monday
 
 ## Django ORM with view
@@ -4393,15 +4390,14 @@ dijk(0)
 ### Create
 
 - Create 로직을 구현하기 위해 필요한 view 함수의 개수
-  - 사용자 입력 데이터를 받을 페이지를 렌더린 
+  - 사용자 입력 데이터를 받을 페이지를 렌더린
     - new
-  - 사용자가 입력한 데이터를 받아 DB에 저장 
+  - 사용자가 입력한 데이터를 받아 DB에 저장
     - create
-  
   
 ### HTTP request methods
 
-- HTTP 
+- HTTP
   - 네트워크상에서 데이터를 주고 받기 위한 약속
 - HTTP request methods
   - 데이터에 어떤 요청을 원하는지를 나타내는 것
@@ -4425,7 +4421,6 @@ dijk(0)
   - 게시글 작성 후 완료를 알리는 페이지를 응답하는 것
   - 사용자가 GET 요청을 한번 더 보내도록 해야한다.
   - 클라이언트가 인자에 작성된 주소로 다시 요청을 보내도록 하는 함수
-
 
 ### Delete
 
@@ -4455,7 +4450,7 @@ dijk(0)
 
 - HTML 'input' element의 표현을 담당
 
-### Django ModelForm 
+### Django ModelForm
 
 - Form
   - 사용자 입력 데이터를 DB에 저장하지 않을 때
@@ -4467,7 +4462,7 @@ dijk(0)
   - Model과 연결된 Form을 자동으로 생성해주는 기능을 제공
   - Form + Model
 
-- Meta class 
+- Meta class
   - ModelForm의 정보를 작성하는 곳
   - fields , exclude 속성
   - exclude 속성을 사용하여 모델에서 포함하지 않을 필드를 지정할 수도 있음
@@ -4481,21 +4476,20 @@ dijk(0)
 ### view 함수 구조 변화
 
 - new & create view 함수간 공통점과 차이점
-  - 공통점 
+  - 공통점
     - 데이터 생성을 구현하기 위함
   - 차이점
     - new는 GET method 요청만을, create는 POST method 요청만을 처리
-    
 
 # 2023 09 27 wednesday
 
 ## Static files
 
-- 정적 파일 
+- 정적 파일
 - 서버 측에서 변경되지 않고 고정적으로 제공되는 파일 (이미지, JS, CSS파일 등)
 - 웹 서버의 기본 동작은 특정 위치에 있는 자원을 요청받아서 응답을 처리하고 제공하는 것
 
-- 이는 자원에 접근 가능한 주소가 있다 라는 의미 
+- 이는 자원에 접근 가능한 주소가 있다 라는 의미
 - 웹서버는 요청받은 URL로 서버에 존재하는 정적 자원을 제공함
 - 정적파일을 제공하기 위한 경로가 있어야함
 
@@ -4522,7 +4516,7 @@ dijk(0)
 - 성능 및 DB 최적화
   - 직접 파일을 저장하면 DB 크기가 급격하게 증가
   - 성능 저하
-  - 파일 자체는 파일 시스템에 별도로 저장 
+  - 파일 자체는 파일 시스템에 별도로 저장
   - DB에는 그 파일에 대한 문자열 경로만
 
 - 유지 보수 관점
@@ -4543,7 +4537,7 @@ dijk(0)
     - 서버는 요청에 대한 응답을 보낸 후 연결을 끊음
   - 무상태
     - 연결을 끊는 순간 클라이언트와 서버 간의 통신이 끝나며 상태 정보가 유지되지 않음
-    - 상태가 없다는 것 
+    - 상태가 없다는 것
       - 장바구니에 담은 상품을 유지 불가
       - 로그인 상태 유지 불가
       - 등등..
@@ -4553,7 +4547,7 @@ dijk(0)
   - 같은 서버에 다른 페이지로 재요청시마다 받고 저장해 놓았던 쿠키를 함께 전송
 
 - 쿠키 사용 원리
-  - 브라우저는 쿠키를 KEY-VALUE의 데이터 형식으로 저장 
+  - 브라우저는 쿠키를 KEY-VALUE의 데이터 형식으로 저장
   - 이렇게 쿠키를 저장해 놓았다가, 동일한 서버에 재요청 시 저장된 쿠키를 함께 전송
     - 쿠키는 두 요청이 동일한 브라우저에서 들어왔는지 아닌지를 판단할 때 주로 사용됨
       - 이를이용해 사용자의 로그인 상태를 유지할 수 있음
@@ -4564,7 +4558,7 @@ dijk(0)
   - 개인화
   - 트래킹
 
-- 세션 
+- 세션
   - 서버측에서 생성되어 클라이언트와 서버 간의 상태를 유지 상태정보를 저장하는 데이터 저장 방식
 
 ### Authentication System
@@ -4613,7 +4607,6 @@ dijk(0)
   - 작성된 컨텍스트 데이터는 기본적으로 템플릿에서 사용 가능한 변수로 포함됨
   - 즉, 장고에서 자주 사용하는 데이터 목록을 미리 템플릿에 로드 해 둔 것
 
-
 # 2023 10 05 thursday
 
 ## Django Authentication System 2
@@ -4639,7 +4632,6 @@ dijk(0)
   - 일반 사용자들이 접근해서는 안되는 정보는 출력하지 않도록 해야함
   - CustomUserChangeForm에서 접근 가능한 필드를 조정
 
-
 # 2023 10 10 tuesday
 
 ## SQL 1
@@ -4660,7 +4652,7 @@ dijk(0)
     - 구조적인 관리의 어려움
   - 스프레드 시트
     - 테이블의 열과 행을 사용해 구조적으로 관리 가능
-    - 한계 
+    - 한계
       - 크기
       - 보안
       - 정확성
@@ -4686,7 +4678,6 @@ dijk(0)
   - 각 레코드의 고유한 값
 - Foreign Key (외래 키)
   - 각 레코드에서 서로 다른 테이블 간의 관계를 만드는데 사용
-
 
 ### SQL
 
@@ -4834,9 +4825,7 @@ GROUP BY Composer
 HAVING avgOFMinute < 10;
 ```
 
-
 ### Single Table Queries
-
 
 # 2023 10 11 wednesday
 
@@ -4861,7 +4850,7 @@ HAVING avgOFMinute < 10;
 
 ### 댓글 create 구현
 
-- forms.py 
+- forms.py
 
 ```python
 
@@ -4999,7 +4988,7 @@ def comments_delete(request, article_pk, comment_pk):
 
 # 2023 10 12 thursday
 
-## Data Modeling 
+## Data Modeling
 
 - 데이터베이스 시스템을 시각적으로 표현하는 프로세스
 - 데이터 유형, 데이터 간의 관계 및 분석 등을 통해 비즈니스 요구사항을 만들어 낼 수 있도록 도움
@@ -5032,7 +5021,6 @@ def comments_delete(request, article_pk, comment_pk):
   - 페이지 파싱
   - 링크 추출 및 다른 페이지 탐색
   - 데이터 추출 및 저장
-
 
 # 2023 10 16 monday
 
@@ -5195,7 +5183,6 @@ def follow(request, user_pk):
 - 자원의 표현
   - JSON 데이터
   - 궁극적으로 표현되는 데이터 결과물
-
 
 ### DRF
 
@@ -5451,14 +5438,13 @@ class ArticleSerializer(serializers.ModelSerializer):
 - OpenAPI Specification
   - RESTful API를 설명하고 시각화하는 표준화 방법
 
-
 # 2023 10 23 monday
 
 ## Introductrion of javascript
 
 - 웹의 탄생
 - 웹 브라우저의 대중화
-- javascript의 탄생 
+- javascript의 탄생
 - 파편화
 
 ### ECMAScript
@@ -5608,4 +5594,246 @@ class ArticleSerializer(serializers.ModelSerializer):
 
 # 2023 10 24 tuesday
 
-## 
+## Basic syntax of JavaScript
+
+- ECMAScript 2015 이후의 명제를 따름
+
+### 변수
+
+- 반드시 문자, 달러($), 또는 밑줄(_)로 시작
+- 대소문자 구분
+- 예약어 사용 불가
+  - for, if, function 등
+- 카멜 케이스
+  - 변수, 객체, 함수에 사용
+- 파스칼 케이스
+  - 클래스, 생성자에 사용
+- 대문자 스네이크 케이스
+  - 상수에 사용
+
+- 변수 선언 키워드
+  - let
+    - 재할당 가능
+    - 재선언 불가능
+  - const
+    - 재할당 불가능
+    - 재선언 불가능
+  - var
+
+- 블록 스코프
+  - if, for, 함수 등의 중괄호 내부를 가리킴
+  - 블록 스코프를 가지는 변수는 블록 바깥에서 접근 불가능
+
+- 기본적으로 const 사용 권장
+- 재할당이 필요한 변수는 let으로 변경해서 사용
+
+```html
+
+<body>
+  <script>
+    // let
+    let number = 10
+    // 재할당
+    number = 20
+    console.log(number)
+    // 재선언
+    let number = 20
+
+    // const
+    const number = 10
+    number = 20
+    console.log(number) // Uncaught TypeError: Assignment to constant variable.
+
+    const number = 20 // Uncaught SyntaxError: Identifier 'number' has already been declared
+
+
+    // 블록 스코프
+    let x = 1
+    if (x === 1) {
+      let x = 2
+      console.log(x) // 2
+    }
+    console.log(x) // 1
+
+    // 템플릿 리터럴
+    const age = 100
+    const message = `홍길동은 ${age}세입니다.`
+    console.log(message)
+
+  </script>
+</body>
+
+```
+
+### 데이터 타입
+
+- 원시 자료형
+  - 변수에 값이 직접 저장 되는 자료형
+  - (불변, 값이 복사)
+- 참조 자료형
+  - 객체의 주소가 저장 되는 자료형
+  - (가변, 주소가 복사)
+
+### 연산자
+
+```html
+
+<body>
+  <script>
+    // 전위 연산자
+    // 피연산자에 1을 더한 값을 반환
+    // a에 4를 할당한 후 4를 반환
+    let a = 3
+    const b = ++a
+    console.log(a, b) // 4 4
+
+    // 후위 연산자
+    // 피연산자에 1을 더하기 전의 값을 반환
+    // 3을 먼저 반환한 후 x에 4를 할당
+    let x = 3
+    const y = x++
+    console.log(x, y) // 4 3
+
+  </script>
+</body>
+
+```
+
+### 조건문
+
+```html
+
+<body>
+  <script>
+    const name = 'customer'
+
+    if (name === 'admin') {
+      console.log('관리자님 환영해요')
+    } else if (name === 'customer') {
+      console.log('고객님 환영해요')
+    } else {
+      console.log(`반갑습니다. ${name}님`)
+    }
+  </script>
+</body>
+
+```
+
+### 반복문
+
+```html
+
+<body>
+  <script>
+    // while
+    let i = 0
+
+    while (i < 6) {
+      console.log(i)
+      i += 1
+    }
+
+
+    // for
+    for (let i = 0; i < 6; i++) {
+      console.log(i)
+    }
+
+
+    // for...in
+    const object = {
+      a: 'apple',
+      b: 'banana'
+    }
+
+    for (const property in object) {
+      console.log(property)
+      console.log(object[property])
+    }
+
+
+    // for...of
+    const numbers = [0, 1, 2, 3]
+
+    for (const number of numbers) {
+      console.log(number) // 0, 1, 2, 3
+    }
+
+    const myStr = 'apple'
+
+    for (const str of myStr) {
+      console.log(str) // a, p, p, l, e
+    }
+
+
+    // for...in 과 for...of 의 차이
+    const arr = ['a', 'b', 'c']
+
+    for (const i in arr) {
+      console.log(i) // 0, 1, 2
+    }
+
+    for (const i of arr) {
+      console.log(i) // a, b, c
+    }
+
+  </script>
+</body>
+
+
+<body>
+  <script>
+    // for...in
+
+    // Array
+    const arr = ['a', 'b', 'c']
+    for (const elem in arr) {
+      console.log(elem) // 0 1 2
+    }
+
+    // Object
+    const capitals = {
+      korea: '서울',
+      japan: '도쿄',
+      china: '베이징',
+    }
+    for (const capital in capitals) {
+      console.log(capital) // korea japan china
+    }
+
+    // for...of
+
+    // Array
+    const arr = ['a', 'b', 'c']
+    for (const elem of arr) {
+      console.log(elem) // a b c
+    }
+
+    // Object
+    const capitals = {
+      korea: '서울',
+      japan: '도쿄',
+      china: '베이징',
+    }
+    for (const capital of capitals) {
+      console.log(capital) // TypeError: capitals is not iterable
+    }
+  </script>
+</body>
+```
+
+# 2023 10 24 tuesday
+
+## Basic syntax of JavaScript
+
+# 2023 10 24 tuesday
+
+## Basic syntax of JavaScript
+
+# 2023 10 24 tuesday
+
+## Basic syntax of JavaScript
+
+# 2023 10 24 tuesday
+
+## Basic syntax of JavaScript
