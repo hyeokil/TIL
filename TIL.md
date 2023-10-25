@@ -5822,11 +5822,557 @@ class ArticleSerializer(serializers.ModelSerializer):
 </body>
 ```
 
-# 2023 10 24 tuesday
+# 2023 10 25 wednesday
 
-## Basic syntax of JavaScript
+## JavaScript Reference data types
 
-# 2023 10 24 tuesday
+### 함수 
+
+- 참조 자료형에 속하며 모든 함수는 Function object
+
+```html
+
+<script>
+// 함수 선언식
+function add(num1, num2) {
+  return num1 + num2
+}
+
+console.log(add(3, 9))
+
+// 함수 표현식
+const sub = function (num1, num2) {
+  return num1 - num2
+}
+
+console.log(sub(3, 9))
+
+```
+
+- 매개변수
+
+```html
+
+<script>
+// 기본 함수 매개변수
+const greeting = function (name = 'Anonymous') {
+  return `Hi ${name}`
+}
+
+console.log(greeting())
+
+
+// 나머지 매개변수 (가변 인자)
+const myFunc = function (num1, num2, ...restArgs) {
+  return [num1, num2, restArgs]
+}
+
+console.log(myFunc(1, 2, 3, 4, 5))
+console.log(myFunc(1, 2))
+
+
+// 매개변수와 인자의 개수 불일치 허용
+// 매개변수 개수 > 인자 개수
+const threeArgs = function (num1, num2, num3) {
+  return [num1, num2, num3]
+}
+
+console.log(threeArgs()) // [undefined,undefined,undefined]
+console.log(threeArgs(1)) // [1,undefined,undefined]
+console.log(threeArgs(2, 3))
+
+
+// 매개변수 개수 < 인자 개수
+const noArgs = function () {
+  return 0
+}
+
+console.log(noArgs(1, 2, 3))  // 0
+
+const twoArgs = function (num1, num2) {
+  return [num1, num2]
+}
+
+console.log(twoArgs(1, 2, 3)) // [1, 2]
+
+```
+
+- 전개 구문 = ...
+  - 배열이나 문자열과 같이 반복 가능한 항목을 펼치는 것 (확장, 전개)
+  - 함수와의 사용
+
+```html
+
+  <script>
+    // 1. 함수 호출 시 인자 확장
+    function myFunc(x, y, z) {
+      return x + y + z
+    }
+
+    let numbers = [1, 2, 3]
+
+    console.log(myFunc(...numbers)) // 6
+
+
+    // 2. 나머지 매개변수
+    function myFunc2(x, y, ...restArgs) {
+      return [x, y, restArgs]
+    }
+
+    console.log(myFunc2(1, 2, 3, 4, 5)) // [1, 2, [3, 4, 5]]
+    console.log(myFunc2(1, 2)) // [1, 2, []]
+  </script>
+
+```
+
+- 화살표 함수 표현식
+  - 함수 표현식의 간결한 표현법
+
+```html
+
+<script>
+    const arrow1 = function (name) {
+      return `hello, ${name}`
+    }
+
+    // 1. function 키워드 삭제 후 화살표 작성
+    const arrow2 = (name) => { return `hello, ${name}` }
+
+    // 2. 인자가 1개일 경우에만 () 생략 가능
+    const arrow3 = name => { return `hello, ${name}` }
+
+    // 3. 함수 본문이 return을 포함한 표현식 1개일 경우에 {} & return 삭제 가능
+    const arrow4 = name => `hello, ${name}`
+  </script>
+
+```
+
+### 객체
+
+- object
+  - 키로 구분된 데이터 집합을 저장하는 자료형
+
+- 구조
+  - 중괄호를 이용해 작성
+  - 중괄호 안에는 key:value 쌍으로 구성된 속성을 여러개 작성가능
+  - 대괄호로 객체 요소 접근 가능 
+
+```html
+
+<script>
+    const user = {
+      name: 'Alice',
+      'key with space': true,
+      greeting: function () {
+        return 'hello'
+      }
+    }
+
+    // 조회
+    console.log(user.name) // Alice
+    console.log(user['key with space']) // true
+
+    // 추가
+    user.address = 'korea'
+    console.log(user) // {name: 'Alice', key with space: true, address: 'korea', greeting: ƒ}
+
+    // 수정
+    user.name = 'Bella'
+    console.log(user.name) // Bella
+
+    // 삭제
+    delete user.name
+    console.log(user) // {key with space: true, address: 'korea', greeting: ƒ}
+
+    // in 연산자
+    console.log('greeting' in user) // true
+    console.log('country' in user) // false
+
+    // 메서드 호출
+    console.log(user.greeting()) // hello
+  </script>
+
+```
+
+- this 
+  - 함수나 메서드를 호출한 객체를 가리키는 키워드
+  - 호출하는 방법에 따라 가리키는 대상이 다름
+  - 단순 호출 - 전역 객체
+  - 메서드 호출 - 메서드를 호출한 객체
+  - 함수 호출시에 값이 결정 ( 동적 할당 )
+
+```html
+
+<script>
+    // 1.1 단순 호출
+    const myFunc = function () {
+      return this
+    }
+    console.log(myFunc()) // window
+
+    // 1.2 메서드 호출
+    const myObj = {
+      data: 1,
+      myFunc: function () {
+        return this
+      }
+    }
+    console.log(myObj.myFunc()) // myObj
+
+    // 2. Nested
+    // 2.1 일반 함수
+    const myObj2 = {
+      numbers: [1, 2, 3],
+      myFunc: function () {
+        this.numbers.forEach(function (number) {
+          console.log(this) // window
+        })
+      }
+    }
+    console.log(myObj2.myFunc())
+
+    // 2.2 화살표 함수
+    const myObj3 = {
+      numbers: [1, 2, 3],
+      myFunc: function () {
+        this.numbers.forEach((number) => {
+          console.log(this) // myObj3
+        })
+      }
+    }
+    console.log(myObj3.myFunc())
+
+  </script>
+
+```
+
+- 추가 객체 문법
+
+```html
+
+<script>
+    // 단축 속성
+    const name = 'Alice'
+    const age = 30
+
+    const user = {
+      name: name,
+      age: age,
+    }
+
+    // 단축 메서드
+    const myObj1 = {
+      myFunc: function () {
+        return 'Hello'
+      }
+    }
+
+    const myObj2 = {
+      myFunc() {
+        return 'Hello'
+      }
+    }
+
+    // 계산된 프로퍼티
+    const product = prompt('물건 이름을 입력해주세요')
+    const prefix = 'my'
+    const suffix = 'property'
+
+    const bag = {
+      [product]: 5,
+      [prefix + suffix]: 'value',
+    }
+
+    console.log(bag) // {연필: 5, myproperty: 'value'}
+
+
+    // 구조 분해 할당
+    const userInfo = {
+      firstName: 'Alice',
+      userId: 'alice123',
+      email: 'alice123@gmail.com'
+    }
+
+    // const firstName = userInfo.name
+    // const userId = userInfo.userId
+    // const email = userInfo.email
+
+    // const { firstName } = userInfo
+    // const { firstName, userId } = userInfo
+    const { firstName, userId, email } = userInfo
+
+    // Alice alice123 alice123@gmail.com
+    console.log(firstName, userId, email)
+
+    // 구조 분해 할당 활용 - 함수 매개변수
+    function printInfo({ name, age, city }) {
+      console.log(`이름: ${name}, 나이: ${age}, 도시: ${city}`)
+    }
+
+    const person = {
+      name: 'Bob',
+      age: 35,
+      city: 'London',
+    }
+
+    // 함수 호출 시 객체를 구조 분해하여 함수의 매개변수로 전달
+    printInfo(person) // '이름: Bob, 나이: 35, 도시: London'
+
+    // with 전개 구문
+    const obj = { b: 2, c: 3, d: 4 }
+    const newObj = { a: 1, ...obj, e: 5 }
+    console.log(newObj) // {a: 1, b: 2, c: 3, d: 4, e: 5}
+
+    // 유용한 객체 메서드
+    const profile = {
+      name: 'Alice',
+      age: 30,
+    }
+
+    console.log(Object.keys(profile)) // ['name', 'age']
+    console.log(Object.values(profile)) // ['Alice', 30]
+
+  </script>
+
+```
+
+- optional chaining 
+  - 존재하지 않아도 괜찮은 대상(ex. 중첩객체)에만 사용해야 함
+  - 왼쪽 평가 대상이 없어도 괜찮은 경우에만 선택적으로 사용
+  - 앞에 변수는 반드시 선언되어 있어야 함
+  - obj?.prop
+    - obj가 존재하면 obj.prop을 반환 else undefined반환
+  - obj?.[prop]
+    - obj가 존재하면 obj[prop]을 반환 else undefined반환
+  - obj?.method()
+    - obj가 존재하면 obj.method()를 호출 else undefined반환
+
+```html
+
+<script>
+    const user = {
+      name: 'Alice',
+      greeting: function () {
+        return 'hello'
+      }
+    }
+
+    console.log(user.address.street) // Uncaught TypeError: Cannot read properties of undefined (reading 'street')
+    console.log(user.address?.street) // undefined
+
+    console.log(user.nonMethod()) // Uncaught TypeError: user.nonMethod is not a function
+    console.log(user.nonMethod?.()) // undefined
+
+    console.log(user.address && user.address.street) // undefined
+
+    console.log(myObj?.address) // Uncaught ReferenceError: myObj is not defined
+
+    // 위 예시 코드 논리상 user는 반드시 있어야 하지만 address는 필수 값이 아님
+    // user에 값을 할당하지 않은 문제가 있을 때 바로 알아낼 수 있어야 하기 때문
+
+    // Bad
+    user?.address?.street
+
+    // Good
+    user.address?.street
+  </script>
+
+```
+  
+- JSON
+
+```html
+
+<script>
+    const jsObject = {
+      coffee: 'Americano',
+      iceCream: 'Cookie and cream',
+    }
+
+    // Object -> JSON
+    const objToJson = JSON.stringify(jsObject)
+    console.log(objToJson)  // {"coffee":"Americano","iceCream":"Cookie and cream"}
+    console.log(typeof objToJson)  // string
+
+    // JSON -> Object
+    const jsonToObj = JSON.parse(objToJson)
+    console.log(jsonToObj)  // { coffee: 'Americano', iceCream: 'Cookie and cream' }
+    console.log(typeof jsonToObj)  // object
+
+  </script>
+
+```
+
+- new 연산자 
+
+```html
+
+<script>
+    function Member(name, age, sId) {
+      this.name = name
+      this.age = age
+      this.sId = sId
+    }
+
+    const member3 = new Member('Bella', 21, 20226543)
+
+    console.log(member3) // Member { name: 'Bella', age: 21, sId: 20226543 }
+    console.log(member3.name) // Bella
+  </script>
+
+```
+
+### 배열
+
+- object
+  - 키로 구분된 데이터 집합을 저장하는 자료형 
+  - -> 이제는 순서가 있는 collection이 필요
+
+- Array
+  - 순서가 있는 데이터 집합을 저장하는 자료구조
+  - 대괄호 이용
+  - length 속성으로 길이 알수있음
+
+```html
+
+<script>
+    const names = ['Alice', 'Bella', 'Cathy',]
+
+    console.log(names[0]) // Alice
+    console.log(names[1]) // Bella
+    console.log(names[2]) // Cathy
+
+    console.log(names.length) // 3
+
+    // 수정
+    names[1] = 'Dan'
+    console.log(names)
+  </script>
+
+<script>
+    const names = ['Alice', 'Bella', 'Cathy',]
+
+    // pop
+    console.log(names.pop()) // Cathy
+    console.log(names) // ['Alice', 'Bella']
+
+    // push
+    names.push('Dan')
+    console.log(names) // ['Alice', 'Bella', 'Dan']
+
+    // shift
+    console.log(names.shift()) // Alice
+    console.log(names) // ['Bella', 'Dan']
+
+    // unshift
+    names.unshift('Eric')
+    console.log(names) // ['Eric', 'Bella', 'Dan']
+
+  </script>
+```
+
+
+- Array Helper Methods
+  - 배열을 순회하며 특정 로직을 수행하는 메서드
+  - 메서드 호출시 인자로 함수를 받는 것이 특징
+  - forEach()
+    - 인자로 주어진 함수를 배열 요소 각각에 대해 실행
+
+  ```html
+  
+  <script>
+    const names = ['Alice', 'Bella', 'Cathy',]
+
+    // 일반 함수
+    names.forEach(function (item, index, array) {
+      console.log(`${item} / ${index} / ${array}`)
+    })
+
+    // 화살표 함수
+    names.forEach((item, index, array) => {
+      console.log(`${item} / ${index} / ${array}`)
+    })
+  </script>
+  
+  <script>
+    const names = ['Alice', 'Bella', 'Cathy',]
+
+    // for loop
+    for (let idx = 0; idx < names.length; idx++) {
+      console.log(idx, names[idx])
+    }
+
+    // for...of
+    for (const name of names) {
+      console.log(name)
+    }
+
+    // forEach 권장
+    names.forEach((name, idx) => {
+      console.log(idx, name)
+    })
+  </script>
+  ```
+
+  - map
+    - 베열 내의 모든 요소 각각에 대해 함수를 호출하고, 호출 결과를 모아 새로운 배열을 반환
+
+  ```html
+  
+  <script>
+    // 1
+    const names = ['Alice', 'Bella', 'Cathy',]
+
+    const result1 = names.map(function (name) {
+      return name.length
+    })
+
+    const result2 = names.map((name) => {
+      return name.length
+    })
+
+    console.log(result1) // [5, 5, 5]
+    console.log(result2) // [5, 5, 5]
+
+
+    // 2
+    const numbers = [1, 2, 3,]
+
+    const doubleNumber = numbers.map((number) => {
+      return number * 2
+    })
+
+    console.log(doubleNumber) // [2, 4, 6]
+  </script>
+  
+  ```
+
+- 콜백함수
+  - 다른 함수에 인자로 전달되는 함수
+
+  ```html
+  
+  <script>
+    // 1
+    const numbers1 = [1, 2, 3,]
+    numbers.forEach(function (num) {
+      console.log(num ** 2)
+    })
+
+    // 2
+    const numbers2 = [1, 2, 3,]
+    const callBackFunction = function (num) {
+      console.log(num ** 2)
+    }
+
+    numbers.forEach(callBackFunction)
+
+  </script>
+  
+  ```
+
+
+# 2023 10 26 thursday
 
 ## Basic syntax of JavaScript
 
