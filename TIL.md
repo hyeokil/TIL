@@ -6374,9 +6374,361 @@ console.log(twoArgs(1, 2, 3)) // [1, 2]
 
 # 2023 10 26 thursday
 
-## Basic syntax of JavaScript
+## Controlling event 
 
-# 2023 10 24 tuesday
+### event
+
+- 콤퓨터를 눌러 텍스트를 입력하는 것
+- 전화벨이 울려 전화가 왔음을 알리는 것
+- 손을 흔들어 인사하는 것
+- 전화기의 버튼을 눌러서 통화를 시작하는 것
+
+- 웹에서의 이벤트
+  - 버튼을 클릭했을 때 팝업 창이 출력되는것
+  - 마우스 커서의 위치에 따라 드래그 앤 드롭하는것
+  - 사용자의 키보드 입력 값에 따라 새로운 요소를 생성하는 것
+  - 일상에서의 이벤트처럼 웹에서도 이벤트를 통해 특정 동작을 수행한다
+
+- 모든 DOM요소는 이런 이벤트 만들어냄 
+
+- event object
+  - DOM에서 이벤트가 발생했을 때 생성되는 객체 
+  - 이벤트의 종류
+    - mouse, input, keyboard, touch ...ect
+
+- DOM 요소는 이벤트를 받고 받은 이벤트를 처리할수있다
+
+```html
+
+<body>
+  <button id="btn">버튼</button>
+
+  <script>
+    // 1. 버튼 선택
+    const btn = document.querySelector('#btn')
+
+    // 2. 콜백함수 작성
+    const clickCallbackFunc = function (event) {
+      console.log(event)
+      console.log(event.target)
+      console.log(event.currentTarget)
+      console.log(this)
+    }
+
+    // 3. 버튼에 이벤트 핸들러를 부착
+    btn.addEventListener('click', clickCallbackFunc)
+  </script>
+</body>
+
+```
+
+### event handler 활용
+
+- event handler 
+  - 이벤트가 발생했을 때 실행되는 함수 
+  - 사용자의 행동에 어떻게 반응할지를 자바스크립트 코드로 표현한 것
+
+- 버블링
+  - 한 요소에 이벤트가 발생하면, 이 요소에 할당된 핸들러가 동작하고, 이어서 부모요소의 핸들러가 동작하는 현상
+  - 가장 최상단의 조상 요소를 만날 때까지 이 과정이 반복되면서 요소각각에 할당된 핸들러가 동장
+  - 이벤트가 제일 깊은 곳에 있는 요소에서 시작해 부모 요소를 거슬러 올라가며 발생하는 것이 마치 물속 거품과 닮았기 때문
+
+```html
+
+<body>
+  <form id="form">
+    form
+    <div id="div">
+      div
+      <p id="p">p</p>
+    </div>
+  </form>
+
+  <script>
+    const formElement = document.querySelector('#form')
+    const divElement = document.querySelector('#div')
+    const pElement = document.querySelector('#p')
+
+    const clickHandler1 = function (event) {
+      console.log('form이 클릭되었습니다.')
+    }
+    const clickHandler2 = function (event) {
+      console.log('div가 클릭되었습니다.')
+    }
+    const clickHandler3 = function (event) {
+      console.log('p가 클릭되었습니다.')
+    }
+
+    formElement.addEventListener('click', clickHandler1)
+    divElement.addEventListener('click', clickHandler2)
+    pElement.addEventListener('click', clickHandler3)
+  </script>
+</body>
+
+<body>
+  <div id="outerouter">
+    outerouter
+    <div id="outer">
+      outer
+      <div id="inner">inner</div>
+    </div>
+  </div>
+
+  <script>
+    const outerOuterElement = document.querySelector('#outerouter')
+
+    const clickHandler = function (event) {
+      console.log('currentTarget:', event.currentTarget.id)
+      console.log('target:', event.target.id)
+    }
+
+    outerOuterElement.addEventListener('click', clickHandler)
+  </script>
+</body>
+
+```
+
+- click event
+
+```html
+
+<body>
+  <button id="btn">버튼</button>
+  <p>클릭횟수 : <span id="counter">0</span></p>
+
+  <script>
+    // 1. 초기값 할당
+    let counterNumber = 0
+
+    // 2. 버튼 요소 선택
+    const btn = document.querySelector('#btn')
+
+    // 3. 콜백 함수 (버튼에 클릭 이벤트가 발생할때마다 실행할 코드)
+    const clickHandler = function () {
+      // 3.1 초기값 += 1
+      counterNumber += 1
+
+      // 3.2 span 요소를 선택
+      const spanTag = document.querySelector('#counter')
+
+      // 3.3 span 요소의 컨텐츠를 1 증가한 초기값으로 설정
+      spanTag.textContent = counterNumber
+    }
+
+    // 4. 버튼에 이벤트 핸들러 부착 (클릭 이벤트)
+    btn.addEventListener('click', clickHandler)
+  </script>
+</body>
+
+```
+
+- input evet
+
+```html
+
+<body>
+  <input type="text" id="text-input">
+  <p></p>
+
+  <script>
+    // 1. input 요소 선택
+    const inputTag = document.querySelector('#text-input')
+
+    // 2. p 요소 선택
+    const pTag = document.querySelector('p')
+
+    // 3. 콜백 함수 (input 요소에 input 이벤트가 발생할때마다 실행할 코드)
+    // 3.1 작성하는 데이터가 어디에 누적되고 있는지 찾기
+    const inputHandler = function (event) {
+      // console.log(event)
+      // console.log(event.currentTarget)
+      console.log(event.currentTarget.value)
+      console.log(this.value)
+      
+      // 3.2 p요소의 컨텐츠에 작성하는 데이터를 추가
+      pTag.textContent = event.currentTarget.value
+    }
+
+    // 4. input 요소에 이벤트 핸들러 부착 (input 이벤트)
+    inputTag.addEventListener('input', inputHandler)
+  </script>
+</body>
+
+```
+
+- click input event
+
+```html
+
+<body>
+  <h1></h1>
+  <button id="btn">클릭</button>
+  <input type="text" id="text-input">
+
+  <script>
+    // input 구현
+    const inputTag = document.querySelector('#text-input')
+    const h1Tag = document.querySelector('h1')
+
+    const inputHandler = function (event) {
+      h1Tag.textContent = event.currentTarget.value
+    }
+
+    inputTag.addEventListener('input', inputHandler)
+
+    // click 구현
+    const btn = document.querySelector('#btn')
+    
+    const clickHandler = function (event) {
+      // console.log(event)
+      // h1Tag.classList.add('blue')
+
+      // toggle
+      h1Tag.classList.toggle('blue')
+    }
+
+    btn.addEventListener('click', clickHandler)
+
+  </script>
+</body>
+
+```
+
+- todo 
+
+```html
+
+<body>
+  <input type="text" class="input-text">
+  <button id="btn">+</button>
+  <ul></ul>
+
+  <script>
+    // 1. 필요한 요소 선택
+    const inputTag = document.querySelector('.input-text')
+    const btn = document.querySelector('#btn')
+    const ulTag = document.querySelector('ul')
+
+
+    const addTodo = function (event) {
+      // 2.1 사용자 입력 데이터 저장
+      const inputData = inputTag.value
+
+      // 3. 사용자 입력데이터가 빈 데이터인지 확인
+      if (inputData.trim()) {
+        // 2.2 데이터를 저장할 li 요소를 생성
+        const liTag = document.createElement('li')
+        // console.log(liTag)
+  
+        // 2.3 li 요소 컨텐츠에 데이터 입력
+        liTag.textContent = inputData
+        // console.log(liTag)
+  
+        // 2.4 li 요소를 부모 ul 요소의 자식 요소로 추가
+        ulTag.appendChild(liTag)
+        
+        // 2.5 todo 추가 후 input의 입력 데이터는 초기화
+        inputTag.value = ''
+      } else {
+        alert('투두를 입력하세요!!!')
+      }
+    }
+
+    // 2. 버튼에 이벤트 핸들러를 부착
+    btn.addEventListener('click', addTodo)
+
+
+  </script>
+</body>
+
+```
+
+- lottery
+
+```html
+
+<body>
+  <h1>로또 추천 번호</h1>
+  <button id="btn">행운 번호 받기</button>
+  <div></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+  <script>
+    // 1. 필요한 요소 선택
+    const btn = document.querySelector('#btn')
+    const divTag = document.querySelector('div')
+
+    // 2. 로또 번호를 생성 + 태그를 만들고 출력까지하는 (콜백함수)
+    const getLottery = function (event) {
+      // 2.1 1부터 45까지의 값이 필요
+      const numbers = _.range(1, 46)
+      // console.log(numbers)
+
+      // 2.2 45개의 요소가 있는 배열에서 6개 번호 추출
+      const sixNumbers = _.sampleSize(numbers, 6)
+      console.log(sixNumbers)
+
+      // 2.5 6개의 li 요소를 담을 ul 요소 생성
+      const ulTag = document.createElement('ul')
+
+      // 2.3 추출한 번호 배열을 "반복"하면서 li 요소를 생성
+      sixNumbers.forEach(function (number) {
+        // 2.4 번호를 담을 li 요소 생성 후 입력
+        const liTag = document.createElement('li')
+        liTag.textContent = number
+        // console.log(liTag)
+        // 2.6 만들어진 li를 ul 요소에 추가
+        ulTag.appendChild(liTag)
+        console.log(ulTag)
+      })
+      // 2.7 완성한 ul 요소를 div 요소에 추가
+      divTag.appendChild(ulTag)
+    }
+
+    // 3. 버튼 요소에 이벤트 핸들러를 부착
+    btn.addEventListener('click', getLottery)
+  </script>
+</body>
+
+```
+
+- prevent event
+
+```html
+
+<body>
+  <h1>중요한 내용</h1>
+
+  <form id="my-form">
+    <input type="text" name="username">
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    // 1
+    const h1Tag = document.querySelector('h1')
+
+    h1Tag.addEventListener('copy', function (event) {
+      console.log(event)
+      event.preventDefault()
+      alert('복사 할 수 없습니다.')
+    })
+
+    // 2
+    const formTag = document.querySelector('#my-form')
+
+    const handleSubmit = function (event) {
+      event.preventDefault()
+    }
+
+    formTag.addEventListener('submit', handleSubmit)
+
+  </script>
+</body>
+
+```
+
+# 2023 10 2 day
 
 ## Basic syntax of JavaScript
 
