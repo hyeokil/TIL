@@ -7048,9 +7048,169 @@ def likes(request, article_pk):
 
 ```
 
-# 2023 10 24 tuesday
+# 2023 11 01 tuesday
 
-## Basic syntax of JavaScript
+## Introduction of Vue
+
+### Front-end Development
+
+- 웹사이트와 웹 애플리케이션의 사용자 인터페이스와 사용자 경험을 만들고 디자인하는 것
+- HTML, CSS, JavaScript 등을 활용하여 사용자가 직접 상호작용하는 부분을 개발
+
+- Client-side frameworks
+  - 클라이언트 측에서 UI와 상호작용을 개발하기 위해 사용되는 JavaScript 기반 프레임워크
+  - 필요한 이유
+    - 웹에서 하는 일이 많아짐 -> 다루는 데이터가 많아짐
+    - 단순히 무언가를 읽는 곳 -> 무언가를 하는 곳
+    - 동적인 대화형 애플리케이션을 더 쉽게 구축가능
+    - 애플리케이션의 기본 데이터를 안정적으로 추적, 업데이트하는 도구가 필요
+    - 애플리케이션의 상태를 변경할 때마다 일치하도록 UI를 업데이트해야 한다는 것
+
+- SPA 
+  - 페이지 한 개로 구성된 웹 애플리케이션
+
+- client-side Rendering 장점
+  - 빠른 속도
+  - 사용자 경험
+  - 프론트와 백의 명확한 분리
+
+- client-side Rendering 단점
+  - 초기 구동속도가 느림
+  - SEO(검색 엔진 최적화) 문제
+
+### Vue
+
+- Vue 학습 이유
+  - 쉬운 학습 곡선, 간편한 문법
+  - 반응성 시스템
+  - 모듈화, 유연한 구조
+  - 거대하고 활발한 커뮤니티 -> 풍부한 문서, 튜토리얼
+
+```html
+
+<body>
+  <div id="app">
+    <h1>{{ greeting }}</h1>
+    <button @click="count++">{{ count }}</button>
+    <p>{{ count }}</p>
+    <h3>{{ count }}</h3>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const count = ref(0)
+        const greeting = ref('Hello')
+        return {
+          count,
+          greeting
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+<body>
+  <div id="app">
+    <h1>{{ message }}</h1>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const message = ref('hello vue!')
+        console.log(message)
+        console.log(message.value)
+        return {
+          message
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+```
+
+- event listener
+
+```html
+
+<body>
+  <div id="app">
+    <button v-on:click="increment">{{ count }}</button>
+    <button @click="increment">{{ count }}</button>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const count = ref(0)
+        const increment = function () {
+          count.value++
+        }
+        return {
+          count,
+          increment
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+```
+
+- ref vs variable
+
+```html
+
+<body>
+  <div id="app">
+    <p>반응성 변수: {{ reactiveValue }}</p>
+    <p>일반 변수: {{ normalValue }}</p>
+    <button @click="increment">값 업데이트</button>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const reactiveValue = ref(0)
+        let normalValue = 0
+        const increment = function () {
+          reactiveValue.value++
+          normalValue++
+          console.log(normalValue)
+        }
+        return {
+          reactiveValue,
+          normalValue,
+          increment
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+```
 
 # 2023 10 24 tuesday
 
