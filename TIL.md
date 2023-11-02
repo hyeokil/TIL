@@ -7212,9 +7212,399 @@ def likes(request, article_pk):
 
 ```
 
-# 2023 10 24 tuesday
+# 2023 11 02 thursday
 
-## Basic syntax of JavaScript
+## Basic Syntax
+
+### Template Syntax
+
+- DOM을 기본구성 요소 인스턴스의 데이터에 선언적으로 바인딩할 수 있는 HTML 기반 템플릿 구문을 사용
+
+- 종류
+  - Text Interpolation
+    - 데이터 바인딩의 가장 기본적인 형태
+  - Raw HTML
+  - Attribute Bindings
+  - JavaScript Expressions
+
+```html
+
+<body>
+  <div id="app">
+    <!-- Inline Handlers -->
+    <button v-on:click="count++">Add 1</button>
+    <p>Count: {{ count }}</p>
+
+    <!-- Method Handlers -->
+    <button @click="myFunc">Hello</button>
+
+    <!-- Calling Methods in Inline Handlers -->
+    <button @click="greeting('hello')">Say hello</button>
+    <button @click="greeting('bye')">Say bye</button>
+
+    <!-- Accessing Event Argument in Inline Handlers -->
+    <button @click="warning('경고입니다.', $event)">Submit</button>
+
+    <!-- event modifiers -->
+    <form @submit.prevent="onSubmit">
+      <input type="submit">
+    </form>
+    <a @click.stop.prevent="onLink">Link</a>
+
+    <!-- key modifiers -->
+    <input type="text" @keyup.enter="onSubmit">
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const count = ref(0)
+        const name = ref('Alice')
+        const myFunc = function (event) {
+          console.log(event)
+          console.log(event.currentTarget)
+          console.log(`hello, ${name.value}`)
+        }
+        const greeting = function (message) {
+          console.log(message)
+        }
+        const warning = function (message, event) {
+          console.log(message)
+          console.log(event)
+        }
+        const onSubmit = function (event) {
+          console.log(event)
+        }
+        return {
+          count,
+          name,
+          myFunc,
+          greeting,
+          warning,
+          onSubmit
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+
+<body>
+  <div id="app">
+    <img v-bind:src="imageSrc" alt="#">
+    <a v-bind:href="myUrl">Link</a>
+
+    <img :src="imageSrc" alt="#">
+    <a :href="myUrl">Link</a>
+
+    <p :[dynamicattr]="dynamicValue">.....</p>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const imageSrc = ref('https://picsum.photos/200/')
+        const myUrl = ref('https://www.google.co.kr/')
+        const dynamicattr = ref('title')
+        const dynamicValue = ref('Hello')
+        return {
+          imageSrc,
+          myUrl,
+          dynamicattr,
+          dynamicValue
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+```
+
+### Dynamically data binding
+
+- html-classes
+
+```html
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .active {
+      color: crimson;
+    }
+
+    .text-primary {
+      color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- Binding to Objects -->
+    <div :class="{ active: isActive }">Text</div>
+    <div class="static" :class="{ active: isActive, 'text-primary': hasInfo }">Text</div>
+    <div class="static" :class="classObj">Text</div>
+
+    <!-- Binding to Arrays -->
+    <div :class="[activeClass, infoClass]">Text</div>
+    <div :class="[{ active: isActive }, infoClass]">Text</div>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const isActive = ref(true)
+        const hasInfo = ref(true)
+        const classObj = ref({
+          active: isActive, 
+          'text-primary': hasInfo
+        })
+        const activeClass = ref('active')
+        const infoClass = ref('text-primary')
+        return {
+          isActive,
+          hasInfo,
+          classObj,
+          activeClass,
+          infoClass
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>
+
+```
+
+- inline-styles
+
+
+```html
+
+<body>
+  <div id="app">
+    <!-- Binding to Objects -->
+    <div :style="{ color: activeColor, fontSize: fontSize + 'px'}">Text</div>
+    <div :style="{ 'font-size': fontSize + 'px'}">Text</div>
+    <div :style="styleObj">Text</div>
+
+    <!-- Binding to Arrays -->
+    <div :style="[styleObj, styleObj2]">Text</div>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const activeColor = ref('crimson')
+        const fontSize = ref(50)
+        const styleObj = ref({
+          color: activeColor, 
+          fontSize: fontSize.value + 'px'
+        })
+        const styleObj2 = ref({
+          color: 'blue',
+          border: '1px solid black'
+        })
+        return {
+          activeColor,
+          fontSize,
+          styleObj,
+          styleObj2
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+```
+
+### Event Handling
+
+```html
+
+<body>
+  <div id="app">
+    <!-- Inline Handlers -->
+    <button v-on:click="count++">Add 1</button>
+    <p>Count: {{ count }}</p>
+
+    <!-- Method Handlers -->
+    <button @click="myFunc">Hello</button>
+
+    <!-- Calling Methods in Inline Handlers -->
+    <button @click="greeting('hello')">Say hello</button>
+    <button @click="greeting('bye')">Say bye</button>
+
+    <!-- Accessing Event Argument in Inline Handlers -->
+    <button @click="warning('경고입니다.', $event)">Submit</button>
+
+    <!-- event modifiers -->
+    <form @submit.prevent="onSubmit">
+      <input type="submit">
+    </form>
+    <a @click.stop.prevent="onLink">Link</a>
+
+    <!-- key modifiers -->
+    <input type="text" @keyup.enter="onSubmit">
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const count = ref(0)
+        const name = ref('Alice')
+        const myFunc = function (event) {
+          console.log(event)
+          console.log(event.currentTarget)
+          console.log(`hello, ${name.value}`)
+        }
+        const greeting = function (message) {
+          console.log(message)
+        }
+        const warning = function (message, event) {
+          console.log(message)
+          console.log(event)
+        }
+        const onSubmit = function (event) {
+          console.log(event)
+        }
+        return {
+          count,
+          name,
+          myFunc,
+          greeting,
+          warning,
+          onSubmit
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+```
+
+### Form Input Bindings
+
+```html
+
+<body>
+  <div id="app">
+    <p>{{ inputText1 }}</p>
+    <input type="text" @input="onInput" :value="inputText1">
+
+    <p>{{ inputText2 }}</p>
+    <input type="text" v-model="inputText2">
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const inputText1 = ref('')
+        const inputText2 = ref('')
+        const onInput = function (event) {
+          inputText1.value = event.currentTarget.value
+        }
+        return {
+          inputText1,
+          onInput,
+          inputText2
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+```
+
+- v-model
+
+```html
+
+<body>
+  <div id="app">
+    <!-- single checkbox -->
+    <input type="checkbox" id="checkbox" v-model="checked">
+    <label for="checkbox">{{ checked }}</label>
+
+    <!-- multiple checkbox -->
+    <div>Checked names: {{ checkedNames }}</div>
+
+    <input type="checkbox" id="alice" value="Alice" v-model="checkedNames">
+    <label for="alice">Alice</label>
+
+    <input type="checkbox" id="bella" value="Bella" v-model="checkedNames">
+    <label for="bella">Bella</label>
+
+    <!-- single select -->
+    <div>Selected: {{ selected }}</div>
+
+    <select v-model="selected">
+      <option disabled value="">Please select one</option>
+      <option>Alice</option>
+      <option>Bella</option>
+      <option>Cathy</option>
+    </select>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const checked = ref(false)
+        const checkedNames = ref([])
+        const selected = ref('')
+        return {
+          checked,
+          checkedNames,
+          selected
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+```
 
 # 2023 10 24 tuesday
 
