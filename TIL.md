@@ -7606,11 +7606,405 @@ def likes(request, article_pk):
 
 ```
 
-# 2023 10 24 tuesday
+# 2023 11 06 monday
 
-## Basic syntax of JavaScript
+## Basic Syntax 2
 
-# 2023 10 24 tuesday
+### Computed Property
+
+```html
+
+<body>
+  <div id="app">
+    <h2>남은 할 일</h2>
+    <p>{{ restOfTodos }}</p>
+    <p>{{ getRestOfTodos() }}</p>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref, computed } = Vue
+
+    const app = createApp({
+      setup() {
+        const todos = ref([
+          { text: 'Vue 실습' },
+          { text: '자격증 공부' },
+          { text: 'TIL 작성' }
+        ])
+
+        const restOfTodos = computed(() => {
+          return todos.value.length > 0 ? '아직 남았다' : '퇴근!'
+        })
+
+        const getRestOfTodos = function () {
+          return todos.value.length > 0 ? '아직 남았다' : '퇴근!'
+        }
+
+        return {
+          todos,
+          restOfTodos,
+          getRestOfTodos,
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+```
+
+### Conditional Rendering
+
+```html
+
+<body>
+  <div id="app">
+    <!-- if else -->
+    <p v-if="isSeen">true일때 보여요</p>
+    <p v-else>false일때 보여요</p>
+    <button @click="isSeen = !isSeen">토글</button>
+
+    <!-- else if -->
+    <div v-if="name === 'Alice'">Alice입니다</div>
+    <div v-else-if="name === 'Bella'">Bella입니다</div>
+    <div v-else-if="name === 'Cathy'">Cathy입니다</div>
+    <div v-else>아무도 아닙니다.</div>
+
+    <!-- v-if on <template> -->
+    <template v-if="name === 'Cathy'">
+      <div>Cathy입니다</div>
+      <div>나이는 30살입니다</div>
+    </template>
+
+    <!-- v-show -->
+    <div v-show="isShow">v-show</div>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const isSeen = ref(true)
+        const name = ref('Cathy')
+        const isShow = ref(false)
+        return {
+          isSeen,
+          name,
+          isShow
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+```
+
+### List Rendering
+
+```html
+
+<body>
+  <div id="app">
+    <div v-for="(item, index) in myArr">
+      {{ index }} // {{ item.name }}
+    </div>
+    
+    <div v-for="(value, key, index) in myObj">
+      {{ index }} / {{ key }} / {{ value }}
+    </div>
+
+    <!-- v-for on <template> -->
+    <ul>
+      <template v-for="item in myArr">
+        <li>{{ item.name }}</li>
+        <li>{{ item.age }}</li>
+        <hr>
+      </template>
+    </ul>
+
+    <!-- nested v-for -->
+    <ul v-for="item in myInfo">
+      <li v-for="friend in item.friends">
+        {{ item.name }} - {{ friend }}
+      </li>
+    </ul>
+
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const myArr = ref([
+          { name: 'Alice', age: 20 },
+          { name: 'Bella', age: 21 }
+        ])
+        const myObj = ref({
+          name: 'Cathy',
+          age: 30
+        })
+
+        // nested v-for
+        const myInfo = ref([
+          { name: 'Alice', age: 20, friends: ['Bella', 'Cathy', 'Dan'] },
+          { name: 'Bella', age: 21, friends: ['Alice', 'Cathy'] }
+        ])
+
+        return {
+          myArr,
+          myObj,
+          myInfo
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+
+<body>
+  <div id="app">
+    <!-- Maintaining State with key -->
+    <div v-for="item in items" :key="item.id">
+      <!-- content -->
+      {{ item }}
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        let id = 0
+
+        const items = ref([
+          { id: id++, name: 'Alice' },
+          { id: id++, name: 'Bella' },
+        ])
+
+        return {
+          items,
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+<body>
+  <div id="app">
+    <!-- [Bad] v-for with v-if -->
+    <!-- <ul>
+      <li v-for="todo in todos" v-if="!todo.isComplete" :key=""todo.id>
+        {{ todo.name }}
+      </li>
+    </ul> -->
+
+    <!-- [Good] v-for with v-if & computed-->
+    <ul>
+      <li v-for="todo in completeTodos" :key="todo.id">
+        {{ todo.name }}
+      </li>
+    </ul>
+
+    <!-- [Good] v-for with v-if & template-->
+    <ul>
+      <template v-for="todo in todos" :key="todo.id">
+        <li v-if="!todo.isComplete">
+          {{ todo.name }}
+        </li>
+      </template>
+    </ul>
+
+
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref, computed } = Vue
+
+    const app = createApp({
+      setup() {
+        let id = 0
+
+        const todos = ref([
+          { id: id++, name: '복습', isComplete: true },
+          { id: id++, name: '예습', isComplete: false },
+          { id: id++, name: '저녁식사', isComplete: true },
+          { id: id++, name: '노래방', isComplete: false }
+        ])
+
+        const completeTodos = computed(() => {
+          return todos.value.filter((todo) => !todo.isComplete)
+        })
+
+        return {
+          todos,
+          completeTodos
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+```
+
+### Watchers
+
+```html
+
+<body>
+  <div id="app">
+    <!-- 1 -->
+    <button @click="count++">Add 1</button>
+    <p>Count: {{ count }}</p>
+
+    <!-- 2 -->
+    <input v-model="message">
+    <p>Message length: {{ messageLength }}</p>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref, watch } = Vue
+
+    const app = createApp({
+      setup() {
+        const count = ref(0)
+        const message = ref('')
+        const messageLength = ref(0)
+
+        const countWatch = watch(count, (newValue, oldValue) => {
+          console.log(`newValue: ${newValue}, old Value: ${oldValue}`)
+        })
+
+        const messageWatch = watch(message, (newValue, oldValue) => {
+          messageLength.value = newValue.length
+        })
+
+        return {
+          count,
+          message,
+          messageLength
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+```
+
+### Lifecycle Hooks
+
+```html
+
+<body>
+  <div id="app">
+    <button @click="count++">Add 1</button>
+    <p>Count: {{ count }}</p>
+    <p>{{ message }}</p>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref, onMounted, onUpdated } = Vue
+
+    const app = createApp({
+      setup() {
+        const count = ref(0)
+        const message = ref(null)
+
+        onMounted(() => {
+          console.log('mounted')
+        })
+
+        onUpdated(() => {
+          message.value = 'updated~!'
+        })
+
+        return {
+          count,
+          message
+        }
+      },
+    })
+
+    app.mount('#app')
+
+  </script>
+</body>
+
+
+<body>
+  <div id="app">
+    <button @click="getCatImage">냥냥펀치</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref, onMounted } = Vue
+    const URL = 'https://api.thecatapi.com/v1/images/search'
+
+    const app = createApp({
+      setup() {
+        const getCatImage = function () {
+          axios({
+            method: 'get',
+            url: URL,
+          })
+            .then((response) => {
+              imgUrl = response.data[0].url
+              return imgUrl
+            })
+            .then((imgData) => {
+              imgElem = document.createElement('img')
+              imgElem.setAttribute('src', imgData)
+              document.body.appendChild(imgElem)
+            })
+            .catch((error) => {
+              console.log('실패했다옹')
+            })
+        }
+
+        onMounted(() => {
+          getCatImage()
+        })
+
+        return {
+          getCatImage
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+```
+
+### Vue Style Guide
+
+- A - 필수
+- B - 강력추천
+- C - 추천
+- D - 주의해서 사용
+
+# 2023 11 07 tuesday
 
 ## Basic syntax of JavaScript
 
