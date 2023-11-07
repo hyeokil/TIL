@@ -8006,7 +8006,110 @@ def likes(request, article_pk):
 
 # 2023 11 07 tuesday
 
-## Basic syntax of JavaScript
+## Single-File Components
+
+- component 
+  - 재사용 가능한 코드 블록
+  - 특징
+    - UI를 독립적이고 재사용 가능한 일부분으로 분할하고 각 부분을 개별적으로 다룰 수 있음
+    - 그러면 자연스럽게 앱은 중첩된 Component의 트리로 구성됨
+
+### Single-File Components
+
+- 컴포넌트의 템플릿, 로직 및 스타일을 하나의 파일로 묶어낸 특수한 파일 형식
+
+```Vue
+
+<template>
+  <div class="greeting">{{ msg }}</div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const msg = ref('hello world!')
+</script>
+
+<style scoped>
+.greeting {
+  color: crimson;
+}
+</style>
+
+```
+
+### SFC build tool (vite)
+
+- Node.js의 영향
+  - 기존에 브라우저 안에서만 동작할 수 있었던 javascript를 브라우저가 아닌 서버 측에서도 실행할 수 있게 함
+    - 프론트엔드와 백엔드에서 동일한 언어로 개발할 수 있게 됨
+  - NPM을 활용해 수많은 오픈 소스 패키지와 라이브러리를 제공하여 개발자들이 손쉽게 코드를 공유하고 재사용할 수 있게 함
+
+### Vue Component
+
+- App.vue
+
+```vue
+
+<template>
+  <h1>App.vue</h1>
+  <MyComponent />
+</template>
+
+<script setup>
+// import MyComponent from './components/MyComponent.vue'
+import MyComponent from '@/components/MyComponent.vue'
+
+</script>
+
+<style scoped>
+
+</style>
+
+```
+
+- MyComponent.vue
+
+```vue
+
+<template>
+  <div>
+    <h2>MyComponent</h2>
+    <MyComponentItem />
+    <MyComponentItem />
+    <MyComponentItem />
+  </div>
+</template>
+
+<script setup>
+import MyComponentItem from '@/components/MyComponentItem.vue'
+
+</script>
+
+<style scoped>
+
+</style>
+
+
+```
+
+- MyComponentItem.vue
+
+```vue
+
+<template>
+  <p>MyComponentITEM</p>
+</template>
+
+<script setup>
+
+</script>
+
+<style scoped>
+
+</style>
+
+```
 
 # 2023 10 24 tuesday
 
