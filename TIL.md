@@ -8111,9 +8111,201 @@ import MyComponentItem from '@/components/MyComponentItem.vue'
 
 ```
 
-# 2023 10 24 tuesday
+# 2023 11 08 wednesday
 
-## Basic syntax of JavaScript
+## Component State Flow
+
+### Passing Props
+
+- Props
+  - 부모 컴포넌트로부터 자식 컴포넌트로 데이터를 전달하는데 사용되는 속성
+  - 특징
+    - 부모 속성이 업데이트 되면 자식으로 흐르지만 그 반대는 안됨
+    - 즉 자식 컴포넌트 내부에서 props를 변경하려고 시도해서는 안되며 불가능
+    - 또한 부모 컴포넌트가 업데이트될 때마다 자식 컴포넌트의 모든 props가 최신 값으로 업데이트 됨
+    - 부모 컴포넌트에서만 변경하고 이를 내려받는 자식 컴포넌트는 자연스럽게 갱신
+
+- One-Way Data Flow
+  - 모든 props는 자식 속성과 부모 속성 사이에 하향식 단방향 바인딩을 형성
+
+- 단방향인 이유
+  - 하위 컴포넌트가 실수로 상위 컴포넌트의 상태를 변경하여 앱에서의 데이터 흐름을 이해하기 어렵게 만드는 것을 방지하기 위함
+
+### Component Events
+
+- App.vue
+
+```vue
+
+<template>
+  <div>
+    <Parent />
+  </div>
+</template>
+
+<script setup>
+import Parent from '@/components/Parent.vue'
+
+</script>
+
+<style scoped>
+
+</style>
+
+```
+
+- Parent.vue
+
+```vue
+
+<template>
+  <div>
+    <ParentChild 
+      my-msg="ssafy" 
+      :dynamic-props="name" 
+      @some-event="someCallback"
+      @emit-args="getNumbers"
+      @update-name="updateName"
+    />
+  </div>
+</template>
+
+<script setup>
+import ParentChild from '@/components/ParentChild.vue'
+import { ref } from 'vue'
+
+const name = ref('Alice')
+
+const someCallback = function () {
+  console.log('ParentChild가 발신한 emit 이벤트를 수신했습니다.')
+}
+
+const getNumbers = function (...args) {
+  console.log(args)
+}
+
+const updateName = function () {
+  name.value = 'Bella'
+}
+</script>
+
+<style scoped>
+
+</style>
+
+```
+
+- ParentChild.vue
+
+```vue
+
+<template>
+  <div>
+    <p>{{ myMsg }}</p>
+    <p>{{ dynamicProps }}</p>
+    <ParentGrandChild 
+      :my-msg="myMsg" 
+      @update-name="updateName"
+    />
+    <button @click="$emit('someEvent')">클릭</button>
+    <button @click="buttonClick">클릭</button>
+    <button @click="emitArgs">추가 인자 전달</button>
+  </div>
+</template>
+
+<script setup>
+import ParentGrandChild from '@/components/ParentGrandChild.vue';
+
+// 1. props - 문자열 배열 선언 방식
+// defineProps(['myMsg'])
+
+// 2. props - 객체 선언 방식
+// defineProps({
+//   myMsg: String,
+//   dynamicProps: String,
+// })
+
+// props 데이터를 script에서 사용하려면
+// const props = defineProps({
+//                 myMsg: String,
+//                 dynamicProps: String,
+//               })
+
+// console.log(props)
+// console.log(props.myMsg)
+
+// 3. props - 객체 선언 방식의 활용
+// defineProps({
+//   myMsg: {
+//     type: String,
+//     required: true,
+//     // validator(value) {
+//     //   return ['success', 'warning', 'danger'].includes(value)
+//     // }
+//     validator(value) {
+//       const validValues = ['success', 'warning', 'danger']
+//       if (!validValues.includes(value)) {
+//         console.error('에러입니다!!')
+//         return false
+//       }
+//       return true
+//     }
+//   }
+// })
+
+// emit - 문자열 배열 선언 방식
+const emit = defineEmits(['someEvent', 'emitArgs', 'updateName'])
+
+const buttonClick = function () {
+  emit('someEvent')
+}
+
+const emitArgs = function () {
+  emit('emitArgs', 1, 2, 3)
+}
+
+const updateName = function () {
+  emit('updateName')
+}
+
+</script>
+
+<style scoped>
+
+</style>
+
+```
+
+- ParentGrandChild.vue
+
+```vue
+
+<template>
+  <div>
+    <p>{{ myMsg }}</p>
+    <button @click="updateName">이름 변경!</button>
+  </div>
+</template>
+
+<script setup>
+defineProps({
+  myMsg: String,
+})
+
+const emit = defineEmits(['updateName'])
+
+const updateName = function () {
+  emit('updateName')
+}
+
+</script>
+
+<style scoped>
+
+</style>
+
+```
+
 
 # 2023 10 24 tuesday
 
