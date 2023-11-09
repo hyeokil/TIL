@@ -8307,9 +8307,161 @@ const updateName = function () {
 ```
 
 
-# 2023 10 24 tuesday
+# 2023 11 09 thursday
 
-## Basic syntax of JavaScript
+## Router
+
+### Routing
+
+- 네트워크에서 경로를 선택하는 프로세스 
+- 웹 애플리케이션에서 다른 페이지 간의 전환과 경로를 관리하는 기술
+- 만약 routiong이 없다면 
+  - 유저가 URL을 통한 페이지의 변화를 감지할 수 없음
+  - 페이지가 무엇을 렌더링 중인지에 대한 상태를 알 수 없음
+    - URL이 1개이기 때문에 새로 고침 시 처음 페이지로 되돌아감
+    - 링크를 공유할 시 첫 페이지만 공유 가능
+  - 브라우저의 뒤로 가기 기능을 사용할 수 없음
+
+### Vue Router
+
+- Vue 공식 라우터
+
+### Navigation Guard
+
+- 종류
+  - Globally
+    - 애플리케이션 전역에서 동작
+    - index.js에서 정의
+  - Per-route
+    - 특정 route에서만 동작
+    - index.js의 각 routes에 정의
+  - In-component
+    - 특정 컴포넌트 내에서만 동작
+    - 컴포넌트 Script에 정의
+
+- index.js
+
+```js
+
+import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
+import UserView from '@/views/UserView.vue'
+import LoginView from '@/views/LoginView.vue'
+
+
+const isAuthenticated = true
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: HomeView
+    },
+    {
+      path: '/about',
+      name: 'about',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/AboutView.vue')
+    },
+    {
+      path: '/user/:id',
+      name: 'user',
+      component: UserView,
+      beforeEnter: (to, from) => {
+        console.log(to)
+        console.log(from)
+      }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView,
+      beforeEnter: (to, from) => {
+        if (isAuthenticated === true) {
+          console.log('이미 로그인되어 있습니다.')
+          return { name: 'home' }
+        }
+      }
+    }
+  ]
+})
+
+// router.beforeEach((to, from) => {
+//   console.log(to)
+//   console.log(from)
+// })
+
+// router.beforeEach((to, from) => {
+//   const isAuthenticated = false
+  
+//   if (!isAuthenticated && to.name !== 'login') {
+//     console.log('로그인이 필요합니다.')
+//     return { name: 'login' }
+//   }
+// })
+
+export default router
+
+```
+
+- userview.vue
+
+```vue
+
+<template>
+  <div>
+    <h1>UserView</h1>
+    <h2>{{ $route.params.id }}번 유저의 페이지입니다.</h2>
+    <h2>{{ userId }}번 유저의 페이지입니다.</h2>
+    <button @click="goHome">홈으로!</button>
+    <button @click="goAnotherUser">100번 유저 페이지로!</button>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { useRoute, useRouter, onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
+
+const route = useRoute()
+const userId = ref(route.params.id)
+
+// 프로그래밍 방식 네이게이션
+const router = useRouter()
+
+const goHome = function () {
+  // router.push({ name: 'home' })
+  router.replace({ name: 'home' })
+}
+
+// In-component Guard
+// 1. onBeforeRouteLeave
+onBeforeRouteLeave((to, from) => {
+  const answer = window.confirm('정말 떠나실 건가요?')
+  if (answer === false) {
+    return false
+  }
+})
+
+// 2. onBeforeRouteUpdate
+const goAnotherUser = function () {
+  router.push({ name: 'user', params: {id: 100} })
+}
+
+onBeforeRouteUpdate((to, from) => {
+  userId.value = to.params.id
+})
+
+</script>
+
+<style scoped>
+
+</style>
+
+```
 
 # 2023 10 24 tuesday
 
