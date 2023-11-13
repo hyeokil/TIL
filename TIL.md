@@ -8018,7 +8018,7 @@ def likes(request, article_pk):
 
 - 컴포넌트의 템플릿, 로직 및 스타일을 하나의 파일로 묶어낸 특수한 파일 형식
 
-```Vue
+```html
 
 <template>
   <div class="greeting">{{ msg }}</div>
@@ -8049,7 +8049,7 @@ const msg = ref('hello world!')
 
 - App.vue
 
-```vue
+```html
 
 <template>
   <h1>App.vue</h1>
@@ -8070,7 +8070,7 @@ import MyComponent from '@/components/MyComponent.vue'
 
 - MyComponent.vue
 
-```vue
+```html
 
 <template>
   <div>
@@ -8095,7 +8095,7 @@ import MyComponentItem from '@/components/MyComponentItem.vue'
 
 - MyComponentItem.vue
 
-```vue
+```html
 
 <template>
   <p>MyComponentITEM</p>
@@ -8135,7 +8135,7 @@ import MyComponentItem from '@/components/MyComponentItem.vue'
 
 - App.vue
 
-```vue
+```html
 
 <template>
   <div>
@@ -8156,7 +8156,7 @@ import Parent from '@/components/Parent.vue'
 
 - Parent.vue
 
-```vue
+```html
 
 <template>
   <div>
@@ -8197,7 +8197,7 @@ const updateName = function () {
 
 - ParentChild.vue
 
-```vue
+```html
 
 <template>
   <div>
@@ -8278,7 +8278,7 @@ const updateName = function () {
 
 - ParentGrandChild.vue
 
-```vue
+```html
 
 <template>
   <div>
@@ -8410,7 +8410,7 @@ export default router
 
 - userview.vue
 
-```vue
+```html
 
 <template>
   <div>
@@ -8463,9 +8463,219 @@ onBeforeRouteUpdate((to, from) => {
 
 ```
 
-# 2023 10 24 tuesday
+# 2023 11 13 monday
 
-## Basic syntax of JavaScript
+## State Management
+
+- Vue 컴포넌트는 이미 반응형 상태를 관리하고 있음 
+- 상태 === 데이터
+
+- 컴포넌트 구조의 단순화
+  - 상태 
+  - 뷰
+  - 기능
+  - 단방향 데이터 흐름의 간단한 표현
+
+- 상태 관리의 단순성이 무너지는 시점
+  - 여러 컴포넌트가 상태를 공유할 때
+  - 서로 다른 뷰의 기능이 동일한 상태를 변경시켜야 하는 경우
+
+- 해결책
+  - 각 컴포넌트의 공유 상태를 추출하여, 전역에서 참조할 수 있는 저장소에서 관리
+  - 컴포넌트 트리는 하나의 큰 '뷰'가 되고 모든 컴포넌트는 트리 계층 구조에 관계없이 상태에 접근하거나 기능을 사용할 수 있음
+  - Vue의 공식 상태 관리 라이브러리 === 'Pinia'
+
+### State management library (Pinia)
+
+- main.js
+
+```js
+
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+import App from './App.vue'
+
+const app = createApp(App)
+const pinia = createPinia()
+
+pinia.use(piniaPluginPersistedstate)
+// app.use(createPinia())
+app.use(pinia)
+
+app.mount('#app')
+
+```
+
+- stores/counter.js
+
+```js
+
+import { ref, computed } from 'vue'
+import { defineStore } from 'pinia'
+
+export const useCounterStore = defineStore('counter', () => {
+  let id = 0
+  const todos = ref([
+    { id: id++, text: 'todo 1', isDone: false },
+    { id: id++, text: 'todo 2', isDone: false },
+  ])
+
+  const addTodo = function (todoText) {
+    todos.value.push({
+      id: id++,
+      text: todoText,
+      isDone: false
+    })
+  }
+
+  const deleteTodo = function (todoId) {
+    // todos 배열에서 몇번째 인덱스가 삭제되었는지 검색
+    const index = todos.value.findIndex((todo) => todo.id === todoId)
+    // 찾은 인덱스 값을 통해 배열에서 요소를 제거 후 원본 배열 업데이트
+    todos.value.splice(index, 1)
+  }
+
+  const updateTodo = function (todoId) {
+    todos.value = todos.value.map((todo) =>{
+      if (todo.id === todoId) {
+        todo.isDone = !todo.isDone
+      }
+      return todo
+    })
+  }
+
+  const doneTodosCount = computed(() =>{
+    return todos.value.filter((todo) => todo.isDone).length
+  })
+
+  return { todos, addTodo, deleteTodo, updateTodo, doneTodosCount }
+}, { persist: true })
+
+```
+
+- components/TodoForm.vue
+
+```html
+
+<template>
+  <div>
+    <form @submit.prevent="createTodo()">
+      <input type="text" v-model="todoText">
+      <input type="submit">
+    </form>
+  </div>
+</template>
+
+<script setup>
+import { useCounterStore } from '@/stores/counter'
+import { ref } from 'vue'
+
+const todoText = ref('')
+const store = useCounterStore()
+
+const createTodo = function () {
+  store.addTodo(todoText.value)
+  todoText.value = ''
+}
+
+</script>
+
+<style scoped>
+
+</style>
+
+```
+
+- components/TodoList.vue
+
+```html
+
+<template>
+  <div>
+    <TodoListItem 
+      v-for="todo in store.todos"
+      :key="todo.id"
+      :todo-data="todo"
+    />
+  </div>
+</template>
+
+<script setup>
+import TodoListItem from '@/components/TodoListItem.vue'
+import { useCounterStore } from '@/stores/counter'
+
+const store = useCounterStore()
+</script>
+
+<style scoped>
+
+</style>
+
+```
+
+- components/TodoListItem.vue
+
+```html
+
+<template>
+  <div>
+    <span 
+      @click="store.updateTodo(todoData.id)"
+      :class="{ 'is-done': todoData.isDone}"
+    >
+      {{ todoData.text }}
+    </span>
+    <button @click="store.deleteTodo(todoData.id)">X</button>
+  </div>
+</template>
+
+<script setup>
+import { useCounterStore } from '@/stores/counter'
+
+defineProps({
+  todoData: Object
+})
+
+const store = useCounterStore()
+
+</script>
+
+<style scoped>
+.is-done {
+  text-decoration: line-through;
+}
+
+</style>
+
+```
+
+- App.vue
+
+```html
+
+<template>
+  <div>
+    <h1>Todo PJT</h1>
+    <h2>완료된 Todo : {{ store.doneTodosCount }}</h2>
+    <TodoForm />
+    <TodoList />
+  </div>
+</template>
+
+<script setup>
+import TodoForm from '@/components/TodoForm.vue'
+import TodoList from '@/components/TodoList.vue'
+
+import { useCounterStore } from '@/stores/counter'
+
+const store = useCounterStore()
+</script>
+
+<style scoped>
+</style>
+
+```
 
 # 2023 10 24 tuesday
 
