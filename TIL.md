@@ -8677,9 +8677,293 @@ const store = useCounterStore()
 
 ```
 
-# 2023 10 24 tuesday
+# 2023 11 14 tuesday
 
-## Basic syntax of JavaScript
+## Vue with DRF 1
+
+- index.js
+
+```js
+
+import { createRouter, createWebHistory } from 'vue-router'
+import ArticleView from '@/views/ArticleView.vue'
+import DetailView from '@/views/DetailView.vue'
+import CreateView from '@/views/CreateView.vue'
+// import SignUpView from '@/views/SignUpView.vue'
+// import LogInView from '@/views/LogInView.vue'
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'ArticleView',
+      component: ArticleView
+    },
+    {
+      path: '/articles/:id',
+      name: 'DetailView',
+      component: DetailView
+    },
+    {
+      path: '/create',
+      name: 'CreateView',
+      component: CreateView
+    },
+    // {
+    //   path: '/signup',
+    //   name: 'SignUpView',
+    //   component: SignUpView
+    // },
+    // {
+    //   path: '/login',
+    //   name: 'LogInView',
+    //   component: LogInView
+    // }
+  ]
+})
+
+export default router
+
+```
+
+- counter.js
+
+```js
+
+import { ref, computed } from 'vue'
+import { defineStore } from 'pinia'
+import axios from 'axios'
+
+export const useCounterStore = defineStore('counter', () => {
+  const articles = ref([])
+  const API_URL = 'http://127.0.0.1:8000'
+
+  // DRF에 article 조회 요청을 보내는 action
+  const getArticles = function () {
+    axios({
+      method: 'get',
+      url: `${API_URL}/api/v1/articles/`
+    })
+      .then((res) =>{
+        // console.log(res)
+        articles.value = res.data
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+  return { articles, API_URL, getArticles }
+}, { persist: true })
+
+```
+
+- ArticleView.vue
+
+```html
+
+<template>
+  <div>
+    <h1>Article Page</h1>
+    <RouterLink :to="{ name: 'CreateView' }">
+      [CREATE]
+    </RouterLink>
+    <ArticleList />
+  </div>
+</template>
+
+<script setup>
+import { onMounted } from 'vue'
+import { useCounterStore } from '@/stores/counter'
+import { RouterLink } from 'vue-router'
+import ArticleList from '@/components/ArticleList.vue'
+
+const store = useCounterStore()
+
+onMounted(() => {
+  store.getArticles()
+})
+
+</script>
+
+<style>
+
+</style>
+
+```
+
+- CreateView.vue
+
+```html
+
+<template>
+  <div>
+    <h1>게시글 작성</h1>
+    <form @submit.prevent="createArticle">
+      <input type="text" v-model.trim="title">
+      <textarea v-model.trim="content"></textarea>
+      <input type="submit">
+    </form>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import axios from 'axios'
+import { useCounterStore } from '@/stores/counter'
+import { useRouter } from 'vue-router'
+
+const title = ref(null)
+const content = ref(null)
+const store = useCounterStore()
+const router = useRouter()
+
+const createArticle = function () {
+  axios({
+    method: 'post',
+    url: `${store.API_URL}/api/v1/articles/`,
+    data: {
+      title: title.value,
+      content: content.value
+    }
+  })
+    .then((res) => {
+      // console.log(res)
+      router.push({ name: 'ArticleView' })
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
+
+
+</script>
+
+<style>
+
+</style>
+
+```
+
+- DetailView.vue
+
+```html
+
+<template>
+  <div>
+    <h1>Detail</h1>
+    <div v-if="article">
+      <p>제목 : {{ article.title }}</p>
+      <p>내용 : {{ article.content }}</p>
+      <p>작성일 : {{ article.created_at }}</p>
+      <p>수정일 : {{ article.updated_at }}</p>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import axios from 'axios'
+import { onMounted, ref } from 'vue'
+import { useCounterStore } from '@/stores/counter'
+import { useRoute } from 'vue-router'
+
+const store = useCounterStore()
+const route = useRoute()
+const article = ref(null)
+
+onMounted(() => {
+  axios({
+    method: 'get',
+    url: `${store.API_URL}/api/v1/articles/${route.params.id}/`
+  })
+    .then((res) => {
+      // console.log(res.data)
+      article.value = res.data
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+})
+
+</script>
+
+<style>
+
+</style>
+
+```
+
+- ArticleList.vue
+
+```html
+<template>
+  <div>
+    <h3>Article List</h3>
+    <ArticleListItem 
+      v-for="article in store.articles"
+      :key="article.id"
+      :article="article"
+    />
+  </div>
+</template>
+
+<script setup>
+import { useCounterStore } from '@/stores/counter'
+import ArticleListItem from '@/components/ArticleListItem.vue'
+
+const store = useCounterStore()
+console.log(store.articles)
+</script>
+```
+
+- ArticleListItem.vue
+
+```html
+
+<template>
+  <div>
+    <h5>{{ article.id }}</h5>
+    <p>{{ article.title }}</p>
+    <p>{{ article.content }}</p>
+    <RouterLink :to="{ name: 'DetailView', params: { id: article.id }}">
+      [Detail]
+    </RouterLink>
+    <hr>
+  </div>
+</template>
+
+<script setup>
+import { RouterLink } from 'vue-router'
+
+defineProps({
+  article: Object
+})
+</script>
+
+```
+
+- App.vue
+
+```html
+
+<template>
+  <header>
+    <nav>
+      <RouterLink :to="{ name: 'ArticleView' }">Articles</RouterLink>
+    </nav>
+  </header>
+  <RouterView />
+</template>
+
+<script setup>
+import { RouterView, RouterLink } from 'vue-router'
+</script>
+
+<style scoped>
+</style>
+
+```
 
 # 2023 10 24 tuesday
 
