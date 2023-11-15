@@ -8965,9 +8965,228 @@ import { RouterView, RouterLink } from 'vue-router'
 
 ```
 
-# 2023 10 24 tuesday
+# 2023 11 15 wednesday
 
-## Basic syntax of JavaScript
+## Vue with DRF 2
+
+### DRF Authentication
+
+- settrings.py
+
+```python
+
+# 추가
+INSTALLED_APPS = [
+  'rest_framework.authtoken',
+  'dj_rest_auth',
+  'django.contrib.sites',
+  'allauth',
+  'allauth.account',
+  'allauth.socialaccount',
+  'dj_rest_auth.registration',
+]
+
+SITE_ID = 1
+
+REST_FRAMEWORK = {
+    # Authentication
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    # permission
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+}
+
+```
+
+- signals.py(accounts)
+
+```python
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
+from django.conf import settings
+
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
+
+```
+
+- views.py(articles)
+
+```python
+
+# post
+serializer.save(user=request.user)
+
+```
+
+### Authentication with Vue
+
+- index.js
+
+```python
+
+import { createRouter, createWebHistory } from 'vue-router'
+import ArticleView from '@/views/ArticleView.vue'
+import DetailView from '@/views/DetailView.vue'
+import CreateView from '@/views/CreateView.vue'
+import SignUpView from '@/views/SignUpView.vue'
+import LogInView from '@/views/LogInView.vue'
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'ArticleView',
+      component: ArticleView
+    },
+    {
+      path: '/articles/:id',
+      name: 'DetailView',
+      component: DetailView
+    },
+    {
+      path: '/create',
+      name: 'CreateView',
+      component: CreateView
+    },
+    {
+      path: '/signup',
+      name: 'SignUpView',
+      component: SignUpView
+    },
+    {
+      path: '/login',
+      name: 'LogInView',
+      component: LogInView
+    }
+  ]
+})
+
+import { useCounterStore } from '@/stores/counter'
+
+router.beforeEach((to, from) => {
+  const store = useCounterStore()
+  if (to.name === 'ArticleView' && !store.isLogin) {
+    window.alert('로그인이 필요합니다.')
+    return { name: 'LogInView' }
+  }
+  if ((to.name === 'SignUpView' || to.name === 'LogInView') && (store.isLogin)) {
+    window.alert('이미 로그인 했습니다.')
+    return { name: 'ArticleView' }
+  }
+})
+
+export default router
+
+```
+
+- counter.js
+
+```python
+
+import { ref, computed } from 'vue'
+import { defineStore } from 'pinia'
+import { useRouter } from 'vue-router'
+import axios from 'axios'
+
+export const useCounterStore = defineStore('counter', () => {
+  const router = useRouter()
+  const articles = ref([])
+  const API_URL = 'http://127.0.0.1:8000'
+  const token = ref(null)
+  const isLogin = computed(() => {
+    if (token.value === null) {
+      return false
+    } else {
+      return true
+    }
+  })
+
+  // DRF에 article 조회 요청을 보내는 action
+  const getArticles = function () {
+    axios({
+      method: 'get',
+      url: `${API_URL}/api/v1/articles/`,
+      headers: {
+        Authorization: `Token ${token.value}`
+      }
+    })
+      .then((res) =>{
+        // console.log(res)
+        articles.value = res.data
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  const signUp = function (payload) {
+    const { username, password1, password2 } = payload
+
+    axios({
+      method: 'post',
+      url: `${API_URL}/accounts/signup/`,
+      data: {
+        username, password1, password2
+      }
+    })
+      .then((res) => {
+        console.log(res)
+        const password = password1
+        logIn({ username, password })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  const logIn = function (payload) {
+    const { username, password } = payload
+
+    axios({
+      method: 'post',
+      url: `${API_URL}/accounts/login/`,
+      data: {
+        username, password
+      }
+    })
+      .then((res) => {
+        console.log(res.data)
+        token.value = res.data.key
+        router.push({ name: 'ArticleView' })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  const logOut = function () {
+    axios({
+      method: 'post',
+      url: `${API_URL}/accounts/logout/`,
+    })
+      .then((res) => {
+        token.value = null
+        router.push({ name: 'ArticleView' })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  return { articles, API_URL, getArticles, signUp, logIn, token, isLogin, logOut }
+}, { persist: true })
+
+```
 
 # 2023 10 24 tuesday
 
