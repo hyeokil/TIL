@@ -9188,10 +9188,209 @@ export const useCounterStore = defineStore('counter', () => {
 
 ```
 
-# 2023 10 24 tuesday
+# 2023 12 07 thursday
 
-## Basic syntax of JavaScript
+## Java Chapter 01
 
-# 2023 10 24 tuesday
+```java
+
+package ch01;
+
+public class HelloWorld {
+
+	public static void main(String[] args) {
+		System.out.println("Hello, World");
+		
+	}
+
+}
+
+```
+
+```java
+
+package ch03;
+
+public class BinaryTest {
+
+	public static void main(String[] args) {
+
+		int num = 10;
+		int bNum = 0b1010;
+		int oNum = 012;
+		int xNum = 0XA;
+		
+		System.out.println(num);
+		System.out.println(bNum);
+		System.out.println(oNum);
+		System.out.println(xNum);
+		
+		int cNum = 0b01000001;
+		System.out.println((char)cNum);
+	}
+
+}
+
+```
+
+```java
+
+package ch04;
+
+public class VariableTest {
+
+	public static void main(String[] args) {
+
+		int age;
+		age = 10;
+		int level = 1000;
+		System.out.println(age);
+		System.out.println(level);
+	}
+
+}
+
+```
+
+```java
+
+package ch05;
+
+public class IntVariableTest {
+
+	public static void main(String[] args) {
+		byte bs = 127;
+		
+		System.out.println(bs);
+		
+		long iVal = 12345678900L;
+		System.out.println(iVal);
+		
+		
+		
+	}
+
+}
+
+```
+
+```java
+
+package ch06;
+
+public class DoubleTest {
+
+	public static void main(String[] args) {
+		
+		double dnum = 3.14;
+		float fnum = 3.14F;
+		
+		System.out.println(dnum);
+		System.out.println(fnum);
+		
+		double mynum = 1;
+		for ( int i=0; i<10000; i++) {
+			mynum += 0.1;
+		}
+		
+		System.out.println(mynum);
+	}
+
+}
+
+```
+
+```java
+
+package ch07;
+
+public class CharacterTest {
+
+	public static void main(String[] args) {
+		
+		char ch1 = 'A';
+		System.out.println(ch1);
+		System.out.println((int)ch1);
+		
+		char ch2 = 66;
+		System.out.println(ch2);
+		
+		char ch3 = '한';
+		char ch4 = '\uAC00';
+		System.out.println(ch3);
+		System.out.println(ch4);
+		
+		
+		
+		
+	}
+
+}
+
+```
+
+```java
+
+package ch08;
+
+public class BooleanTest {
+
+	public static void main(String[] args) {
+		
+		boolean isMarried = false;
+		System.out.println(isMarried);
+		
+	}
+
+}
+
+```
+
+```java
+
+package ch08;
+
+public class LocalVariableType {
+
+	public static void main(String[] args) {
+		
+		var i = 10;
+		var j = 10.0;
+		var str = "hello";
+		
+		System.out.println(i);
+		System.out.println(j);
+		System.out.println(str);
+		
+		str = "test";
+		System.out.println(str);
+		
+	}
+
+}
+
+```
+
+```java
+
+package ch09;
+
+public class ConstantTest {
+
+	public static void main(String[] args) {
+		
+		final int MAX_NUM;
+		final int MIN_NUM = 10;
+		MAX_NUM = 1000;
+		System.out.println(MIN_NUM);
+		System.out.println(MAX_NUM);
+	}
+
+}
+
+```
+
+
+# 2023 12 08 friday
 
 ## Basic syntax of JavaScript
