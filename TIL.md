@@ -9391,6 +9391,8 @@ public class ConstantTest {
 ```
 
 
-# 2023 12 08 friday
+# 2024 01 03 wednesday
 
-## Basic syntax of JavaScript
+## 애자일
+- 공통프로젝트에서 하는 것은 애자일 방법을 따라서 개발을 해본다는 것 
+- 개발과 함께 즉시 피드백을 받아서 유동적으로 개발하는 방법
