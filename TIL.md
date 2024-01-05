@@ -9396,3 +9396,9 @@ public class ConstantTest {
 ## 애자일
 - 공통프로젝트에서 하는 것은 애자일 방법을 따라서 개발을 해본다는 것 
 - 개발과 함께 즉시 피드백을 받아서 유동적으로 개발하는 방법
+
+# 2024 01 05 friday
+
+## JAVA 인터페이스
+- 모든 메서드가 추상 메서드로 선언됨 public abstract
+- 모든 변수는 상수로 선언됨 public static final
