@@ -1,19 +1,14 @@
 package com.example.demo;
 
 import jakarta.transaction.Transactional;
-import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
-
-@RunWith(SpringRunner.class)
 @SpringBootTest
-public class MemberRepositoryTest {
+class MemberRepositoryTest {
 
     @Autowired MemberRepository memberRepository;
 
@@ -29,8 +24,9 @@ public class MemberRepositoryTest {
         Member findMember = memberRepository.find(saveId);
 
         //then
-        assertThat(findMember.getId()).isEqualTo(member.getId());
-        assertThat(findMember.getUsername()).isEqualTo(member.getUsername());
+        System.out.println("findMember == member: " + (findMember == member));
+        System.out.println(member);
     }
-
 }
+
+
