@@ -10224,3 +10224,334 @@ Gerrit 기대 효과
     sudo tar -xzvf gerrit-backup.tar.gz -C /opt/
     sudo systemctl start gerrit
     ```
+
+    # 2024 01 25 thursday
+
+    React 기초 및 응용 개발 실습
+===================
+
+2024.01.18
+
+박세영 컨설턴트
+
+그린랩스 개발본부/본부장, CJ 올리브네트웍스 대안통운IT서비스팀/PL, 유진그룹 물류부문 정보전략팀, 세종대학교 정보산업학 석사
+
+**학습목표** : 처음 다루는 사람도 기본적인것을 다룰 수 있도록
+
+Why ~ How
+---------
+
+### why?
+
+*   새로운 언어 라는 막연함
+*   눈에 안 들어오는 코드의 난해함 (Vue에 비해)
+
+CRA : Create React App
+----------------------
+
+*   babel (컴파일러) ← 브라우저별로 서로 다른 자바스크립트를 이해할 수 있도록 통합해주는 역할
+*   webpack (빌드 시켜주는 파일 팩) → 사용을 위해 javascript 실행기인 node가 필요하다.
+
+### 설치 및 시작
+
+*   Node.js 설치 → NPM사용을 위해서 사용함. 최신버전 추천함.
+    
+*   CRA 설치 → 설치 희망 path로 이동 후 npx명령어로 설치
+    
+        # npm 5.2 이상인 경우
+        npx create-react-app appname
+        
+        # npm 6 이상인 경우
+        npm init react-app appname
+        
+    
+*   서버 실행
+    
+        # appname 폴더로 이동한 후
+        npm start
+        
+    
+*   index.html, index.js, App.js 등의 파일이 만들어진것을 확인할 수 있음
+    
+
+useState
+--------
+
+### 테이블 생성 & 데이터 적용
+
+[React로 사고하기 – React](https://ko.legacy.reactjs.org/docs/thinking-in-react.html#step-2-build-a-static-version-in-react)
+
+*   React 문법 : 대부분의 Object 표현 방식
+
+    // App.js
+    import logo from './logo.svg';
+    import './App.css';
+    
+    function App() {
+    	let title = ['name', 'major'];
+    	let name = ['a', 'b'];
+    	let major = ['industrial engineering', 'computer engineering'];
+    
+    	return (
+    		// 여기에 div, table 등 작성!
+    	)
+    }
+    
+
+### \[객체, 대체값\]
+
+*   useState 사용 위해
+
+component
+---------
+
+React를 사용할 때는 컴포넌트를 class 또는 함수로 정의할 수 있습니다.
+
+[React.Component – React](https://ko.legacy.reactjs.org/docs/react-component.html)
+
+    // 함수형 컴포넌트
+    import React from 'react';
+    
+    function MyComponent(props) {
+    	return <div>Hello, {props.name}</div>;
+    }
+    
+    export default MyComponent; //다른 JS파일에서 불러올 수 있도록 내보내주기
+    
+    //----------
+    // 클래스형 컴포넌트
+    import React from 'react';
+    
+    class MyComponent extends React.Component {
+    	constructor(props) { // 생성함수
+    		super(props);
+    	}
+    	
+    	componentDidMount() { // 상속받은 생명주기 함수
+    	}
+    	
+    	render() { // 상속받은 화면 출력 함수, 클래스형 컴포넌트는 render() 필수
+    		return <div>Hello, {this.props.name}</div>;
+    	}
+    }
+    
+    export default MyComponent; //다른 JS파일에서 불러올 수 있도록 내보내주기
+    
+
+DataGrid
+--------
+
+[DataGrid API - MUI X](https://mui.com/x/api/data-grid/data-grid/)
+
+⇒ 스프레드시트와 유사하게 표기하는 등 다양한 형태로 활용할 수 있음.
+
+### MUI
+
+→ 업계 표준처럼 사용하기도 함! 레퍼참고에 좋은 사이트
+
+SSAFY 코드 리뷰와 Gerrit 사용 안내
+=========================
+
+2024.01.19
+
+이준철 프로
+
+Code Review
+-----------
+
+### 1\. Code Review란?
+
+*   코드 리뷰
+    *   개발자가 작성한 코드를 다른 개발자들이 검토하고 피드백하는 과정
+    *   배움을 주고 받으며 좋은 SW 개발자가 될 수 있는 실천법
+    *   **기대효과**
+        1.  코드 품질 개선
+        2.  코드 작성 능력 향상
+        3.  협업 능력 향상
+*   싸피에서의 코드 리뷰
+    *   팀원들 간의 코드리뷰를 통한 개발/소통 능력 향상
+    *   현업에서의 코드리뷰 문화를 사전 경험
+
+### 2\. Code Review의 필요성
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e4a72e00-c2d8-4118-887b-37e2b5f8b0de/46b1e765-5bae-43f2-a4c7-6c0c36312a8e/Untitled.png)
+
+팀 내 **일관된 스타일**과 **가독성**을 높이기 위해 필요하다.
+
+*   코딩 컨벤션 (Coding Conventions)
+    
+    *   읽고 관리하기 쉬운 코드를 작성하기 위한 일종의 코딩 스타일 규약
+*   대표적인 컨벤션 요소
+    
+    *   명확한 네이밍 규칙
+    *   들여쓰기와 포멧팅 규칙
+    *   주석 작성 규칙
+    *   함수와 메소드 규칙
+*   코드 포메터 (Code Formatter)
+    
+    *   VSCode Extention - Prettier
+*   Oracle SQL Code Convention
+    
+    [Oracle SQL and PL/SQL Optimization for Developers — Oracle SQL & PL/SQL Optimization for Developers 3.1.0 documentation](https://oracle.readthedocs.io/en/latest/)
+    
+*   Clean Code ↔ Dirty Code
+    
+    *   성능이 좋은 코드 ↔ 성능이 나쁜 코드
+    *   의미가 명확하고 가독성이 좋은 코드 ↔ 의미가 모호한 코드
+    *   중복되는 내용이 제거된 코드 ↔ 중복되는 코드
+*   클린코드의 필요성
+    
+    *   SW의 진정한 비용 ~= 유지보수 (전체의 80% 이상)
+    *   한번 작성한 코드는 10번 이상 읽음
+    *   90% 이상의 시간을 코드를 이해하는 데 사용함.
+
+[Clean Code 클린 코드 - 예스24](https://www.yes24.com/Product/Goods/11681152)
+
+⇒ 유지보수를 염두해두면서 프로젝트 하기
+
+*   Microsoft 개발자의 75%는 매일 코드리뷰 진행!
+
+### 3\. Code Review의 목적과 절차
+
+*   목적
+    *   코드 품질 향상 및 표준화 (일관된 컨벤션 유지)
+    *   안정성 강화 (버그 일찍 발견하여 프로그램 안정성 향상)
+    *   팀 전체 역량 강화 (개발,, 협업, 소통 등)
+    *   상호 책임감과 관심 증대, 내 코드에 대한 부담 낮춤
+*   절차
+    *   구성
+        *   저자 - 코드의 작성자로 작업한 코드 내역을 리뷰어들에게 리뷰 요청
+        *   리뷰어 - 저자로부터 받은 변경 내역을 확인하고, 의견을 제시 (팀원)
+        *   승인자 - 리뷰가 완료되고 코드 변경 사항을 승인 하는 역할
+    *   진행 순서
+        1.  준비 단계 - 저자가 코드를 리뷰어들이 쉽게 이해할 수 있도록 준비
+        2.  리뷰 요청 - 저자가 리뷰어들에게 리뷰 요청을 보냄
+        3.  리뷰 진행 - 리뷰어들이 코드 변경 사항을 검토하고 피드백 작성
+        4.  리뷰 승인 - 최종 버전으로 승인 여부 결정
+        5.  최종 병합 - 승인이 된 코드는 팀 레포지토리에 병합
+
+### 4\. Code Review의 어려움
+
+*   코드 비판에 대한 두려움
+*   개발 일정 지연 우려
+*   의사 소통 중 생기는 마찰
+*   전문성 부족으로 인한 부담
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e4a72e00-c2d8-4118-887b-37e2b5f8b0de/8479c0fc-c9cb-49de-a659-f71bcaf03238/Untitled.png)
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e4a72e00-c2d8-4118-887b-37e2b5f8b0de/641037f3-e035-464c-b600-078fb371a475/Untitled.png)
+
+### 5\. Code Review의 권장사항
+
+1.  개선 필요 이유를 충분히 설명
+2.  단순 해법보다 스스로의 고민과 학습을 통한 개선 방법 안내
+3.  코드 컨벤션 기반 클린코드 유지 및 일관적 구현 안내
+4.  숙제 검사가 아닌 학습 과정으로서의 리뷰
+5.  리뷰를 위한 리뷰를 지양하고 칭찬을 활용
+6.  친절, 배려 기반 명확한 피드백
+
+Gerrit
+------
+
+네이버 등에서도 사용!
+
+### 1\. Gerrit이란?
+
+*   코드 리뷰 기능과 Git 서버저장소 관리 기능을 제공하는 웹 기반 코드 리뷰 시스템
+*   Github, Gitlab 등에서는 PR(Pull Request), MR(Merge Request) 단계에서 merge 단위로 리뷰가 가능하나, Gerrit은 코드 리뷰에 목적을 둔 솔루션으로, 각 commit 단위로 리뷰를 진행할 수 있는 것이 특징
+
+⇒ 집중된 리뷰, 빠른 피드백, 분산된 리뷰 부담 감소
+
+### 2\. Gerrit의 구조
+
+8989포트를 통해 접근 가능함
+
+*   저자 Developer
+    1.  push for review
+*   리뷰어 Reviewers
+    1.  review
+*   승인자 Submitter
+    1.  ( vote +2가 하나 이상이고, -2가 없을 때) submit
+
+1.  repository 반영
+2.  repository 자동 동기화
+
+### 3\. SSAFY에서의 Gerrit
+
+팀 프로젝트용 EC2에 사전 구축된 상태! 몇몇 설정만 가이드에 따라서 직접 하기
+
+*   백업
+    *   명령어로 폴더를 압축한 후 home 폴더에 생성된 압축 파일을 SCP, SFTP 등으로 내려 받을 수 있음
+    *   유사시를 대비해 주기적 백업 권장
+    *   replication 설정으로 소스 코드는 gitlab에 저장되더라도 코드 리뷰의 history는 gerrit을 복구해야만 확인 가능
+
+    // backup
+    sudo systemctl stop gerrit
+    cd/ opt && sudo tar -cgvf !/gerrit-backup.tar.gz gerrit
+    sudo systemctl start gerrit
+    
+    // 복구
+    sudo systemctl stop gerrit
+    sudo mv /opt/gerrit/opt/gerrit-old
+    sudo tar-xzvf gerrit-backup.tar.gz -C/opt/
+    sudo systemctl start gerrit
+
+# 프로젝트 설계 리뷰 (사례별)
+
+2024.01.24
+
+최인국 컨설턴트
+** email 구분이 확실하신거 봐서 경상도출신이신 것 같다.
+
+목표 : 설계 시 생각해봐야 할 다양한 측면 (정답은 없지만 고려해보기!!!)
+
+- 사례 1 - 데이터 타입
+    
+    - UINT 최대 값 42억 ← 전 세계 인터넷 인구의 74%정도, but int보다 느림
+    - B Tree
+    
+    → 데이터 타입은 작을수록 빠르다
+    
+    → 사용 범위를 충분히 고려 후, 가능한 작은 크기로 결정
+    
+    → PK의 타입은 특히 중요함. (가급적 정수형, AUTO_INCREMENT 설정해야하기 때문)
+    
+    →퀴리 시 PK 우선 사용하기
+    
+    - email, username(id)가 PK이면 찾는데 많은 시간이 걸린다. 그리고 보안상으로도 좋지 않음
+    
+    ⇒ rest API 사용 시, pk로 검색하도록 하는것이 빠름!!
+    
+
+- 사례 2 - 비정규화
+    
+    게시글 - 댓글 (1:N)
+    
+    - 댓글 수 ← 댓글 count하면 알 수 있음 (없어도 무방)
+    - 그럼에도 불구하고 게시글 table에 넣는다면 댓글수가 많을 때 시간이 걸리기 때문
+    
+    ⇒ 비정규화의 목적 : 시간 단축
+    
+    ```sql
+    SELECT BOARD.*, COUNT(comment.id) AS comment_count FROM board
+    
+    LEFT OUTER JOIN comment ON board.board_id = comment.board_id
+    
+    GROUP BY board.board_id
+    
+    ORDER BY board.id desc
+    
+    LIMIT 10
+    ```
+    
+    - 비정규화 하게 되면 댓글 2개인데 1개로 표시되는 경우도 생김
+    - ^^ comment INSERT 된 후,  board 테이블 update하지 않으면 값이 바뀌지 않기 때문!
+    
+    ---
+    
+    - DATA가 많아지면, JOIN이 많아져 느려질 거라고 예상
+    - 비정규화는 공짜가 아님! **기술 부채**임
+    - 성능 높이는 대신 문제가 발생할 여지를 남김 → **유지 보수 비용 증가 + QA팀에 시달림**
+    - **미리 비정규화 자제** → 운영하다가 느려지면 판단 (HW 업그레이드 등의 선택지가 있음!)
+    - SELECT COUNT(*)는 느리지 않음 (캐시 있으면 더 빨라짐)
+    - ! **SW 개발은 최소비용이 원칙**임을 유의하자
