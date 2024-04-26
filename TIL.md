@@ -11764,3 +11764,139 @@ Action item을 만들고, 실제 수행 여부 다음 회고에서 확인
 - 서비스를 분리하고 관계를 맺으려 한다면 먼저 메시지 큐 활용법보다 **적합한 사용 시나리오**를 찾기 위해 노력해 보자
 - 비동기 처리를 통한 성능 향상과 서비스(서버)간 느슨한 결합이 가져다주는 장점을 경험해 보자
 - MSA를 고려하고 있다면 적극적/긍정적으로 고려해 보자
+
+
+## 240425 Docker 사용의 시작, Docker-Compose (서성수 컨설턴트)
+
+### 다른 방식들과의 비교
+
+- Native
+    - 러닝커브가 길다
+- VM
+    - `Guest OS`가 너무 무겁다. 운영체제 위에 별도의 운영체제를 한 번 더 띄워놓고 쓰다보니 운영체제에 독립적이기도 하고 장점이 무수히 많지만 Guest OS가 장점을 다 무력화시킴.
+- Docker
+    - Native의 장점과 VM의 장점을 결합함.
+    - 하드웨어 리소스 절약
+    - 컨테이너 독립적이어서 MSA와 같은 아키텍처에 적용하기 유리
+    - 그러나 **알아야 할 지식이 많다**는 단점이 존재
+        - CPU/RAM/Process 등의 컴퓨팅파워 관련 지식
+        - 컨테이너 내/외부적인 디렉토리 간의 권한 지식
+        - TCP, HTTP, UDP, QUIC, Conn Pool, port 등의 내부/외부 네트워크 관련 지식
+
+### Docker의 반드시 알아야 할 특징
+
+- 다양한 작업환경에서 (HW Emulation 없이 Resource를 적게 소모하여) 가벼우며 빠르고
+- (컨테이너 독립적이어서) 외부의 영향으로부터 자유롭고
+- (효율적인 Linux Kernel 재사용으로) 안정적이면서
+- (Docker Engine 사용으로) 이식성이 뛰어나고
+- (Docker Image의 재사용으로) 확장성이 뛰어난 배포가 가능해졌다.
+- 재사용성 세부 설명
+    - VM 대비 성능 및 저장공간, 메모리 사용환경 개선 ⇒ 고성능화
+    - 실행보장을 위한 고정된 infra 환경
+    - 이미지를 사용하여 실행환경 재사용성 극대화
+
+### Docker Compose란 무엇이냐 - Docker 환경별 비교
+
+|  | Kubernetes | minikube | docker-compose |
+| --- | --- | --- | --- |
+| 장점 | 컨테이너 관리기능 가장 많고, 강력함. 사실상 업계 표준 | k8s와 동일하지만 보다 가볍다 | .yml 설계 문서 기반으로 동작하며, 매우 가볍고 직관적임. |
+| 단점 | 학습, resource 모두 무거움 | 단일 node k8s Cluster 실행목적임. / 두개 이상의 node 확장 시 필요한 k8s 필요 | GUI가 없기 때문에, 사용편의성이 많이 부족함. / 세세히 관리하다 보면 k8s에 비해 어려워질 수 있다. |
+| 기능영역 | 컨테이너화된 응용 프로그램을 관리 / 컨테이너 배포 및 성공과 실패한 컨테이너 관리 / 인스턴스, 호스트 프로비저닝 및 컨테이너 연결 프로세스를 자동화 / 애플리케이션의 확장성 및 기능을 향상 / 오케스트레이션 프로세스 최적화 / 컨테이너 보안, 컨테이너 구성 요소 분리 | 컨테이너화된 응용 프로그램을 관리 / 컨테이너 배포 및 성공과 실패한 컨테이너 관리 / 인스턴스, 호스트 프로비저닝 및 컨테이너 연결 프로세스를 자동화 / 애플리케이션의 확장성 및 기능을 향상 / 오케스트레이션 프로세스 최적화 / 컨테이너 보안, 컨테이너 구성 요소 분리 (단일환경 기준) | 컨테이너화된 응용 프로그램을 관리 / 컨테이너 배포 및 성공과 실패한 컨테이너 관리 / 인스턴스 및 컨테이너 연결 프로세스를 자동화 / 애플리케이션의 확장성 및 기능을 향상, 오케스트레이션 프로세스 최적화 / 컨테이너 보안, 컨테이너 구성 요소 분리 |
+
+### Docker-compose 설치 실습
+
+*   세팅할 것
+    *   Jenkins, webapp, DB
+
+```
+$ sudo apt update && sudo apt upgrade
+# 실행시간 약 3분 정도 걸렸음
+
+$ curl -fsSL https://get.docker.com -o dockerSetter.sh
+# https://get.docker.com에 있는 shell 스크립트 파일을 dockerSetter.sh 파일에 출력
+
+$ chmod 711 dockerSetter.sh
+# 권한 부여
+
+$ ./dockerSetter.sh
+# 실행(실행시간 약 50초)
+
+$ docker -v && docker compose version
+# 버전 확인
+
+########################
+# 방화벽
+# 복붙 그대로 하면 안 되고 상황에 따라 조정
+$ sudo ufw status
+
+$ sudo ufw enable
+# 기본값 disabled일 때만 필요
+
+$ sudo ufw allow 22 && sudo ufw allow 443
+# 22: SSH, 443: HTTPS, 80: HTTP
+
+$ sudo shutdown -r now
+# unable라면 restart 필요 없음. disable일 때만 필요.
+
+$ sudo ufw status
+
+$ sudo ufw allow 18080 && sudo ufw allow 50000 && sudo ufw allow 8081 && sudo ufw allow 3306
+# 사용하는 포트 등록
+
+########################
+$ sudo docker network create -d bridge testnetwork
+# testnetwork라는 이름으로 브릿지 형태로 네트워크 생성
+
+$ sudo docker network list
+
+########################
+$ touch docker-compose.yml
+# touch = 빈 파일 생성.
+
+$ vi docker-compose.yml
+# 쓰기 모드
+# 여기까진 전부 설정
+
+$ sudo docker compose -f./docker-compose.yml up -d 혹은 sudo docker compose up -d
+
+########################
+$ sudo docker ps -a
+# 여기서 받았던 이미지들 리스트로 보여줌.
+```
+
+| Depth | Command | 의미 설명 |
+| --- | --- | --- |
+| 0 | version: ‘3’ | Docker-compose 3으로 만들어진 문서라는 의미, version: ‘3.9’ 등으로 사용 가능. |
+| 0 | services: | 이하 Service ‘목록’이 나올 것임을 명시 |
+| 2 | jenkins | Service를 Docker Engine으로 불러오는데, 관리명칭을 ‘Jenkins’로 함 |
+| 4 | build | ‘Jenkins’ Service의 build 조건임을 명시 |
+| 4 | container\_name | Depth 2의 ‘Jenkins’를 실제 Docker Engine에서 관리하기 위한 이름을 명시 |
+| 4 | image | Docker Hub에서 가져올 이미지 이름 |
+| 4 | user | Service에서 사용할 계정정보 |
+| 4 | restart | Docker Container 재시작 조건 |
+| 4 | ports | 외부 리눅스 방화벽에 공유할 Port와 Docker Container 내부 Port번호 명시 |
+| 4 | environment | Docker Container에서 사용하는 환경변수임을 명시 |
+| 4 | volumes | 외부 리눅스 디렉토리에 Docker Container 내부의 디렉토리를 공유함을 명시 |
+| 4 | networks | Docker Network 관련 정보임을 명시 |
+| 4 | network\_param | Depth 4 network에서 사용할 network의 이름을 작성하며, -로 시작함 |
+| 4 | external | Docker network에서 미리 만들어 놓은 Bridge를 재사용한다는 의미(같은 네트워크 대역을 쓴다는 선언) |
+
+- `Depth 0`은 필요 없을 수도 있다.
+- 특히 `container_name`, `ports`, `volumes`, `networks`는 매우 중요
+
+### Docker-compose 사용 시 주의사항
+
+- **단순히 Docker container만을 다루는 게 아니다.**
+    - Container의 관계(Relations)를 이해하고 다뤄야 함
+        - 예시) `Springboot`→ `MySQL`로 다이렉트로 감.
+        - 받아줄 포트가 없으면 하나 더 열어줘야 함
+        - 이 과정에서 주시해야 할 포트가 점점 더 늘어남
+    - 보안 때문이라도, Docker-Network 사용이 필수에 가까움
+
+### 처음 시작할 때 자주 발생하는 이슈 및 해결방법
+
+1. ‘version’ is obsolete
+    1. docker-compose v2.25.0 이상 버전부터는 `docker-compose.yml` 파일의 최상단에 작성하던 version: ‘3’이 필요 없어졌다. 
+2. Found a tab character that violates indentation
+    1. docker-compose.yml 파일에 문법에 맞지 않는 오타가 있다는 의미
+    2. vi로 파일을 열어준 후, `:set list`하면 붉은 박스처럼 특이한 부분들이 눈에 띄니 맞춰줄 것.
